@@ -53,7 +53,7 @@
                         </a>
                     </li>
                     <li class="p-2 hover:bg-green-600 mx-6 my-4 rounded-lg" x-show="sidebarOpen">
-                        <a href="#" class="flex items-center text-white font-medium">
+                        <a href="unggahLaporan" class="flex items-center text-white font-medium">
                             <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M14 2V8H20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -64,12 +64,22 @@
                         </a>
                     </li>
                     <li class="p-2 hover:bg-green-600 mx-6 my-4 rounded-lg" x-show="sidebarOpen">
-                        <a href="#" class="flex items-center font-medium">
+                        <a href="riwayatLaporan" class="flex items-center font-medium">
                             <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M12 6V12L16 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>                                                               
                             Riwayat Laporan
+                        </a>
+                    </li>
+                    <li class="p-2 hover:bg-green-600 mx-6 my-4 rounded-lg" x-show="sidebarOpen">
+                        <a href="riwayatTLHP" class="flex items-center font-medium">
+                            <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19.5 20.5L21 22M14 18C14 18.7956 14.3161 19.5587 14.8787 20.1213C15.4413 20.6839 16.2044 21 17 21C17.7956 21 18.5587 20.6839 19.1213 20.1213C19.6839 19.5587 20 18.7956 20 18C20 17.2044 19.6839 16.4413 19.1213 15.8787C18.5587 15.3161 17.7956 15 17 15C16.2044 15 15.4413 15.3161 14.8787 15.8787C14.3161 16.4413 14 17.2044 14 18Z" stroke="#F8F8F8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M19 12V5.749C19.0001 5.67006 18.9845 5.59189 18.9543 5.51896C18.9241 5.44603 18.8798 5.37978 18.824 5.324L15.676 2.176C15.5636 2.06345 15.4111 2.00014 15.252 2H3.6C3.44087 2 3.28826 2.06321 3.17574 2.17574C3.06321 2.28826 3 2.44087 3 2.6V21.4C3 21.5591 3.06321 21.7117 3.17574 21.8243C3.28826 21.9368 3.44087 22 3.6 22H10" stroke="#F8F8F8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15 2V5.4C15 5.55913 15.0632 5.71174 15.1757 5.82426C15.2883 5.93679 15.4409 6 15.6 6H19" stroke="#F8F8F8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>     
+                            Riwayat TLHP                           
                         </a>
                     </li>
                     <li class="p-2 bg-[#F3D910] mx-6 my-4 rounded-lg" x-show="sidebarOpen">
@@ -92,7 +102,7 @@
                         </a>
                     </li>
                     <li class="flex justify-center p-2 mx-6 my-4 rounded-lg">
-                        <a href="#" x-show="!sidebarOpen" title="Unggah Laporan">
+                        <a href="unggahLaporan" x-show="!sidebarOpen" title="Unggah Laporan">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M14 2V8H20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -102,7 +112,7 @@
                         </a>
                     </li>
                     <li class="flex justify-center p-2 mx-6 my-4 rounded-lg">
-                        <a href="#" x-show="!sidebarOpen" title="Riwayat Laporan">
+                        <a href="riwayatLaporan" x-show="!sidebarOpen" title="Riwayat Laporan">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M12 6V12L16 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -110,7 +120,16 @@
                         </a>
                     </li>
                     <li class="flex justify-center p-2 mx-6 my-4 rounded-lg">
-                        <a href="#" class="flex items-center rounded p-1 bg-[#F3D910]" x-show="!sidebarOpen" title="Profile">
+                        <a href="riwayatTLHP" x-show="!sidebarOpen" title="Riwayat TLHP">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19.5 20.5L21 22M14 18C14 18.7956 14.3161 19.5587 14.8787 20.1213C15.4413 20.6839 16.2044 21 17 21C17.7956 21 18.5587 20.6839 19.1213 20.1213C19.6839 19.5587 20 18.7956 20 18C20 17.2044 19.6839 16.4413 19.1213 15.8787C18.5587 15.3161 17.7956 15 17 15C16.2044 15 15.4413 15.3161 14.8787 15.8787C14.3161 16.4413 14 17.2044 14 18Z" stroke="#F8F8F8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M19 12V5.749C19.0001 5.67006 18.9845 5.59189 18.9543 5.51896C18.9241 5.44603 18.8798 5.37978 18.824 5.324L15.676 2.176C15.5636 2.06345 15.4111 2.00014 15.252 2H3.6C3.44087 2 3.28826 2.06321 3.17574 2.17574C3.06321 2.28826 3 2.44087 3 2.6V21.4C3 21.5591 3.06321 21.7117 3.17574 21.8243C3.28826 21.9368 3.44087 22 3.6 22H10" stroke="#F8F8F8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15 2V5.4C15 5.55913 15.0632 5.71174 15.1757 5.82426C15.2883 5.93679 15.4409 6 15.6 6H19" stroke="#F8F8F8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>                                
+                        </a>
+                    </li>
+                    <li class="flex justify-center p-2 mx-6 my-4 rounded-lg">
+                        <a href="profil" class="flex items-center rounded p-1 bg-[#F3D910]" x-show="!sidebarOpen" title="Profile">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
