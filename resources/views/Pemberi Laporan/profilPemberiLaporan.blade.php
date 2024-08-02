@@ -63,11 +63,11 @@
             <h1 class="text-base md:text-lg text-black font-bold">Nama Aplikasi</h1>
         </div>
         <div class="flex items-center">
-            <div class="mx-8 flex items-center">
+            <div class="mx-2 sm:mx-4 flex items-center">
                 <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-10 w-10 rounded-full">
-                <div class="ml-4">
-                    <p class="font-semibold text-black">Arie</p>
-                    <p class="text-sm text-[#686767]">Pemberi Laporan</p>
+                <div class="-ml-0 sm:ml-4">
+                    <p class="font-semibold text-black sr-only sm:not-sr-only">Arie</p>
+                    <p class="text-sm text-[#686767] sr-only sm:not-sr-only">Pemberi Laporan</p>
                 </div>
             </div>
         </div>
@@ -78,8 +78,8 @@
         <aside :class="{'w-60': sidebarOpen, 'w-16': !sidebarOpen, 'sidebar-visible': sidebarOpen, 'sidebar-hidden': !sidebarOpen}" class="bg-white text-black flex flex-col transition-all duration-300 sidebar">
             <nav class="flex-1">
                 <ul>
-                    <li class="hover:bg-gray-200 p-3 pl-8 mx-full my-4" x-show="sidebarOpen">
-                        <a href="berandaPimpinan" alt="Beranda" class="flex items-center  font-medium">
+                    <li class="p-3 pl-8 hover:bg-gray-200 mx-full my-4" x-show="sidebarOpen">
+                        <a href="berandaPemberiLaporan" alt="Beranda" class="flex items-center font-medium">
                             <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10 3H3V10H10V3Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M21 3H14V10H21V3Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -90,7 +90,7 @@
                         </a>
                     </li>
                     <li class="p-3 pl-8 hover:bg-gray-200 mx-full my-4" x-show="sidebarOpen">
-                        <a href="unggahLaporanPimpinan" class="flex items-center text-black font-medium">
+                        <a href="unggahLaporanPemberiLaporan" class="flex items-center text-black font-medium">
                             <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M14 2V8H20" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -101,7 +101,18 @@
                         </a>
                     </li>
                     <li class="p-3 pl-8 hover:bg-gray-200 mx-full my-4" x-show="sidebarOpen">
-                        <a href="riwayatLaporanPimpinan" class="flex items-center text-black font-medium">
+                        <a href="pemberitahuan" class="flex items-center font-medium">
+                            <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 8V12" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 16H12.01" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                                                               
+                            Pemberitahuan
+                        </a>
+                    </li>
+                    <li class="p-3 pl-8 hover:bg-gray-200 mx-full my-4" x-show="sidebarOpen">
+                        <a href="riwayatLaporanPemberiLaporan" class="flex items-center text-black font-medium">
                             <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M12 6V12L16 14" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -109,8 +120,19 @@
                             Riwayat Laporan
                         </a>
                     </li>
+                    <li class="p-3 pl-8 hover:bg-gray-200 mx-full my-4" x-show="sidebarOpen">
+                        <a href="riwayatTLHPPemberiLaporan" class="flex items-center text-black font-medium">
+                            <svg class="mr-2" width="22" height="24" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.5 19.5L19 21M12 17C12 17.7956 12.3161 18.5587 12.8787 19.1213C13.4413 19.6839 14.2044 20 15 20C15.7956 20 16.5587 19.6839 17.1213 19.1213C17.6839 18.5587 18 17.7956 18 17C18 16.2044 17.6839 15.4413 17.1213 14.8787C16.5587 14.3161 15.7956 14 15 14C14.2044 14 13.4413 14.3161 12.8787 14.8787C12.3161 15.4413 12 16.2044 12 17Z" stroke="#22805E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17 11V4.749C17.0001 4.67006 16.9845 4.59189 16.9543 4.51896C16.9241 4.44603 16.8798 4.37978 16.824 4.324L13.676 1.176C13.5636 1.06345 13.4111 1.00014 13.252 1H1.6C1.44087 1 1.28826 1.06321 1.17574 1.17574C1.06321 1.28826 1 1.44087 1 1.6V20.4C1 20.5591 1.06321 20.7117 1.17574 20.8243C1.28826 20.9368 1.44087 21 1.6 21H8" stroke="#22805E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M13 1V4.4C13 4.55913 13.0632 4.71174 13.1757 4.82426C13.2883 4.93679 13.4409 5 13.6 5H17" stroke="#22805E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                                                                                               
+                            Riwayat TLHP
+                        </a>
+                    </li>
                     <li class="p-3 pl-8 bg-[#22805E] mx-full my-4" x-show="sidebarOpen">
-                        <a href="profilPimpinan" class="flex items-center text-white font-medium">
+                        <a href="profilPemberiLaporan" class="flex items-center text-white font-medium">
                             <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -119,7 +141,7 @@
                         </a>
                     </li>
                     <li class="flex justify-center p-2 mx-6 mt-2">
-                        <a href="berandaPimpinan" class="hover:bg-gray-200 px-5 py-3" x-show="!sidebarOpen" title="Beranda">
+                        <a href="berandaPemberiLaporan" class="hover:bg-gray-200 px-5 py-3" x-show="!sidebarOpen" title="Beranda">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10 3H3V10H10V3Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M21 3H14V10H21V3Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -129,7 +151,7 @@
                         </a>
                     </li>
                     <li class="flex justify-center p-2 mx-6">
-                        <a href="unggahLaporanPimpinan" class="hover:bg-gray-200 px-5 py-3" x-show="!sidebarOpen" title="Unggah Laporan">
+                        <a href="unggahLaporanPemberiLaporan" class="hover:bg-gray-200 px-5 py-3" x-show="!sidebarOpen" title="Unggah Laporan">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M14 2V8H20" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -138,8 +160,17 @@
                             </svg>
                         </a>
                     </li>
+                    <li class="flex justify-center p-2 mx-">
+                        <a href="pemberitahuan"  class="hover:bg-gray-200 px-5 py-3" x-show="!sidebarOpen" title="Pemberitahuan">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 8V12" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 16H12.01" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </li>
                     <li class="flex justify-center p-2 mx-6">
-                        <a href="riwayatLaporanPimpinan" class="hover:bg-gray-200 px-5 py-3" x-show="!sidebarOpen" title="Riwayat Laporan">
+                        <a href="riwayatLaporanPemberiLaporan" class="hover:bg-gray-200 px-5 py-3" x-show="!sidebarOpen" title="Riwayat Laporan">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M12 6V12L16 14" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -147,7 +178,16 @@
                         </a>
                     </li>
                     <li class="flex justify-center p-2 mx-6">
-                        <a href="profilPimpinan" class="bg-[#22805E] px-5 py-3" x-show="!sidebarOpen" title="Profile">
+                        <a href="riwayatTLHPPemberiLaporan" class="hover:bg-gray-200 px-5 py-3" x-show="!sidebarOpen" title="Riwayat TLHP">
+                            <svg width="22" height="24" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.5 19.5L19 21M12 17C12 17.7956 12.3161 18.5587 12.8787 19.1213C13.4413 19.6839 14.2044 20 15 20C15.7956 20 16.5587 19.6839 17.1213 19.1213C17.6839 18.5587 18 17.7956 18 17C18 16.2044 17.6839 15.4413 17.1213 14.8787C16.5587 14.3161 15.7956 14 15 14C14.2044 14 13.4413 14.3161 12.8787 14.8787C12.3161 15.4413 12 16.2044 12 17Z" stroke="#22805E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17 11V4.749C17.0001 4.67006 16.9845 4.59189 16.9543 4.51896C16.9241 4.44603 16.8798 4.37978 16.824 4.324L13.676 1.176C13.5636 1.06345 13.4111 1.00014 13.252 1H1.6C1.44087 1 1.28826 1.06321 1.17574 1.17574C1.06321 1.28826 1 1.44087 1 1.6V20.4C1 20.5591 1.06321 20.7117 1.17574 20.8243C1.28826 20.9368 1.44087 21 1.6 21H8" stroke="#22805E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M13 1V4.4C13 4.55913 13.0632 4.71174 13.1757 4.82426C13.2883 4.93679 13.4409 5 13.6 5H17" stroke="#22805E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="flex justify-center p-2 mx-6">
+                        <a href="profilPemberiLaporan" class="bg-[#22805E] px-5 py-3" x-show="!sidebarOpen" title="Profile">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -175,7 +215,7 @@
                     </svg>
                 </a>
             </div>
-        </aside>  
+        </aside>   
         
         <!-- Main Content -->
         <div :class="[sidebarOpen ? 'w-11/12' : 'w-full', 'p-4 bg-[#F2F3F9] flex-1 transition-all duration-300 overflow-y-auto lg:overflow-y-hidden']">

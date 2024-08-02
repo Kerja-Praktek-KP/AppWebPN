@@ -63,11 +63,11 @@
             <h1 class="text-base md:text-lg text-black font-bold">Nama Aplikasi</h1>
         </div>
         <div class="flex items-center">
-            <div class="mx-8 flex items-center">
+            <div class="mx-2 sm:mx-4 flex items-center">
                 <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-10 w-10 rounded-full">
-                <div class="ml-4">
-                    <p class="font-semibold text-black">Arie</p>
-                    <p class="text-sm text-[#686767]">Pimpinan</p>
+                <div class="-ml-0 sm:ml-4">
+                    <p class="font-semibold text-black sr-only sm:not-sr-only">Arie</p>
+                    <p class="text-sm text-[#686767] sr-only sm:not-sr-only">Pimpinan</p>
                 </div>
             </div>
         </div>

@@ -46,7 +46,7 @@
         }
     </style>
 </head>
-<body class="bg-[#F2F3F9] overflow-hidden" x-data="{ sidebarOpen: true, isEditing: false, user: { nama: 'Arie', nip: '2104111010066', email: 'Arie@gmail.com', password: '******', jabatan: 'Kordinator Pengawas', bidang: '-' }, editUser: {nama: '', nip: '', email: '', password: ''} }">
+<body class="bg-[#F2F3F9] overflow-hidden" x-data="{ sidebarOpen: true, isEditing: false, user: { nama: 'Arie', nip: '2104111010066', email: 'Arie@gmail.com', password: '******', jabatan: 'Koordinator Pengawas', bidang: '-' }, editUser: {nama: '', nip: '', email: '', password: ''} }">
     <header class="w-full flex justify-between bg-white items-center p-2 drop-shadow-md relative z-50">
         <div class="flex items-center">
             <button @click="sidebarOpen = !sidebarOpen" class="text-black mr-4 ml-4">
@@ -63,11 +63,11 @@
             <h1 class="text-base md:text-lg text-black font-bold">Nama Aplikasi</h1>
         </div>
         <div class="flex items-center">
-            <div class="mx-8 flex items-center">
+            <div class="mx-2 sm:mx-4 flex items-center">
                 <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-10 w-10 rounded-full">
-                <div class="ml-4">
-                    <p class="font-semibold text-black">Arie</p>
-                    <p class="text-sm text-[#686767]">Pimpinan</p>
+                <div class="-ml-0 sm:ml-4">
+                    <p class="font-semibold text-black sr-only sm:not-sr-only">Arie</p>
+                    <p class="text-sm text-[#686767] sr-only sm:not-sr-only">Koordinator Pengawas</p>
                 </div>
             </div>
         </div>
@@ -78,8 +78,8 @@
         <aside :class="{'w-60': sidebarOpen, 'w-16': !sidebarOpen, 'sidebar-visible': sidebarOpen, 'sidebar-hidden': !sidebarOpen}" class="bg-white text-black flex flex-col transition-all duration-300 sidebar">
             <nav class="flex-1">
                 <ul>
-                    <li class="hover:bg-gray-200 p-3 pl-8 mx-full my-4" x-show="sidebarOpen">
-                        <a href="berandaPimpinan" alt="Beranda" class="flex items-center  font-medium">
+                    <li class="p-3 pl-8 hover:bg-gray-200 mx-full my-4" x-show="sidebarOpen">
+                        <a href="berandaKoordinatorPengawas" alt="Beranda" class="flex items-center font-medium">
                             <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10 3H3V10H10V3Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M21 3H14V10H21V3Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -90,7 +90,7 @@
                         </a>
                     </li>
                     <li class="p-3 pl-8 hover:bg-gray-200 mx-full my-4" x-show="sidebarOpen">
-                        <a href="unggahLaporanPimpinan" class="flex items-center text-black font-medium">
+                        <a href="unggahLaporanKoordinatorPengawas" class="flex items-center text-black font-medium">
                             <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M14 2V8H20" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -101,7 +101,7 @@
                         </a>
                     </li>
                     <li class="p-3 pl-8 hover:bg-gray-200 mx-full my-4" x-show="sidebarOpen">
-                        <a href="riwayatLaporanPimpinan" class="flex items-center text-black font-medium">
+                        <a href="riwayatLaporanKoordinatorPengawas" class="flex items-center text-black font-medium">
                             <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M12 6V12L16 14" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -110,7 +110,7 @@
                         </a>
                     </li>
                     <li class="p-3 pl-8 bg-[#22805E] mx-full my-4" x-show="sidebarOpen">
-                        <a href="profilPimpinan" class="flex items-center text-white font-medium">
+                        <a href="profilKoordinatorPengawas" class="flex items-center text-white font-medium">
                             <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -119,7 +119,7 @@
                         </a>
                     </li>
                     <li class="flex justify-center p-2 mx-6 mt-2">
-                        <a href="berandaPimpinan" class="hover:bg-gray-200 px-5 py-3" x-show="!sidebarOpen" title="Beranda">
+                        <a href="berandaKoordinatorPengawas" class="hover:bg-gray-200 px-5 py-3" x-show="!sidebarOpen" title="Beranda">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10 3H3V10H10V3Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M21 3H14V10H21V3Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -129,7 +129,7 @@
                         </a>
                     </li>
                     <li class="flex justify-center p-2 mx-6">
-                        <a href="unggahLaporanPimpinan" class="hover:bg-gray-200 px-5 py-3" x-show="!sidebarOpen" title="Unggah Laporan">
+                        <a href="unggahLaporanKoordinatorPengawas" class="hover:bg-gray-200 px-5 py-3" x-show="!sidebarOpen" title="Unggah Laporan">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M14 2V8H20" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -139,7 +139,7 @@
                         </a>
                     </li>
                     <li class="flex justify-center p-2 mx-6">
-                        <a href="riwayatLaporanPimpinan" class="hover:bg-gray-200 px-5 py-3" x-show="!sidebarOpen" title="Riwayat Laporan">
+                        <a href="riwayatLaporanKoordinatorPengawas" class="hover:bg-gray-200 px-5 py-3" x-show="!sidebarOpen" title="Riwayat Laporan">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M12 6V12L16 14" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -147,7 +147,7 @@
                         </a>
                     </li>
                     <li class="flex justify-center p-2 mx-6">
-                        <a href="profilPimpinan" class="bg-[#22805E] px-5 py-3" x-show="!sidebarOpen" title="Profile">
+                        <a href="profilKoordinatorPengawas" class="bg-[#22805E] px-5 py-3" x-show="!sidebarOpen" title="Profile">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
