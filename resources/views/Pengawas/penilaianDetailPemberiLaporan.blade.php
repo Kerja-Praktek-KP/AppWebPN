@@ -194,8 +194,8 @@
             <div class="mx-2 sm:mx-4 flex items-center">
                 <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-10 w-10 rounded-full">
                 <div class="-ml-0 sm:ml-4">
-                    <p class="font-semibold text-black sr-only sm:not-sr-only">Arie</p>
-                    <p class="text-sm text-[#686767] sr-only sm:not-sr-only"> Pengawas</p>
+                    <p class="text-[15px] font-semibold text-black sr-only sm:not-sr-only">Arie</p>
+                    <p class="md:text-[15px] text-sm text-[#686767] sr-only sm:not-sr-only"> Pengawas</p>
                 </div>
             </div>
         </div>
@@ -332,8 +332,8 @@
                 <div class="flex items-center">
                     <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-8 md:h-8 lg:h-10 xl:h-14 w-8 md:w-8 lg:w-10 xl:w-14 rounded-full mr-4">
                     <div>
-                        <p class="text-[12px] md:text-base font-semibold">Panca Wiguna, S.H</p>
-                        <p class="text-sm text-gray-600">Pemberi Laporan</p>
+                        <p class="text-[16px] md:text-base font-semibold">Panca Wiguna, S.H</p>
+                        <p class="text-[10px] text-gray-600">Pemberi Laporan</p>
                     </div>
                 </div>
             </div>
@@ -446,11 +446,11 @@
                 <table class="min-w-full leading-normal">
                     <thead>
                         <tr>
-                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-xs font-bold text-black uppercase tracking-normal">No.</th>
-                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-xs font-bold text-black uppercase tracking-normal">Judul Laporan</th>
-                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-xs font-bold text-black uppercase tracking-normal">Tanggal Laporan</th>
-                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-xs font-bold text-black uppercase tracking-normal">Unduh Laporan</th>
-                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-xs font-bold text-black uppercase tracking-normal">Beri Temuan</th>
+                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-[14px] font-bold text-black uppercase tracking-normal">No.</th>
+                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-[14px] font-bold text-black uppercase tracking-normal">Judul Laporan</th>
+                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-[14px] font-bold text-black uppercase tracking-normal">Tanggal Laporan</th>
+                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-[14px] font-bold text-black uppercase tracking-normal">Unduh Laporan</th>
+                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-[14px] font-bold text-black uppercase tracking-normal">Beri Temuan</th>
                         </tr>
                     </thead>
                     <tbody id="mingguanTableBody">
@@ -463,11 +463,11 @@
                 <table class="min-w-full leading-normal">
                     <thead>
                         <tr>
-                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-xs font-bold text-black uppercase tracking-wider">No.</th>
-                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-xs font-bold text-black uppercase tracking-wider">Judul Laporan</th>
-                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-xs font-bold text-black uppercase tracking-wider">Tanggal Laporan</th>
-                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-xs font-bold text-black uppercase tracking-wider">Unduh Laporan</th>
-                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-xs font-bold text-black uppercase tracking-normal">Beri Temuan</th>
+                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-[14px] font-bold text-black uppercase tracking-wider">No.</th>
+                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-[14px] font-bold text-black uppercase tracking-wider">Judul Laporan</th>
+                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-[14px] font-bold text-black uppercase tracking-wider">Tanggal Laporan</th>
+                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-[14px] font-bold text-black uppercase tracking-wider">Unduh Laporan</th>
+                            <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-[14px] font-bold text-black uppercase tracking-normal">Beri Temuan</th>
                         </tr>
                     </thead>
                     <tbody id="bulananTableBody"></tbody>
@@ -478,7 +478,7 @@
         <div x-show="showPopup" x-transition class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
             <div class="flex-col bg-white p-2 sm:p-6 lg:p-7 rounded-[5px] ps-2shadow-2xl  w-full sm:w-10/12 md:w-8/12 lg:w-7/12 h-fit md:h-auto sm:h-3/4 mt-4 md:mt-5 lg:mt-10 ml-5 md:ml-auto mr-5 md:mr-auto">
                 <div class="flex flex-row justify-between items-center mb-2 border-b-2 pb-4">
-                    <h2 class="text-base md:text-xl lg:text-2xl font-bold">Masukkan Laporan di Sini</h2>
+                    <h2 class="text-base md:text-xl lg:text-2xl font-medium">Masukkan Laporan di Sini</h2>
                     <button @click="showPopup = false" class="text-black hover:text-gray-900">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -495,24 +495,24 @@
                 </div>
                 <form>
                     <div class="form-group">
-                        <label for="judul" class="block text-[13px] md:text-base lg:text-lg font-medium text-gray-700">Judul laporan</label>
-                        <input type="text" id="judul" name="judul" placeholder="Masukkan Judul Laporan" class="text-[13px] md:text-md pl-3 mt-o md:mt-1 block w-full border-gray-300 rounded-md shadow-md h-10">
+                        <label for="judul" class="block text-[13px] md:text-base lg:text-lg font-normal text-black">Judul laporan</label>
+                        <input type="text" id="judul" name="judul" placeholder="Masukkan Judul Laporan" class="text-[10px] md:text-[14px] pl-3 mt-o md:mt-1 block w-full border-gray-300 rounded-md shadow-md h-10 focus:outline-[#D3E6DF]">
                     </div>
                                                                      
                     <div class="file-upload-container">
-                        <label for="file" class="block text-[13px] md:text-base lg:text-lg font-medium text-gray-700 w-2/3 md:w-1/3">Unggah laporan</label>
+                        <label for="file" class="block text-[13px] md:text-base lg:text-lg font-normal text-black w-2/3 md:w-1/3">Unggah laporan</label>
                         <div class="mt-o md:mt-6 flex justify-center w-full md:w-8/12 pt-5 pb-6 border-2 bg-[#E1ECE7] border-[#006634] border-dashed rounded-md">
                             <div class="space-y-1 text-center">
                                 <svg class="mx-auto h-12 w-12 text-gray-400" width="52" height="40" viewBox="0 0 52 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M42.0432 16.235C41.5146 7.97 35.8218 0 25.381 0C15.8315 0 8.46733 7.16625 8.07733 16.73C2.85257 18.3713 0 24.0163 0 28.125C0 34.4512 5.20743 40 11.1429 40H19.1905C19.3547 40 19.5121 39.9342 19.6282 39.8169C19.7443 39.6997 19.8095 39.5408 19.8095 39.375C19.8095 39.2092 19.7443 39.0503 19.6282 38.9331C19.5121 38.8158 19.3547 38.75 19.1905 38.75H11.1429C5.8661 38.75 1.2381 33.785 1.2381 28.125C1.2381 24.3113 4.54876 17.5 11.1429 17.5H13C13.1642 17.5 13.3216 17.4342 13.4377 17.3169C13.5538 17.1997 13.619 17.0408 13.619 16.875C13.619 16.7092 13.5538 16.5503 13.4377 16.4331C13.3216 16.3158 13.1642 16.25 13 16.25H11.1429C10.5127 16.25 9.91714 16.3212 9.33648 16.4237C9.82181 8.93625 15.4589 1.25 25.381 1.25C36.0137 1.25 40.8571 9.67375 40.8571 17.5V19.375C40.8571 19.5408 40.9224 19.6997 41.0385 19.8169C41.1546 19.9342 41.312 20 41.4762 20C41.6404 20 41.7978 19.9342 41.9139 19.8169C42.03 19.6997 42.0952 19.5408 42.0952 19.375V17.4888C45.833 17.9025 50.7619 21.9525 50.7619 28.125C50.7619 32.9075 46.1921 38.75 40.8571 38.75H31.5714C27.5625 38.75 26 37.1725 26 33.125V15.9788L31.049 21.0662C31.106 21.126 31.1742 21.1737 31.2497 21.2066C31.3252 21.2394 31.4064 21.2568 31.4886 21.2576C31.5708 21.2585 31.6523 21.2428 31.7284 21.2115C31.8045 21.1801 31.8737 21.1338 31.9319 21.0752C31.9901 21.0166 32.0362 20.9469 32.0674 20.8702C32.0987 20.7934 32.1144 20.7111 32.1138 20.6281C32.1132 20.5452 32.0963 20.4631 32.064 20.3868C32.0316 20.3105 31.9846 20.2415 31.9255 20.1838L26.4024 14.6187C25.667 13.8787 25.0962 13.8787 24.362 14.6187L18.8389 20.1838C18.7261 20.3016 18.6637 20.4595 18.6651 20.6234C18.6665 20.7872 18.7316 20.944 18.8464 21.0599C18.9612 21.1758 19.1164 21.2415 19.2788 21.2429C19.4411 21.2443 19.5974 21.1813 19.7142 21.0675L24.7619 15.9788V33.125C24.7619 37.88 26.8617 40 31.5714 40H40.8571C46.8582 40 52 33.47 52 28.125C52 21.6663 46.7715 16.615 42.0432 16.235Z" fill="#006634"/>
                                     </svg>
-                                <div class="flex flex-col px-7 items-center text-[13px] md:text-base text-gray-600">
+                                <div class="flex flex-col px-7 items-center text-[14px] md:text-base text-gray-600">
                                     <label for="file-upload" class="mr-2 md:mr-0 mt-2 md:mt-0 relative cursor-pointer bg-[#E1ECE7] rounded-md font-medium text-green-600 hover:text-green-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-green-500 flex-shrink-0">
                                         <span>Pilih Berkas</span>
                                         <input id="file-upload" name="file-upload" type="file" class="sr-only">
                                     </label>
-                                    <p class="text-[13px] md:text-base whitespace-nowrap">atau seret dan letakkan di sini</p>
-                                    <p class="text-[13px] md:text-base text-gray-500">PDF, DOC, PNG, JPG hingga 10MB</p>
+                                    <p class="text-[14px] md:text-base whitespace-nowrap">atau seret dan letakkan di sini</p>
+                                    <p class="text-[14px] md:text-base text-gray-500">PDF, DOC, PNG, JPG hingga 10MB</p>
                                 </div>
                             </div>
                         </div>
@@ -563,10 +563,10 @@
             currentItems.forEach((report, index) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[10px] md:text-xs capitalize">${startIndex + index + 1}</td>
-                    <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[10px] md:text-xs capitalize">${report.judul}</td>
-                    <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[10px] md:text-xs capitalize">${report.tanggal}</td>
-                    <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[10px] md:text-xs capitalize">
+                    <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[8px] md:text-[12px] capitalize">${startIndex + index + 1}</td>
+                    <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[8px] md:text-[12px] capitalize">${report.judul}</td>
+                    <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[8px] md:text-[12px] capitalize">${report.tanggal}</td>
+                    <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[8px] md:text-[12px] capitalize">
                         <button>
                             <svg class="w-3 h-6 md:w-5 lg:w-16 md:h-5 lg:h-18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12.1291 6.78125H10.5391V1.78125C10.5391 1.23125 10.0891 0.78125 9.53906 0.78125H5.53906C4.98906 0.78125 4.53906 1.23125 4.53906 1.78125V6.78125H2.94906C2.05906 6.78125 1.60906 7.86125 2.23906 8.49125L6.82906 13.0813C7.21906 13.4713 7.84906 13.4713 8.23906 13.0813L12.8291 8.49125C13.4591 7.86125 13.0191 6.78125 12.1291 6.78125ZM0.539062 16.7812C0.539062 17.3312 0.989062 17.7812 1.53906 17.7812H13.5391C14.0891 17.7812 14.5391 17.3312 14.5391 16.7812C14.5391 16.2312 14.0891 15.7812 13.5391 15.7812H1.53906C0.989062 15.7812 0.539062 16.2312 0.539062 16.7812Z" fill="#22805E"/>

@@ -187,8 +187,8 @@
             <div class="mx-2 sm:mx-4 flex items-center">
                 <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-10 w-10 rounded-full">
                 <div class="-ml-0 sm:ml-4">
-                    <p class="font-semibold text-black sr-only sm:not-sr-only">Arie</p>
-                    <p class="text-sm text-[#686767] sr-only sm:not-sr-only">Pimpinan</p>
+                    <p class="text-[15px] font-semibold text-black sr-only sm:not-sr-only">Arie</p>
+                    <p class="md:text-[15px] text-[#686767] sr-only sm:not-sr-only">Pimpinan</p>
                 </div>
             </div>
         </div>
@@ -301,7 +301,7 @@
         <!-- Main Content -->
         <div class="flex-col bg-white p-2 sm:p-6 lg:p-7 rounded-[5px] ps-2shadow-2xl my-auto mx-auto w-full sm:w-10/12 md:w-8/12 lg:w-7/12 h-fit md:h-auto sm:h-3/4 mt-4 md:mt-5 lg:mt-10 ml-5 md:ml-auto mr-5 md:mr-auto">
             <div class="flex flex-row justify-between items-center mb-6 border-b-2 pb-4">
-                <h2 class="text-base md:text-xl lg:text-2xl font-bold">Masukkan Laporan di Sini</h2>
+                <h2 class="text-base md:text-xl lg:text-2xl font-medium">Masukkan Laporan di Sini</h2>
                 <button class="bg-[#22805E] text-white text-base md:text-lg font-semibold mt-4 sm:mt-0 mr-0 sm:mr-2 px-3 py-1 rounded-[5px]  hover:bg-[#1A5D45] flex flex-row">
                     <span class="button-text" style="justify-between"> Format Laporan</span>
                     <svg class="my-auto" width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -311,12 +311,12 @@
             </div>
             <form>
                 <div class="form-group">
-                    <label for="judul" class="block text-[13px] md:text-lg font-medium text-gray-700">Judul Laporan</label>
-                    <input type="text" id="judul" name="judul" placeholder="Masukkan Judul Laporan" class="text-[15px] md:text-md pl-3 mt-o md:mt-1 block w-full border-gray-300 rounded-md shadow-md h-10">
+                    <label for="judul" class="block text-[13px] md:text-lg font-medium text-black">Judul Laporan</label>
+                    <input type="text" id="judul" name="judul" placeholder="Masukkan Judul Laporan" class="text-[12px] md:text-[14px] pl-3 mt-o md:mt-1 block w-full border-gray-300 rounded-md shadow-md h-10 focus:outline-[#D3E6DF]">
                 </div>
                 <div class="form-group">
-                    <label for="jenis" class="block text-[13px] md:text-lg font-medium text-gray-700">Jenis Laporan</label>
-                    <select id="jenis" name="jenis" class="text-[15px] md:text-md custom-caret pl-3 mt-o md:mt-1 block w-full border-gray-300 rounded-md shadow-md h-10">
+                    <label for="jenis" class="block text-[13px] md:text-lg font-medium text-black">Jenis Laporan</label>
+                    <select id="jenis" name="jenis" class="text-[12px] md:text-[14px] custom-caret pl-3 mt-o md:mt-1 block w-full border-gray-300 rounded-md shadow-md h-10 focus:outline-[#D3E6DF]">
                         <option>Laporan TLHP</option>
                         <option>Laporan Eksternal</option>
                     </select>
@@ -333,7 +333,7 @@
                                   
                                         
                 <div class="file-upload-container">
-                    <label for="file" class="block text-[13px] md:text-lg font-medium text-gray-700 w-2/3 md:w-1/3">Unggah Laporan</label>
+                    <label for="file" class="block text-[13px] md:text-lg font-medium text-black w-2/3 md:w-1/3">Unggah Laporan</label>
                     <div class="mt-o md:mt-6 flex justify-center w-full md:w-8/12 pt-5 pb-6 border-2 bg-[#E1ECE7] border-[#006634] border-dashed rounded-md">
                         <div class="space-y-1 text-center">
                             <svg class="mx-auto h-12 w-12 text-gray-400" width="52" height="40" viewBox="0 0 52 40" fill="none" xmlns="http://www.w3.org/2000/svg">

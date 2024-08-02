@@ -10,22 +10,17 @@
     <style>
         /* Tambahkan CSS untuk memastikan sidebar tidak melampaui tinggi yang diinginkan */
         .sidebar {
-            height: calc(100vh - 54px); /* Sesuaikan tinggi header jika diperlukan */
+            height: calc(100vh - 54px); /* Sesuaikan tinggi header jika diperlukan */       
         }
-        /* Tambahkan CSS untuk memastikan sidebar menimpa konten utama saat layar kecil */
-        @media (max-width: 768px) {
+
+        @media (max-width: 640px) {
             .sidebar {
                 position: fixed;
                 z-index: 10;
                 top: 54px; /* Sesuaikan dengan tinggi header */
                 left: 0;
                 bottom: 0;
-            }
-
-            .main-content {
-                margin-left: 0;
-                margin-top: 54px;
-                position: fixed;
+                margin-top: 0rem;
             }
 
             .sidebar-hidden {
@@ -37,13 +32,18 @@
                 transform: translateX(0);
                 transition: transform 0.3s ease;
             }
-            header {
+            .header {
                 position: fixed;
                 width: 100%;
                 top: 0;
                 z-index: 100;
             }
-        }
+            .main-content {
+                position: fixed;
+                z-index: 10;
+                margin-top: 0px; /* Sesuaikan dengan tinggi header */
+            }
+        }       
     </style>
 </head>
 <body class="bg-[#F2F3F9] overflow-hidden" x-data="{ sidebarOpen: true }">
@@ -67,8 +67,8 @@
             <div class="mx-2 sm:mx-4 flex items-center">
                 <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-10 w-10 rounded-full">
                 <div class="-ml-0 sm:ml-4">
-                    <p class="font-semibold text-black sr-only sm:not-sr-only">Arie</p>
-                    <p class="text-sm text-[#686767] sr-only sm:not-sr-only">Pemberi Laporan</p>
+                    <p class="text-[15px] font-semibold text-black sr-only sm:not-sr-only">Arie</p>
+                    <p class="md:text-[15px] text-[#686767] sr-only sm:not-sr-only">Pemberi Laporan</p>
                 </div>
             </div>
         </div>
