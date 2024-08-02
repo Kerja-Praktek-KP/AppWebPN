@@ -16,7 +16,7 @@
         @media (max-width: 640px) {
             .sidebar {
                 position: fixed;
-                z-index: 40;
+                z-index: 10;
                 top: 54px; /* Sesuaikan dengan tinggi header */
                 left: 0;
                 bottom: 0;
@@ -38,15 +38,15 @@
                 top: 0;
                 z-index: 100;
             }
-                .main-content {
-                    position: fixed;
-                    z-index: 30;
-                    margin-top: 0px; /* Sesuaikan dengan tinggi header */
-                }
-        }       
+            .main-content {
+                position: fixed;
+                z-index: 10;
+                margin-top: 0px; /* Sesuaikan dengan tinggi header */
+            }
+        }
     </style>
 </head>
-<body class="bg-[#F2F3F9] overflow-hidden" x-data="{ sidebarOpen: true, isEditing: false, user: { nama: 'Arie', nip: '2104111010066', email: 'Arie@gmail.com', password: '******' }, editUser: {} }">
+<body class="bg-[#F2F3F9] overflow-hidden" x-data="{ sidebarOpen: true, isEditing: false, user: { nama: 'Arie', nip: '2104111010066', email: 'Arie@gmail.com', password: '******', jabatan: 'Pimpinan', bidang: '-' }, editUser: {nama: '', nip: '', email: '', password: ''} }">
     <header class="w-full flex justify-between bg-white items-center p-2 drop-shadow-md relative z-50">
         <div class="flex items-center">
             <button @click="sidebarOpen = !sidebarOpen" class="text-black mr-4 ml-4">
@@ -63,11 +63,11 @@
             <h1 class="text-base md:text-lg text-black font-bold">Nama Aplikasi</h1>
         </div>
         <div class="flex items-center">
-            <div class="mx-2 sm:mx-4 flex items-center">
+            <div class="mx-8 flex items-center">
                 <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-10 w-10 rounded-full">
-                <div class="-ml-0 sm:ml-4">
-                    <p class="font-semibold text-black sr-only sm:not-sr-only">Arie</p>
-                    <p class="text-sm text-[#686767] sr-only sm:not-sr-only">Pimpinan</p>
+                <div class="ml-4">
+                    <p class="font-semibold text-black">Arie</p>
+                    <p class="text-sm text-[#686767]">Pimpinan</p>
                 </div>
             </div>
         </div>
@@ -178,72 +178,103 @@
         </aside>  
         
         <!-- Main Content -->
-        <div :class="sidebarOpen ? 'w-11/12' : 'w-full'" class="flex-1 p-12 ml-0 md:ml-28 lg:ml-16 xl:ml-60 items-center justify-center transition-all duration-300 sidebar main-content">
-            <div class="flex flex-col lg:flex-row items-center justify-center bg-white h-fit w-80 md:w-80 lg:w-fit mr-44 md:mr-0 rounded-[5px] ">
-                <div class="relative items-center p-5 mr-4 ml-0 md:ml-5 lg:ml-20">
-                    <img :src="editUser.photo || '{{ asset('images/profile.png') }}'" alt="Profile Picture" class="w-40 md:w-72 h-40 md:h-60">
-                    <button x-show="isEditing" @click="$refs.fileInput.click()" class="absolute top-10 p-2">
-                        <img src="{{ asset('images/camera.png') }}"  alt="Profile Image" class="w-6 h-6">
-                    </button>
-                    <input type="file" x-ref="fileInput" class="hidden" @change="previewImage">
-                </div>
-                <div class="items-center w-1/2 mt-6 mr-0 md:mr-20">
-                    <div class="flex items-center mb-2">
-                        <span class="w-3/4 font-semibold text-[14px] md:text-[12px] lg:text-base text-black">Nama :</span>
-                        <template x-if="!isEditing">
-                            <span x-text="user.nama" class="w-3/4 text-[14px] md:text-[12px] lg:text-base font-semibold text-black p-1"></span>
-                        </template>
-                        <template x-if="isEditing">
-                            <input x-model="editUser.nama" class="w-3/4 text-[14px] md:text-[12px] lg:text-base font-semibold text-black border rounded p-1" />
-                        </template>
+        <div :class="[sidebarOpen ? 'w-11/12' : 'w-full', 'bg-[#F2F3F9] flex-1 transition-all duration-300']">
+            <div class="flex justify-center items-center h-screen bg-[#F2F3F9]">
+                <div class="mb-16 flex w-full justify-center max-w-5xl">
+                    <!-- Profile Info -->
+                    <div class="w-4/6 p-4 mr-4 rounded-xl bg-white">
+                        <div class=" w-48 h-52 object-cover rounded-md mx-auto">
+                            <img :src="editUser.photo || '{{ asset('images/profile.png') }}'" alt="Profile Picture">
+                        </div>
+                        <div class="flex">
+                            <div class="mt-2 mr-8 w-3/5">
+                                <div class="flex flex-col items-start mb-4">
+                                    <span class="font-normal text-black mb-2">Nama:</span>
+                                    <template x-if="!isEditing">
+                                        <input x-model="user.nama" class="w-full font-normal text-black bg-[#E9F3EF] rounded p-2" disabled />
+                                    </template>
+                                </div>
+                                
+                                <div class="flex flex-col items-start mb-4">
+                                    <span class="font-normal text-black mb-2">Email:</span>
+                                    <template x-if="!isEditing">
+                                        <input x-model="user.email" class="w-full font-normal text-black  bg-[#E9F3EF] rounded p-2" disabled />
+                                    </template>
+                                </div>
+                                <div class="flex flex-col items-start mb-4">
+                                    <span class="font-normal text-black mb-2">Kata Sandi:</span>
+                                    <template x-if="!isEditing">
+                                        <input type="password" x-model="user.password" class="w-full font-normal text-black  bg-[#E9F3EF] rounded p-2" disabled />
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="mt-2 w-full">
+                                <div class="flex flex-col items-start mb-4">
+                                    <span class="font-normal text-black mb-2">NIP:</span>
+                                    <template x-if="!isEditing">
+                                        <input x-model="user.nip" class="w-full font-normal text-black  bg-[#E9F3EF] rounded p-2" disabled />
+                                    </template>
+                                </div>
+                                <div class="flex flex-col items-start mb-4">
+                                    <span class="font-normal text-black mb-2">Jabatan:</span>
+                                    <template x-if="!isEditing">
+                                        <input x-model="user.jabatan" class="w-full font-normal text-black  bg-[#E9F3EF] rounded p-2" disabled />
+                                    </template>
+                                </div>
+                                <div class="flex flex-col items-start mb-4">
+                                    <span class="font-normal text-black mb-2">Bidang:</span>
+                                    <template x-if="!isEditing">
+                                        <input  x-model="user.bidang" class="w-full font-normal text-black  bg-[#E9F3EF] rounded p-2" disabled />
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex items-center mb-2">
-                        <span class="w-3/4 font-semibold text-[14px] md:text-[12px] lg:text-base text-black">NIP :</span>
-                        <template x-if="!isEditing">
-                            <span x-text="user.nip" class="w-3/4 text-[14px] md:text-[12px] lg:text-base font-semibold text-black p-1"></span>
-                        </template>
-                        <template x-if="isEditing">
-                            <input x-model="editUser.nip" class="w-3/4 text-[14px] md:text-[12px] lg:text-base font-semibold text-black border  rounded p-1" />
-                        </template>
-                    </div>
-                    <div class="flex items-center mb-2">
-                        <span class="w-3/4 text-[14px] md:text-[12px] lg:text-base font-semibold text-black">Email :</span>
-                        <template x-if="!isEditing">
-                            <span x-text="user.email" class="w-3/4 text-[14px] md:text-[12px] lg:text-base font-semibold text-black p-1"></span>
-                        </template>
-                        <template x-if="isEditing">
-                            <input x-model="editUser.email" class="w-3/4 text-[14px] md:text-[12px] lg:text-base font-semibold text-black border  rounded p-1" />
-                        </template>
-                    </div>
-                    <div class="flex items-center mb-2 ">
-                        <span class="w-3/4 text-[14px] md:text-[12px] lg:text-base font-semibold text-black">Password :</span>
-                        <template x-if="!isEditing">
-                            <span x-text="user.password" class="w-3/4 text-[14px] md:text-[12px] lg:text-base font-semibold text-black p-1"></span>
-                        </template>
-                        <template x-if="isEditing">
-                            <input type="password" x-model="editUser.password" class=" w-3/4 text-[14px] md:text-[12px] lg:text-base font-semibold text-black border rounded p-1" />
-                        </template>
-                    </div>
-                    <div class="flex flex-row item-center justify-start mt-4 mb-8">
-                        <template x-if="!isEditing">
-                            <button @click="isEditing = true; editUser = { ...user }" class="flex bg-[#22805E] text-white text-[14px] md:text-[12px] font-semibold px-4 py-1 rounded-[5px] shadow-md hover:bg-green-800">
+            
+                    <!-- Edit Profile Info -->
+                    <div class="w-4/12 p-4 bg-white rounded-xl">
+                        <h2 class="text-xl text-center font-medium mb-4 border-b border-gray-500 pb-2 pt-4">Ubah Informasi Profil</h2>
+                        <div class="mb-4 mt-12">
+                            <label for="editNama" class="block font-normal text-black mb-2">Nama</label>
+                            <input id="editNama" x-model="editUser.nama" :placeholder="user.nama" class="w-full font-normal text-black border focus:outline-[#D3E6DF] rounded p-2" />
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="editEmail" class="block font-normal text-black mb-2">Email</label>
+                            <input id="editEmail" x-model="editUser.email" :placeholder="user.email" class="w-full font-normal text-black border focus:outline-[#D3E6DF] rounded p-2" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="editPassword" class="block font-normal text-black mb-2">Kata Sandi</label>
+                            <input type="password" id="editPassword" x-model="editUser.password" :placeholder="user.password" class="w-full font-normal text-black border focus:outline-[#D3E6DF] rounded p-2" />
+                        </div>
+                        <div class="flex justify-between mt-40">
+                            <button @click="$refs.fileInput.click()" class="flex items-center justify-center bg-[#22805E] text-white font-semibold h-11 w-36 rounded-lg shadow-md">
+                                <svg class="mr-2" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_933_7015)">
+                                    <path d="M19.6663 15.8333C19.6663 16.2754 19.4907 16.6993 19.1782 17.0118C18.8656 17.3244 18.4417 17.5 17.9997 17.5H2.99967C2.55765 17.5 2.13372 17.3244 1.82116 17.0118C1.5086 16.6993 1.33301 16.2754 1.33301 15.8333V6.66667C1.33301 6.22464 1.5086 5.80072 1.82116 5.48816C2.13372 5.17559 2.55765 5 2.99967 5H6.33301L7.99967 2.5H12.9997L14.6663 5H17.9997C18.4417 5 18.8656 5.17559 19.1782 5.48816C19.4907 5.80072 19.6663 6.22464 19.6663 6.66667V15.8333Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M10.5003 14.1667C12.3413 14.1667 13.8337 12.6743 13.8337 10.8333C13.8337 8.99238 12.3413 7.5 10.5003 7.5C8.65938 7.5 7.16699 8.99238 7.16699 10.8333C7.16699 12.6743 8.65938 14.1667 10.5003 14.1667Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </g>
+                                    <defs>
+                                    <clipPath id="clip0_933_7015">
+                                    <rect width="20" height="20" fill="white" transform="translate(0.5)"/>
+                                    </clipPath>
+                                    </defs>
+                                </svg>    
+                                Ganti Foto
+                            </button>
+                            <button @click="isEditing = false; user = { ...editUser }" class="flex items-center justify-center bg-[#22805E] text-white font-semibold h-11 w-36 rounded-lg shadow-md">
                                 <svg class="mr-2" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9.66699 3.8335H3.83366C3.39163 3.8335 2.96771 4.00909 2.65515 4.32165C2.34259 4.63421 2.16699 5.05814 2.16699 5.50016V17.1668C2.16699 17.6089 2.34259 18.0328 2.65515 18.3453C2.96771 18.6579 3.39163 18.8335 3.83366 18.8335H15.5003C15.9424 18.8335 16.3663 18.6579 16.6788 18.3453C16.9914 18.0328 17.167 17.6089 17.167 17.1668V11.3335" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M15.917 2.5832C16.2485 2.25168 16.6982 2.06543 17.167 2.06543C17.6358 2.06543 18.0855 2.25168 18.417 2.5832C18.7485 2.91472 18.9348 3.36436 18.9348 3.8332C18.9348 4.30204 18.7485 4.75168 18.417 5.0832L10.5003 12.9999L7.16699 13.8332L8.00033 10.4999L15.917 2.5832Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                Ubah Profil
+                                Perbarui
                             </button>
-                        </template>
-                        <template x-if="isEditing">
-                            <div>
-                                <button @click="isEditing = false; user = { ...editUser }" class="bg-[#22805E] text-white font-semibold px-8 py-1.5 shadow-md rounded-[5px] mr-4 mb-2">Simpan</button>
-                                <button @click="isEditing = false; editUser = { ...user }" class="border border-[#22805E] text-[#22805E] font-semibold px-8 py-1.5 shadow-md rounded-[5px]">Batal</button>
-                            </div>
-                        </template>
+                        </div>
+                        <input type="file" x-ref="fileInput" class="hidden" @change="previewImage">
                     </div>
                 </div>
-            </div>
-        </div>            
+            </div> 
+        </div>           
     </div>
     <script>
         function previewImage(event) {
