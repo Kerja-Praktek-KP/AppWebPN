@@ -102,7 +102,7 @@
                                 <path d="M12 8V12" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M12 16H12.01" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>                                                               
-                            Pemberitahuan
+                            Pemberitahuan 
                         </a>
                     </li>
                     <li class="p-3 pl-8 bg-[#22805E] mx-full my-4" x-show="sidebarOpen">

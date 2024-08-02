@@ -284,7 +284,7 @@
                 this.editUser.photo = e.target.result;
             };
             reader.readAsDataURL(file);
-        }
+        } 
     </script>
 </body>
 </html>

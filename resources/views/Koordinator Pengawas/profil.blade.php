@@ -275,7 +275,7 @@
                 </div>
             </div> 
         </div>           
-    </div>
+    </div> 
     <script>
         function previewImage(event) {
             const file = event.target.files[0];
