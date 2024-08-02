@@ -20,6 +20,8 @@ export default {
         '92.3vh': '92.3vh',
       },
       screens: {
+        'ss': '375px',
+        'ms': '425px',
         'sm': '640px',
         'md': '768px',
         'lg': '1024px',

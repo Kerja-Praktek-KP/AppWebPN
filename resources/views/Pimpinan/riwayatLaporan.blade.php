@@ -177,10 +177,10 @@
             <div class="flex p-8 mx-1">
                 <ul class="flex border bg-[#C5D9CF] rounded-[5px]">
                     <li class="">
-                        <a id="tlhp-tab" class="inline-block py-1 md:py-2 px-2 md:px-4 w-24 md:w-36 border text-center bg-[#006634] rounded-[5px] text-[14px] md:text-base text-white font-semibold cursor-pointer" onclick="showTab('tlhp')">TLHP</a>
+                        <a id="tlhp-tab" class="inline-block py-1 md:py-2 px-2 md:px-4 w-24 md:w-36 border text-center bg-[#22805E] rounded-[5px] text-[14px] md:text-base text-white font-semibold cursor-pointer" onclick="showTab('tlhp')">TLHP</a>
                     </li>
                     <li class="">
-                        <a id="eksternal-tab" class="inline-block py-1 md:py-2 px-2 md:px-4 w-24 md:w-36 text-center text-[#006634] rounded-[5px] text-[14px] md:text-base font-semibold cursor-pointer" onclick="showTab('eksternal')">Eksternal</a>
+                        <a id="eksternal-tab" class="inline-block py-1 md:py-2 px-2 md:px-4 w-24 md:w-36 text-center text-[#22805E] rounded-[5px] text-[14px] md:text-base font-semibold cursor-pointer" onclick="showTab('eksternal')">Eksternal</a>
                     </li>
                 </ul>
             </div>

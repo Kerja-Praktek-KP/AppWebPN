@@ -6,7 +6,7 @@
     <title>Pengadilan Negeri</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     @vite('resources/css/app.css')
-</head>
+</head> 
 <body class="flex items-center justify-center min-h-screen bg-[#22805E]">
     <div class="bg-white p-4 md:p-8 rounded-[5px] shadow-lg w-10/12 sm:w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/3 2xl:w-1/4">
         <div class="flex flex-col items-center mb-6">
@@ -25,7 +25,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18"/>
                     </svg>
-                </button>
+                </button>v
             </div>
             <script>
                 const togglePassword = document.querySelector('#togglePassword');

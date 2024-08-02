@@ -181,7 +181,7 @@
         <main :class="sidebarOpen ? 'w-11/12' : 'w-full'" class="flex-1 flex-col transition-all p-4 duration-300 overflow-y-auto pb-24">
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center">
-                    <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-8 md:h-8 lg:h-10 xl:h-14 w-8 md:w-8 lg:w-10 xl:w-14 rounded-full mr-4">
+                    <img :src="editUser.photo || '{{ asset('images/profile.png') }}'" alt="Profile Picture" class=" w-40 md:w-64 lg:w-80 h-40 md:h-52 lg:h-44">
                     <div>
                         <p class="text-[12px] md:text-base font-semibold">Panca Wiguna, S.H</p>
                         <p class="text-sm text-gray-600">Pemberi Laporan</p>
