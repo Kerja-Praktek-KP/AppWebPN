@@ -67,7 +67,7 @@
                 <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-10 w-10 rounded-full">
                 <div class="ml-4">
                     <p class="font-semibold text-black">Arie</p>
-                    <p class="text-sm text-[#686767]">Pimpinan</p>
+                    <p class="text-sm text-[#686767]">Pemberi Laporan</p>
                 </div>
             </div>
         </div>
@@ -178,18 +178,18 @@
         </aside>  
         
         <!-- Main Content -->
-        <div :class="[sidebarOpen ? 'w-11/12' : 'w-full', 'bg-[#F2F3F9] flex-1 transition-all duration-300']">
-            <div class="flex justify-center items-center h-screen bg-[#F2F3F9]">
-                <div class="mb-16 flex w-full justify-center max-w-5xl">
+        <div :class="[sidebarOpen ? 'w-11/12' : 'w-full', 'p-4 bg-[#F2F3F9] flex-1 transition-all duration-300 overflow-y-auto lg:overflow-y-hidden']">
+            <div class="flex justify-center items-center h-screen bg-[#F2F3F9] my-96 md:my-60 lg:my-0">
+                <div class="mb-16 flex flex-col lg:flex-row w-full justify-center max-w-5xl">
                     <!-- Profile Info -->
-                    <div class="w-4/6 p-4 mr-4 rounded-xl bg-white">
+                    <div class="w-full lg:w-4/6 p-4 mr-4 rounded-xl bg-white">
                         <div class=" w-48 h-52 object-cover rounded-md mx-auto">
                             <img :src="editUser.photo || '{{ asset('images/profile.png') }}'" alt="Profile Picture">
                         </div>
-                        <div class="flex">
-                            <div class="mt-2 mr-8 w-3/5">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="mt-2 mr-8 w-full md:w-3/5">
                                 <div class="flex flex-col items-start mb-4">
-                                    <span class="font-normal text-black mb-2">Nama:</span>
+                                    <span class="font-normal text-black mb-2 ">Nama:</span>
                                     <template x-if="!isEditing">
                                         <input x-model="user.nama" class="w-full font-normal text-black bg-[#E9F3EF] rounded p-2" disabled />
                                     </template>
@@ -232,7 +232,7 @@
                     </div>
             
                     <!-- Edit Profile Info -->
-                    <div class="w-4/12 p-4 bg-white rounded-xl">
+                    <div class="w-full lg:w-4/12 p-4 bg-white rounded-xl mt-5 lg:mt-0">
                         <h2 class="text-xl text-center font-medium mb-4 border-b border-gray-500 pb-2 pt-4">Ubah Informasi Profil</h2>
                         <div class="mb-4 mt-12">
                             <label for="editNama" class="block font-normal text-black mb-2">Nama</label>
@@ -247,8 +247,8 @@
                             <label for="editPassword" class="block font-normal text-black mb-2">Kata Sandi</label>
                             <input type="password" id="editPassword" x-model="editUser.password" :placeholder="user.password" class="w-full font-normal text-black border focus:outline-[#D3E6DF] rounded p-2" />
                         </div>
-                        <div class="flex justify-between mt-40">
-                            <button @click="$refs.fileInput.click()" class="flex items-center justify-center bg-[#22805E] text-white font-semibold h-11 w-36 rounded-lg shadow-md">
+                        <div class="flex justify-between mt-40 ">
+                            <button @click="$refs.fileInput.click()" class="flex items-center justify-center bg-[#22805E] text-white text-[13px] md:text-[14px] lg:text-[13px] font-semibold h-11 w-28 md:w-36 lg:w-28 rounded-lg shadow-md">
                                 <svg class="mr-2" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_933_7015)">
                                     <path d="M19.6663 15.8333C19.6663 16.2754 19.4907 16.6993 19.1782 17.0118C18.8656 17.3244 18.4417 17.5 17.9997 17.5H2.99967C2.55765 17.5 2.13372 17.3244 1.82116 17.0118C1.5086 16.6993 1.33301 16.2754 1.33301 15.8333V6.66667C1.33301 6.22464 1.5086 5.80072 1.82116 5.48816C2.13372 5.17559 2.55765 5 2.99967 5H6.33301L7.99967 2.5H12.9997L14.6663 5H17.9997C18.4417 5 18.8656 5.17559 19.1782 5.48816C19.4907 5.80072 19.6663 6.22464 19.6663 6.66667V15.8333Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -262,7 +262,7 @@
                                 </svg>    
                                 Ganti Foto
                             </button>
-                            <button @click="isEditing = false; user = { ...editUser }" class="flex items-center justify-center bg-[#22805E] text-white font-semibold h-11 w-36 rounded-lg shadow-md">
+                            <button @click="isEditing = false; user = { ...editUser }" class="flex items-center justify-center bg-[#22805E] text-white text-[13px] md:text-[14px] lg:text-[13px] font-semibold h-11 w-28 md:w-36 lg:w-28 rounded-lg shadow-md">
                                 <svg class="mr-2" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9.66699 3.8335H3.83366C3.39163 3.8335 2.96771 4.00909 2.65515 4.32165C2.34259 4.63421 2.16699 5.05814 2.16699 5.50016V17.1668C2.16699 17.6089 2.34259 18.0328 2.65515 18.3453C2.96771 18.6579 3.39163 18.8335 3.83366 18.8335H15.5003C15.9424 18.8335 16.3663 18.6579 16.6788 18.3453C16.9914 18.0328 17.167 17.6089 17.167 17.1668V11.3335" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M15.917 2.5832C16.2485 2.25168 16.6982 2.06543 17.167 2.06543C17.6358 2.06543 18.0855 2.25168 18.417 2.5832C18.7485 2.91472 18.9348 3.36436 18.9348 3.8332C18.9348 4.30204 18.7485 4.75168 18.417 5.0832L10.5003 12.9999L7.16699 13.8332L8.00033 10.4999L15.917 2.5832Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
