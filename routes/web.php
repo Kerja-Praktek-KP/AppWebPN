@@ -9,6 +9,9 @@ Route::get('/login', function () {
     return view('login');   
 }); 
 
+use App\Http\Controllers\UserController;
+Route::post('/login', [UserController::class, 'login']);
+
 // rute pimpinan
 
 Route::get('/penilaianDetailKoordinatorPengawas', function () {
@@ -159,7 +162,6 @@ Route::get('/akunPemberiLaporan', function () {
 });
 
 
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReportFormatController;
 
