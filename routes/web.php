@@ -157,3 +157,17 @@ Route::get('/akunPengawas', function () {
 Route::get('/akunPemberiLaporan', function () {
     return view('Super Admin.akunPemberiLaporan');
 });
+
+
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ReportFormatController;
+
+// Route::middleware(['auth'])->group(function () {
+//     Route::resource('users', UserController::class)->except(['show']);
+//     Route::resource('reports', ReportController::class);
+//     Route::resource('report_formats', ReportFormatController::class)->except(['edit', 'update']);
+// });
+
+Route::resource('users', UserController::class);
+Route::resource('report_formats', ReportFormatController::class);

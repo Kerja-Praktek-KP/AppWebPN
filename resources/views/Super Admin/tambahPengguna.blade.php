@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,25 @@
     @vite('resources/css/app.css')
     <script src="//unpkg.com/alpinejs" defer></script>
     <style>
+        /* CSS untuk Pop-up pengguna berhasil ditambahkan ke dalam database */
+        .alert-success {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px;
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+        border-radius: 5px;
+        display: none;
+        z-index: 1000;
+        transition: opacity 0.5s ease-out;
+    }
+
+    .alert-hidden {
+        opacity: 0;
+    }
+
         /* Tambahkan CSS untuk memastikan sidebar tidak melampaui tinggi yang diinginkan */
         .sidebar {
             height: calc(100vh - 54px); /* Sesuaikan tinggi header jika diperlukan */       
@@ -158,61 +177,98 @@
 
         <main :class="sidebarOpen ? 'w-11/12 ' : 'w-full'" class="flex-1 pt-10 mx-10 xl:mx-52 transition-all duration-300"> 
             <div class="bg-white p-2 md:p-8 rounded-[5px] ">
+                
+                {{-- Untuk pemberitahuan user apabila data yang dimasukkan ada yang salah --}}
+                @if ($errors->any())
+                    <div class="bg-red-500 text-white p-4 rounded-md mb-4">
+                        @foreach ($errors->all() as $error)
+                            <p>{{ $error }}</p>
+                        @endforeach
+                    </div>
+                @endif
+
                 <h2 class="text-base md:text-xl font-semibold mb-4 border-b-2 border-black pb-4">Masukkan Data Pengguna Baru</h2>
-                <form @submit.prevent="showPopup = true" class="px-4">
+                <form action="{{ route('users.store') }}" method="POST" class="px-4">
+                    @csrf
                     <div class="mb-2 md:mb-8 flex items-center">
                         <label class="block text-sm md:text-base font-medium w-1/4 ">Nama</label>
-                        <input type="text" placeholder="Masukkan Nama" class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black ">
+                        <input type="text" name="name" placeholder="Masukkan Nama" class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black" required>
                     </div>
                     <div class="mb-2 md:mb-8 flex items-center">
                         <label class="block text-sm md:text-base font-medium w-1/4 ">NIP</label>
-                        <input type="text" placeholder="Masukkan NIP" class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black ">
+                        <input type="text" name="nip" placeholder="Masukkan NIP" class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black" required>
                     </div>
                     <div class="mb-2 md:mb-8 flex items-center">
                         <label class="block text-sm md:text-base font-medium w-1/4 ">Email</label>
-                        <input type="email" placeholder="Masukkan Email" class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black ">
+                        <input type="email" name="email" placeholder="Masukkan Email" class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black" required>
                     </div>
                     <div class="mb-2 md:mb-8 flex items-center">
                         <label class="block text-sm md:text-base font-medium w-1/4 ">Password</label>
-                        <input type="password" placeholder="Masukkan Password" class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black ">
+                        <input type="password" name="password" placeholder="Masukkan Password" class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black" required>
                     </div>
                     <div class="mb-2 md:mb-8 flex items-center">
                         <label class="block text-sm md:text-base font-medium w-1/4 ">Jabatan</label>
-                        <select class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black ">
+                        <select id="role" name="role" class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black" required>
                             <option value="" disabled selected hidden>Pilih Jabatan</option>
-                            <option value="pemberi_laporan" >Pemberi Laporan</option>
+                            <option value="pemberi_laporan">Pemberi Laporan</option>
                             <option value="pengawas">Pengawas</option>
-                            <option value="kordinator_pengawas">Kordinator Pengawas</option>
+                            <option value="koordinator_pengawas">Koordinator Pengawas</option>
                             <option value="pimpinan">Pimpinan</option>
                         </select>
                     </div>
-                    <div class="mb-2 md:mb-8 flex items-center">
+                    <div id="bidang-container" class="mb-2 md:mb-8 flex items-center">
                         <label class="block text-sm md:text-base font-medium w-1/4 ">Bidang</label>
-                        <select class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black ">
+                        <select id="bidang" name="bidang" class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black" required>
                             <option value="" disabled selected hidden>Pilih Bidang</option>
-                            <option value="bidang_1" >Bidang 1</option>
-                            <option value="bidang_2" >Bidang 2</option>
-                            <option value="bidang_3" >Bidang 3</option>
-                            <option value="bidang_4" >Bidang 4</option>
-                            <option value="bidang_5" >Bidang 5</option>
-                            <option value="bidang_6" >Bidang 6</option>
-                            <option value="bidang_7" >Bidang 7</option>
-                            <option value="bidang_8" >Bidang 8</option>
+                            <option value="Panmud Perdata">Panmud Perdata</option>
+                            <option value="Panmud Pidana">Panmud Pidana</option>
+                            <option value="Panmud Tipikor">Panmud Tipikor</option>
+                            <option value="Panmud PHI">Panmud PHI</option>
+                            <option value="Panmud Hukum">Panmud Hukum</option>
+                            <option value="Sub Bag. Perencanaan, TI, dan Pelaporan">Sub Bag. Perencanaan, TI, dan Pelaporan</option>
+                            <option value="Sub Bag. Kepegawaian dan Ortala">Sub Bag. Kepegawaian dan Ortala</option>
+                            <option value="Sub Bag. Umum dan Keuangan">Sub Bag. Umum dan Keuangan</option>
                         </select>
                     </div>
                     <div class="text-center mt-5 md:mt-12 mb-5">
                         <button type="submit" class="bg-[#22805E] text-[13px] md:text-[16px] text-white py-2 px-4 rounded-[5px] hover:bg-[#207A59]">Tambah Pengguna</button>
                     </div>
                 </form>
+
+                <script>
+                    document.getElementById('role').addEventListener('change', function () {
+                        var bidangContainer = document.getElementById('bidang-container');
+                        var selectedRole = this.value;
+
+                        if (selectedRole === 'koordinator_pengawas' || selectedRole === 'pimpinan') {
+                            bidangContainer.style.display = 'none';
+                            document.getElementById('bidang').removeAttribute('required');
+                        } else {
+                            bidangContainer.style.display = 'flex';
+                            document.getElementById('bidang').setAttribute('required', 'required');
+                        }
+                    });
+                </script>
+                
             </div>
         </main>
-        
-        <div x-show="showPopup" x-transition class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-                <h2 class="text-xl font-bold mb-4">Pengguna berhasil terdaftar!</h2>
-                <button @click="showPopup = false" class="bg-[#22805E] text-white py-2 px-4 rounded-[5px] hover:bg-[#207A59]">OK</button>
-            </div>
-        </div>
     </div>
+
+    <!-- Pop-up sukses -->
+    <div class="alert-success" x-show="showPopup" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+        Pengguna berhasil ditambahkan!
+    </div>
+
+    <script>
+        // Script untuk menampilkan popup saat pengguna berhasil ditambahkan
+        document.addEventListener('DOMContentLoaded', function () {
+            @if(session('success'))
+                document.querySelector('.alert-success').style.display = 'block';
+                setTimeout(function () {
+                    document.querySelector('.alert-success').classList.add('alert-hidden');
+                }, 3000);
+            @endif
+        });
+    </script>
 </body>
 </html>
