@@ -66,7 +66,7 @@
             <div class="mx-2 sm:mx-4 flex items-center">
                 <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-10 w-10 rounded-full">
                 <div class="-ml-0 sm:ml-4">
-                    <p class="text-[15px] font-semibold text-black sr-only sm:not-sr-only">Arie</p>
+                    <p class="text-[15px] font-semibold text-black sr-only sm:not-sr-only">{{ Auth::user()->name }}</p>
                     <p class="md:text-[15px] text-[#686767] sr-only sm:not-sr-only">Pengawas</p>
                 </div>
             </div>
@@ -204,9 +204,9 @@
                 <div class="mb-16 flex flex-col lg:flex-row w-full justify-center max-w-5xl">
                     <!-- Profile Info -->
                     <div class="w-full lg:w-4/6 p-4 mr-4 rounded-xl bg-white">
-                        <div class=" w-48 h-52 object-cover rounded-md mx-auto">
-                            <img :src="editUser.photo || '{{ asset('images/profile.png') }}'" alt="Profile Picture">
-                        </div>
+                        <div class="w-48 h-52 mx-auto">
+                            <img :src="editUser.photo || '{{ asset('images/profile.png') }}'" alt="Profile Picture" class="w-full h-full object-cover rounded-md">
+                        </div> 
                         <div class="flex flex-col md:flex-row">
                             <div class="mt-2 mr-8 w-full md:w-3/5">
                                 <div class="flex flex-col items-start mb-4">

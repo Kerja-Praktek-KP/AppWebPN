@@ -191,23 +191,23 @@
                 <form action="{{ route('users.store') }}" method="POST" class="px-4">
                     @csrf
                     <div class="mb-2 md:mb-8 flex items-center">
-                        <label class="block text-sm md:text-base font-medium w-1/4 ">Nama</label>
+                        <label class="block text-sm md:text-base lg:text-[20px] font-medium w-1/4 ">Nama</label>
                         <input type="text" name="name" placeholder="Masukkan Nama" class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black" required>
                     </div>
                     <div class="mb-2 md:mb-8 flex items-center">
-                        <label class="block text-sm md:text-base font-medium w-1/4 ">NIP</label>
+                        <label class="block text-sm md:text-base lg:text-[20px] font-medium w-1/4 ">NIP</label>
                         <input type="text" name="nip" placeholder="Masukkan NIP" class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black" required>
                     </div>
                     <div class="mb-2 md:mb-8 flex items-center">
-                        <label class="block text-sm md:text-base font-medium w-1/4 ">Email</label>
+                        <label class="block text-sm md:text-base lg:text-[20px] font-medium w-1/4 ">Email</label>
                         <input type="email" name="email" placeholder="Masukkan Email" class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black" required>
                     </div>
                     <div class="mb-2 md:mb-8 flex items-center">
-                        <label class="block text-sm md:text-base font-medium w-1/4 ">Password</label>
+                        <label class="block text-sm md:text-base lg:text-[20px] font-medium w-1/4 ">Password</label>
                         <input type="password" name="password" placeholder="Masukkan Password" class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black" required>
                     </div>
                     <div class="mb-2 md:mb-8 flex items-center">
-                        <label class="block text-sm md:text-base font-medium w-1/4 ">Jabatan</label>
+                        <label class="block text-sm md:text-base lg:text-[20px] font-medium w-1/4 ">Jabatan</label>
                         <select id="role" name="role" class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black" required>
                             <option value="" disabled selected hidden>Pilih Jabatan</option>
                             <option value="pemberi_laporan">Pemberi Laporan</option>
@@ -217,7 +217,7 @@
                         </select>
                     </div>
                     <div id="bidang-container" class="mb-2 md:mb-8 flex items-center">
-                        <label class="block text-sm md:text-base font-medium w-1/4 ">Bidang</label>
+                        <label class="block text-sm md:text-base lg:text-[20px] font-medium w-1/4 ">Bidang</label>
                         <select id="bidang" name="bidang" class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black" required>
                             <option value="" disabled selected hidden>Pilih Bidang</option>
                             <option value="Panmud Perdata">Panmud Perdata</option>

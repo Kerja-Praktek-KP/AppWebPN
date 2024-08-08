@@ -197,7 +197,7 @@
             <div class="mx-2 sm:mx-4 flex items-center">
                 <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-10 w-10 rounded-full">
                 <div class="-ml-0 sm:ml-4">
-                    <p class="text-[15px] font-semibold text-black sr-only sm:not-sr-only">Arie</p>
+                    <p class="text-[15px] font-semibold text-black sr-only sm:not-sr-only">{{ Auth::user()->name }}</p>
                     <p class="md:text-[15px] text-[#686767] sr-only sm:not-sr-only">Pengawas</p>
                 </div>
             </div>

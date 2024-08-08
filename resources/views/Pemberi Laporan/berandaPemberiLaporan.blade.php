@@ -52,7 +52,7 @@
         <div class="flex items-center">
             <button @click="sidebarOpen = !sidebarOpen" class="text-black mr-4 ml-4">
                 <svg x-show="sidebarOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5 21L19 21C20.1046 21 21 20.1046 21 19L21 5C21 3.89543 20.1046 3 19 3L5 3C3.89543 3 3 3.89543 3 5L3 19C3 20.1046 3.89543 21 5 21Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 21L19 21C20.1046 21 21 20.1046 21 19L21 5C21 3.89543 20.1046 3 19 3L5 3C3.89543 3.89543 3 3.89543 3 5L3 19C3 20.1046 3.89543 21 5 21Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M14 21L14 3" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>                    
                 <svg x-show="!sidebarOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -67,12 +67,13 @@
             <div class="mx-2 sm:mx-4 flex items-center">
                 <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-10 w-10 rounded-full">
                 <div class="-ml-0 sm:ml-4">
-                    <p class="text-[15px] font-semibold text-black sr-only sm:not-sr-only">Arie</p>
-                    <p class="md:text-[15px]  text-[#686767] sr-only sm:not-sr-only">Pemberi Laporan</p>
+                    <p class="text-[15px] font-semibold text-black sr-only sm:not-sr-only">{{ Auth::user()->name }}</p>
+                    <p class="md:text-[15px] text-[#686767] sr-only sm:not-sr-only">Pemberi Laporan</p>
                 </div>
             </div>
         </div>
     </header>
+
 
     <div class="flex h-screen">
         <!-- Sidebar -->

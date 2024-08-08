@@ -124,41 +124,34 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'Pengguna berhasil dihapus.');
     }
 
-    public function login(Request $request)
-{
-    // Validasi input
-    $request->validate([
-        'nama' => 'required|string',
-        'password' => 'required|string',
-    ]);
+        public function login(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required|string',
+            'password' => 'required|string',
+        ]);
 
-    // Cari user berdasarkan nama
-    $user = User::where('name', $request->nama)->first();
+        $user = User::where('name', $request->nama)->first();
 
-    // Periksa apakah user ada dan password cocok
-    if ($user && Hash::check($request->password, $user->password)) {
-        // Autentikasi user
-        Auth::login($user);
+        if ($user && Hash::check($request->password, $user->password)) {
+            Auth::login($user);
 
-        // Arahkan ke halaman berdasarkan peran user
-        switch ($user->role) {
-            case 'pemberi_laporan':
-                return redirect()->intended('/berandaPemberiLaporan');
-            case 'pengawas':
-                return redirect()->intended('/berandaPengawas');
-            case 'koordinator_pengawas':
-                return redirect()->intended('/berandaKoordinatorPengawas');
-            case 'pimpinan':
-                return redirect()->intended('/berandaPimpinan');
-            default:
-                return redirect()->intended('/'); // Halaman default jika role tidak dikenali
+            switch ($user->role) {
+                case 'pemberi_laporan':
+                    return redirect()->intended('/berandaPemberiLaporan');
+                case 'pengawas':
+                    return redirect()->intended('/berandaPengawas');
+                case 'koordinator_pengawas':
+                    return redirect()->intended('/berandaKoordinatorPengawas');
+                case 'pimpinan':
+                    return redirect()->intended('/berandaPimpinan');
+                default:
+                    return redirect()->intended('/');
+            }
         }
+
+        return redirect('/login')->withErrors(['error' => 'Nama atau kata sandi salah']);
     }
 
-    // Jika kredensial tidak valid
-    return redirect('/login')->withErrors([
-        'error' => 'Nama atau kata sandi salah',
-    ]);
-}
 
 }

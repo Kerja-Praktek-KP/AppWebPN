@@ -12,6 +12,24 @@ Route::get('/login', function () {
 use App\Http\Controllers\UserController;
 Route::post('/login', [UserController::class, 'login']);
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/berandaPemberiLaporan', function () {
+        return view('berandaPemberiLaporan');
+    });
+
+    Route::get('/berandaPengawas', function () {
+        return view('berandaPengawas');
+    });
+
+    Route::get('/berandaKoordinatorPengawas', function () {
+        return view('berandaKoordinatorPengawas');
+    });
+
+    Route::get('/berandaPimpinan', function () {
+        return view('berandaPimpinan');
+    });
+});
+
 // rute pimpinan
 
 Route::get('/penilaianDetailKoordinatorPengawas', function () {

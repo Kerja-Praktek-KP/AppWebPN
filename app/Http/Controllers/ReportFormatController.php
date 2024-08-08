@@ -30,7 +30,7 @@ class ReportFormatController extends Controller
             'file_path' => $filePath,
         ]);
 
-        return redirect()->route('report_formats.index')->with('success', 'Report format uploaded successfully.');
+        return redirect()->back()->with('success', 'Report format uploaded successfully.');
     }
 
     public function destroy(ReportFormat $reportFormat)

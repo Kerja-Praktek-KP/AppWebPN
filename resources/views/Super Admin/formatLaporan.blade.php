@@ -284,8 +284,9 @@
         </aside> 
 
         <!-- Main Content -->
-        <main class="flex-1 p-2 sm:p-6 lg:p-7 rounded-[5px] ps-2shadow-2xl my-auto mx-auto w-full h-full justify-between items-center">
+        <main class="flex-1 p-2 sm:p-6 lg:p-7 rounded-[5px] my-auto mx-auto w-full h-full justify-between items-center">
             <div class="flex-col bg-white p-2 sm:p-6 lg:p-4 rounded-[5px] my-auto mx-auto w-10/12 md:w-8/12 lg:w-7/12 h-fit md:h-auto sm:h-3/4 mt-4 md:mt-5 lg:mt-10 ml-8 md:ml-auto mr-5 md:mr-auto">
+                
                 <div class="flex flex-col">
                     <div class="flex items-center justify-between">
                         <div class="flex">
@@ -296,30 +297,34 @@
                             </div>
                         </div>
                         <button class="bg-[#22805E] text-white text-[12px] md:text-[14px] lg:text-[17px] font-semibold mt-4 sm:mt-0 mr-0 sm:mr-2 px-2 md:px-2 lg:px-2 xl:px-10 py-1 rounded-[5px] hover:bg-[#1A5D45] flex flex-row">
-                            <span> Unduh</span>                       
+                            <span>Unduh</span>                       
                         </button>
                     </div>
                 </div>                
             </div>
             
-            <div class="flex-col bg-white p-2 sm:p-6 lg:p-7 rounded-[5px] ps-2shadow-2xl my-auto mx-auto w-10/12 md:w-8/12 lg:w-7/12 h-fit md:h-auto sm:h-3/4 mt-4 md:mt-5 lg:mt-10 ml-8 md:ml-auto mr-5 md:mr-auto">
+            <div class="flex-col bg-white p-2 sm:p-6 lg:p-7 rounded-[5px] shadow-2xl my-auto mx-auto w-10/12 md:w-8/12 lg:w-7/12 h-fit md:h-auto sm:h-3/4 mt-4 md:mt-5 lg:mt-10 ml-8 md:ml-auto mr-5 md:mr-auto">
                 <div class="flex flex-row justify-between items-center mb-6 border-b-2 pb-4">
                     <h2 class="text-[12px] md:text-[14px] lg:text-[17px] font-bold">Masukkan Format Laporan</h2>
-                </div>
-                                                   
+                </div>  
+                <form action="{{ route('report_formats.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf                                         
                     <div class="file-upload-container">
-                        <div class="mt-o md:mt-6 flex justify-center w-full pt-5 pb-6 border-2 bg-[#E1ECE7] border-[#006634] border-dashed rounded-md">
+                        <div class="mt-0 md:mt-6 flex justify-center w-full pt-5 pb-6 border-2 bg-[#E1ECE7] border-[#006634] border-dashed rounded-md" id="file-dropzone">
                             <div class="space-y-1 text-center">
                                 <svg class="mx-auto h-12 w-12 text-gray-400" width="52" height="40" viewBox="0 0 52 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M42.0432 16.235C41.5146 7.97 35.8218 0 25.381 0C15.8315 0 8.46733 7.16625 8.07733 16.73C2.85257 18.3713 0 24.0163 0 28.125C0 34.4512 5.20743 40 11.1429 40H19.1905C19.3547 40 19.5121 39.9342 19.6282 39.8169C19.7443 39.6997 19.8095 39.5408 19.8095 39.375C19.8095 39.2092 19.7443 39.0503 19.6282 38.9331C19.5121 38.8158 19.3547 38.75 19.1905 38.75H11.1429C5.8661 38.75 1.2381 33.785 1.2381 28.125C1.2381 24.3113 4.54876 17.5 11.1429 17.5H13C13.1642 17.5 13.3216 17.4342 13.4377 17.3169C13.5538 17.1997 13.619 17.0408 13.619 16.875C13.619 16.7092 13.5538 16.5503 13.4377 16.4331C13.3216 16.3158 13.1642 16.25 13 16.25H11.1429C10.5127 16.25 9.91714 16.3212 9.33648 16.4237C9.82181 8.93625 15.4589 1.25 25.381 1.25C36.0137 1.25 40.8571 9.67375 40.8571 17.5V19.375C40.8571 19.5408 40.9224 19.6997 41.0385 19.8169C41.1546 19.9342 41.312 20 41.4762 20C41.6404 20 41.7978 19.9342 41.9139 19.8169C42.03 19.6997 42.0952 19.5408 42.0952 19.375V17.4888C45.833 17.9025 50.7619 21.9525 50.7619 28.125C50.7619 32.9075 46.1921 38.75 40.8571 38.75H31.5714C27.5625 38.75 26 37.1725 26 33.125V15.9788L31.049 21.0662C31.106 21.126 31.1742 21.1737 31.2497 21.2066C31.3252 21.2394 31.4064 21.2568 31.4886 21.2576C31.5708 21.2585 31.6523 21.2428 31.7284 21.2115C31.8045 21.1801 31.8737 21.1338 31.9319 21.0752C31.9901 21.0166 32.0362 20.9469 32.0674 20.8702C32.0987 20.7934 32.1144 20.7111 32.1138 20.6281C32.1132 20.5452 32.0963 20.4631 32.064 20.3868C32.0316 20.3105 31.9846 20.2415 31.9255 20.1838L26.4024 14.6187C25.667 13.8787 25.0962 13.8787 24.362 14.6187L18.8389 20.1838C18.7261 20.3016 18.6637 20.4595 18.6651 20.6234C18.6665 20.7872 18.7316 20.944 18.8464 21.0599C18.9612 21.1758 19.1164 21.2415 19.2788 21.2429C19.4411 21.2443 19.5974 21.1813 19.7142 21.0675L24.7619 15.9788V33.125C24.7619 37.88 26.8617 40 31.5714 40H40.8571C46.8582 40 52 33.47 52 28.125C52 21.6663 46.7715 16.615 42.0432 16.235Z" fill="#006634"/>
-                                    </svg>
+                                </svg>
                                 <div class="flex flex-col px-7 items-center text-[13px] md:text-base text-gray-600">
                                     <label for="file-upload" class="mr-2 md:mr-0 mt-2 md:mt-0 relative cursor-pointer bg-[#E1ECE7] rounded-md font-medium text-green-600 hover:text-green-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-green-500 flex-shrink-0">
                                         <span>Pilih Berkas</span>
-                                        <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                                        <input id="file-upload" name="file" type="file" class="sr-only" accept=".pdf,.doc,.docx,.png,.jpg">
                                     </label>
                                     <p class="text-[10px] md:text-[12px] lg:text-base whitespace-nowrap">atau seret dan letakkan di sini</p>
                                     <p class="text-[10px] md:text-[12px] lg:text-base text-gray-500">PDF, DOC, PNG, JPG hingga 10MB</p>
+                                </div>
+                                <div id="file-selected" class="hidden mt-2 text-green-600">
+                                    File telah diseret dan ditempatkan. Siap untuk diunggah.
                                 </div>
                             </div>
                         </div>
@@ -333,5 +338,59 @@
             </div>
         </main>
     </div>
+
+    <!-- Pop-up sukses -->
+    @if(session('success'))
+    <div x-data="{ showPopup: true }" x-show="showPopup" class="fixed top-0 right-0 mt-5 mr-5 p-4 bg-green-100 border border-green-400 text-green-700 rounded z-50">
+        Format laporan berhasil ditambahkan!
+        <button @click="showPopup = false" class="ml-2 text-green-600">×</button>
+    </div>
+    @endif
+
+
+    <script>
+        // Script untuk menampilkan popup saat pengguna berhasil ditambahkan
+        document.addEventListener('DOMContentLoaded', function () {
+            @if(session('success'))
+                document.querySelector('.alert-success').style.display = 'block';
+                setTimeout(function () {
+                    document.querySelector('.alert-success').classList.add('alert-hidden');
+                }, 3000);
+            @endif
+        });
+
+        // Script untuk menangani dropzone
+        const fileDropzone = document.getElementById('file-dropzone');
+        const fileInput = document.getElementById('file-upload');
+        const fileSelectedMessage = document.getElementById('file-selected');
+
+        fileDropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileDropzone.classList.add('border-green-500');
+        });
+
+        fileDropzone.addEventListener('dragleave', () => {
+            fileDropzone.classList.remove('border-green-500');
+        });
+
+        fileDropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileDropzone.classList.remove('border-green-500');
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                fileSelectedMessage.classList.remove('hidden');
+            }
+        });
+
+        fileDropzone.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length) {
+                fileSelectedMessage.classList.remove('hidden');
+            }
+        });
+    </script>
 </body>
 </html>
