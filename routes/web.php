@@ -190,4 +190,12 @@ use App\Http\Controllers\ReportFormatController;
 // });
 
 Route::resource('users', UserController::class);
+Route::resource('reports', ReportController::class);
 Route::resource('report_formats', ReportFormatController::class);
+
+
+Route::get('formatLaporan', [ReportFormatController::class, 'index'])->name('formatLaporan.index');
+Route::get('formatLaporan/{reportFormat}/download', [ReportFormatController::class, 'download'])->name('formatLaporan.download');
+Route::delete('formatLaporan/destroy-all', [ReportFormatController::class, 'destroyAll'])->name('formatLaporan.destroyAll');
+
+

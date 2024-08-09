@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -293,15 +293,37 @@
                             <img src="{{ asset('images/docs.png') }}" alt="" class="w-10 md:w-12 h-10 md:h-12">
                             <div class="flex flex-col mx-4">
                                 <h2 class="text-[12px] md:text-[14px] lg:text-[17px] font-bold">Format Laporan Lama</h2>
-                                <p class="text-sm text-gray-600 italic">Format Laporan Harus .docx</p>
+                                <p class="text-sm text-gray-600 italic">Nama Format Laporan</p>
                             </div>
                         </div>
-                        <button class="bg-[#22805E] text-white text-[12px] md:text-[14px] lg:text-[17px] font-semibold mt-4 sm:mt-0 mr-0 sm:mr-2 px-2 md:px-2 lg:px-2 xl:px-10 py-1 rounded-[5px] hover:bg-[#1A5D45] flex flex-row">
-                            <span>Unduh</span>                       
-                        </button>
-                    </div>
+                        <div class="flex items-center justify-between">
+                            <!-- Tombol unduh dan hapus tetap muncul meskipun tidak ada data -->
+                            <div class="flex">
+                                @if ($formats->isEmpty())
+                                    <!-- Tampilkan pesan bahwa tidak ada format laporan yang tersedia -->
+                                    <p class="text-gray-600 italic">Tidak ada format laporan yang tersedia.</p>
+                                @else
+                                    @foreach ($formats as $reportFormat)
+                                    <!-- Tombol unduh -->
+                                    <a href="{{ route('formatLaporan.download', $reportFormat->id) }}" class="bg-[#22805E] text-white text-[12px] md:text-[14px] lg:text-[17px] font-semibold mt-4 sm:mt-0 mr-0 sm:mr-2 px-2 md:px-2 lg:px-2 xl:px-10 py-1 rounded-[5px] hover:bg-[#1A5D45] flex flex-row">
+                                        <span>Unduh</span>
+                                    </a>
+                                    @endforeach
+
+                                    <!-- Tombol hapus semua -->
+                                    <form action="{{ route('formatLaporan.destroyAll') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus semua format laporan?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="bg-[#FD3259] text-white text-[12px] md:text-[14px] lg:text-[17px] font-semibold mt-4 sm:mt-0 mr-0 sm:mr-2 px-2 md:px-2 lg:px-2 xl:px-10 py-1 rounded-[5px] hover:bg-[#BF2643] flex flex-row">
+                                            <span>Hapus</span>
+                                        </button>
+                                    </form>
+                                @endif
+                            </div>
+                        </div>
+                    </div>                    
                 </div>                
-            </div>
+            </div>                    
             
             <div class="flex-col bg-white p-2 sm:p-6 lg:p-7 rounded-[5px] shadow-2xl my-auto mx-auto w-10/12 md:w-8/12 lg:w-7/12 h-fit md:h-auto sm:h-3/4 mt-4 md:mt-5 lg:mt-10 ml-8 md:ml-auto mr-5 md:mr-auto">
                 <div class="flex flex-row justify-between items-center mb-6 border-b-2 pb-4">
@@ -339,14 +361,20 @@
         </main>
     </div>
 
-    <!-- Pop-up sukses -->
+    <!-- Pop-up sukses Format Laporan Berhasil ditambahkan -->
     @if(session('success'))
     <div x-data="{ showPopup: true }" x-show="showPopup" class="fixed top-0 right-0 mt-5 mr-5 p-4 bg-green-100 border border-green-400 text-green-700 rounded z-50">
-        Format laporan berhasil ditambahkan!
+        {{ session('success') }}
         <button @click="showPopup = false" class="ml-2 text-green-600">×</button>
     </div>
     @endif
 
+    @if(session('error'))
+    <div x-data="{ showPopup: true }" x-show="showPopup" class="fixed top-0 right-0 mt-5 mr-5 p-4 bg-red-100 border border-red-400 text-red-700 rounded z-50">
+        {{ session('error') }}
+        <button @click="showPopup = false" class="ml-2 text-red-600">×</button>
+    </div>
+    @endif
 
     <script>
         // Script untuk menampilkan popup saat pengguna berhasil ditambahkan
