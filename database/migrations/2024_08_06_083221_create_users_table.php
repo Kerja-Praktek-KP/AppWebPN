@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nip')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('role', ['super_admin', 'pemberi_laporan', 'pengawas', 'koordinator_pengawas', 'pimpinan']);
+            $table->enum('role', ['Super Admin', 'Pemberi Laporan', 'Pengawas', 'Koordinator Pengawas', 'Pimpinan']);
             $table->enum('bidang', ['Panmud Perdata', 'Panmud Pidana', 'Panmud Tipikor', 'Panmud PHI', 'Panmud Hukum', 'Sub Bag. Perencanaan, TI, dan Pelaporan', 'Sub Bag. Kepegawaian dan Ortala', 'Sub Bag. Umum dan Keuangan']);
             $table->string('profile_picture')->nullable();
             $table->timestamps();

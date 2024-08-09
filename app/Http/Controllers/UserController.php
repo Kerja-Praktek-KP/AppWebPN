@@ -29,10 +29,10 @@ class UserController extends Controller
             'nip' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
-            'role' => 'required|in:super_admin,pemberi_laporan,pengawas,koordinator_pengawas,pimpinan',
+            'role' => 'required|in:Super Admin,Pemberi Laporan,Pengawas,Koordinator Pengawas,Pimpinan',
             'bidang' => [
                 Rule::requiredIf(function () use ($request) {
-                    return !in_array($request->role, ['koordinator_pengawas', 'pimpinan']);
+                    return !in_array($request->role, ['Koordinator Pengawas', 'Pimpinan']);
                 }),
                 Rule::in([
                     'Panmud Perdata',
@@ -80,10 +80,10 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8',
-            'role' => 'required|in:super_admin,pemberi_laporan,pengawas,koordinator_pengawas,pimpinan',
+            'role' => 'required|in:Super Admin,Pemberi Laporan,Pengawas,Koordinator Pengawas,Pimpinan',
             'bidang' => [
                 Rule::requiredIf(function () use ($request) {
-                    return !in_array($request->role, ['koordinator_pengawas', 'pimpinan']);
+                    return !in_array($request->role, ['Koordinator Pengawas', 'Pimpinan']);
                 }),
                 Rule::in([
                     'Panmud Perdata',
@@ -137,13 +137,13 @@ class UserController extends Controller
             Auth::login($user);
 
             switch ($user->role) {
-                case 'pemberi_laporan':
+                case 'Pemberi Laporan':
                     return redirect()->intended('/berandaPemberiLaporan');
-                case 'pengawas':
+                case 'Pengawas':
                     return redirect()->intended('/berandaPengawas');
-                case 'koordinator_pengawas':
+                case 'Koordinator Pengawas':
                     return redirect()->intended('/berandaKoordinatorPengawas');
-                case 'pimpinan':
+                case 'Pimpinan':
                     return redirect()->intended('/berandaPimpinan');
                 default:
                     return redirect()->intended('/');

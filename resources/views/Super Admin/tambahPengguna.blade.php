@@ -210,10 +210,10 @@
                         <label class="block text-sm md:text-base lg:text-[20px] font-medium w-1/4 ">Jabatan</label>
                         <select id="role" name="role" class="text-[13px] md:text-[16px] lg:text-[20px] pl-2 w-3/4 rounded-[5px] border border-black" required>
                             <option value="" disabled selected hidden>Pilih Jabatan</option>
-                            <option value="pemberi_laporan">Pemberi Laporan</option>
-                            <option value="pengawas">Pengawas</option>
-                            <option value="koordinator_pengawas">Koordinator Pengawas</option>
-                            <option value="pimpinan">Pimpinan</option>
+                            <option value="Pemberi Laporan">Pemberi Laporan</option>
+                            <option value="Pengawas">Pengawas</option>
+                            <option value="Koordinator Pengawas">Koordinator Pengawas</option>
+                            <option value="Pimpinan">Pimpinan</option>
                         </select>
                     </div>
                     <div id="bidang-container" class="mb-2 md:mb-8 flex items-center">
