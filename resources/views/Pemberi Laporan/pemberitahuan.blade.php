@@ -220,7 +220,7 @@
 
         <main :class="sidebarOpen ? 'w-11/12' : 'w-full'" class="flex-1 overflow-y-auto pb-12 transition-all duration-300">
             <div class="grid grid-cols-1 gap-5 p-2 sm:p-8">
-              <div class="bg-white p-3 rounded-[5px] drop-shadow-2xl">
+              <div class="bg-white p-3 rounded-[5px] drop-shadow-sm">
                 <div class="flex items-center justify-between mx-0 sm:mx-2">
                   <div class="flex items-center justify-center">
                     <img src="{{ asset('images/docs.png') }}" alt="Logo" class="h-6 sm:h-10 w-6 sm:w-10 mr-2">

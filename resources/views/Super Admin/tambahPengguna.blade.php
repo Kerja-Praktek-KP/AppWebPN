@@ -240,7 +240,7 @@
                         var bidangContainer = document.getElementById('bidang-container');
                         var selectedRole = this.value;
 
-                        if (selectedRole === 'koordinator_pengawas' || selectedRole === 'pimpinan') {
+                        if (selectedRole === 'Koordinator Pengawas' || selectedRole === 'Pimpinan') {
                             bidangContainer.style.display = 'none';
                             document.getElementById('bidang').removeAttribute('required');
                         } else {
