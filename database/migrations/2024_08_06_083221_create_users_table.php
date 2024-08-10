@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
@@ -18,7 +15,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('role', ['Super Admin', 'Pemberi Laporan', 'Pengawas', 'Koordinator Pengawas', 'Pimpinan']);
-            $table->enum('bidang', ['Panmud Perdata', 'Panmud Pidana', 'Panmud Tipikor', 'Panmud PHI', 'Panmud Hukum', 'Sub Bag. Perencanaan, TI, dan Pelaporan', 'Sub Bag. Kepegawaian dan Ortala', 'Sub Bag. Umum dan Keuangan']);
+            $table->enum('bidang', ['Panmud Perdata', 'Panmud Pidana', 'Panmud Tipikor', 'Panmud PHI', 'Panmud Hukum', 'Sub Bag. Perencanaan, TI, dan Pelaporan', 'Sub Bag. Kepegawaian dan Ortala', 'Sub Bag. Umum dan Keuangan'])->nullable();
             $table->string('profile_picture')->nullable();
             $table->timestamps();
         });

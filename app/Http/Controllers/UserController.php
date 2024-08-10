@@ -31,6 +31,7 @@ class UserController extends Controller
             'password' => 'required|string|min:8',
             'role' => 'required|in:Super Admin,Pemberi Laporan,Pengawas,Koordinator Pengawas,Pimpinan',
             'bidang' => [
+                'nullable', // Set bidang to nullable
                 Rule::requiredIf(function () use ($request) {
                     return !in_array($request->role, ['Koordinator Pengawas', 'Pimpinan']);
                 }),
@@ -57,11 +58,8 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
+            'bidang' => $request->bidang, // Set bidang value directly
         ];
-
-        if ($request->has('bidang')) {
-            $userData['bidang'] = $request->bidang;
-        }
 
         User::create($userData);
 
