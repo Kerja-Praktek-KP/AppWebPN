@@ -13,7 +13,11 @@ class TL_PL_Panmud_Pidana extends Model
         'nama_laporan',
         'jenis',
         'file_path',
-        'user_id'
+        'user_id',
+        'nama',
+        'nip',
+        'bidang',
+        'role',
     ];
 
     // Relasi ke user

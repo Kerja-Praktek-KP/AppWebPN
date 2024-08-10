@@ -389,7 +389,7 @@
                 setTimeout(function () {
                     document.querySelector('.popup-success').classList.add('hidden');
                 }, 5000); // 3000 milidetik = 3 detik
-    }
+        }
         });
 
         // Script untuk menangani dropzone

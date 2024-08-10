@@ -351,8 +351,6 @@
                     <select id="jenis-laporan" name="jenis" class="text-[14px] md:text-md custom-caret pl-3 mt-o md:mt-1 block w-full border-gray-300 rounded-md shadow-md h-10 focus:outline-[#D3E6DF]" onchange="toggleOptions()">
                         <option value="mingguan">Laporan Mingguan</option>
                         <option value="bulanan">Laporan Bulanan</option>
-                        <option value="tlhp-mingguan">TLHP Mingguan</option>
-                        <option value="tlhp-bulanan">TLHP Bulanan</option>
                     </select>
                 </div>
                 <div class="form-group">

@@ -13,7 +13,11 @@ class TL_PL_Sub_Bag_Kepegawaian_dan_Ortala extends Model
         'nama_laporan',
         'jenis',
         'file_path',
-        'user_id'
+        'user_id',
+        'nama',   // Tambahkan kolom 'nama'
+        'nip',    // Tambahkan kolom 'nip'
+        'bidang', // Tambahkan kolom 'bidang'
+        'role'    // Tambahkan kolom 'role'
     ];
 
     // Relasi ke user

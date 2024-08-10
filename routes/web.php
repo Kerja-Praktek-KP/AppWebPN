@@ -183,9 +183,16 @@ Route::get('formatLaporan/{reportFormat}/download', [ReportFormatController::cla
 Route::delete('formatLaporan/destroy-all', [ReportFormatController::class, 'destroyAll'])->name('formatLaporan.destroyAll');
 
 
+
 Route::get('/profilPemberiLaporan', [UserController::class, 'showProfile'])->name('users.profile');
 Route::get('/profilPengawas', [UserController::class, 'showProfile'])->name('users.profile');
 Route::get('/profilKoordinatorPengawas', [UserController::class, 'showProfile'])->name('users.profile');
 Route::get('/profilPimpinan', [UserController::class, 'showProfile'])->name('users.profile');
 Route::put('/users/{user}', [UserController::class, 'updateProfil'])->name('users.updateProfil');
 Route::post('/users/uploadProfilePicture', [UserController::class, 'uploadProfilePicture'])->name('users.uploadProfilePicture');
+
+// Rute Unggah Laporan Pemberi Laporan
+use App\Http\Controllers\UnggahLaporanPLController;
+Route::get('/unggahLaporan', [UnggahLaporanPLController::class, 'create']);
+Route::post('/unggahLaporan', [UnggahLaporanPLController::class, 'store'])->name('unggahLaporanPL');
+
