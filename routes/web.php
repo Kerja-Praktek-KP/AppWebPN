@@ -52,10 +52,6 @@ Route::get('/anggotaPimpinan', function () {
     return view('Pimpinan.anggota');
 });
 
-Route::get('/profilPimpinan', function () {
-    return view('Pimpinan.profil');
-});
-
 Route::get('/unggahLaporanPimpinan', function () {
     return view('Pimpinan.unggahLaporan');
 });
@@ -81,10 +77,6 @@ Route::get('/riwayatTLHPPemberiLaporan', function () {
 Route::get('/pemberitahuan', function () {
     return view('Pemberi Laporan.pemberitahuan');
 });
-
-Route::get('/profilPemberiLaporan', function () {
-    return view('Pemberi Laporan.profil');
-}); 
 
 Route::get('/unggahLaporan', function () {
     return view('Pemberi Laporan.unggahLaporan');
@@ -116,10 +108,6 @@ Route::get('/penilaianDetailPemberiLaporan_KoordinatorPengawas', function () {
     return view('Koordinator Pengawas.penilaianDetailPemberiLaporan');
 });
 
-Route::get('/profilKoordinatorPengawas', function () {
-    return view('Koordinator Pengawas.profil');
-});
-
 Route::get('/riwayatLaporanKoordinatorPengawas', function () {
     return view('Koordinator Pengawas.riwayatLaporan');
 });
@@ -135,10 +123,6 @@ Route::get('/penilaianDetailPemberiLaporan_Pengawas', function () {
 
 Route::get('/riwayatLaporanPengawas', function () {
     return view('Pengawas.riwayatLaporan');
-});
-
-Route::get('/profilPengawas', function () {
-    return view('Pengawas.profil');
 });
 
 Route::get('/unggahLaporanPengawas', function () {
@@ -199,3 +183,9 @@ Route::get('formatLaporan/{reportFormat}/download', [ReportFormatController::cla
 Route::delete('formatLaporan/destroy-all', [ReportFormatController::class, 'destroyAll'])->name('formatLaporan.destroyAll');
 
 
+Route::get('/profilPemberiLaporan', [UserController::class, 'showProfile'])->name('users.profile');
+Route::get('/profilPengawas', [UserController::class, 'showProfile'])->name('users.profile');
+Route::get('/profilKoordinatorPengawas', [UserController::class, 'showProfile'])->name('users.profile');
+Route::get('/profilPimpinan', [UserController::class, 'showProfile'])->name('users.profile');
+Route::put('/users/{user}', [UserController::class, 'updateProfil'])->name('users.updateProfil');
+Route::post('/users/uploadProfilePicture', [UserController::class, 'uploadProfilePicture'])->name('users.uploadProfilePicture');

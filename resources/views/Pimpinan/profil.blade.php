@@ -64,7 +64,7 @@
         </div>
         <div class="flex items-center">
             <div class="mx-2 sm:mx-4 flex items-center">
-                <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-10 w-10 rounded-full">
+                <img id="profilePic" src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('images/profile.png') }}" alt="Profile Picture" class="h-10 w-10 rounded-full">
                 <div class="-ml-0 sm:ml-4">
                     <p class="text-[15px] font-semibold text-black sr-only sm:not-sr-only">{{ Auth::user()->name }}</p>
                     <p class="md:text-[15px] text-[#686767] sr-only sm:not-sr-only">Pimpinan</p>
@@ -184,107 +184,118 @@
                     <!-- Profile Info -->
                     <div class="w-full lg:w-4/6 p-4 mr-4 rounded-xl bg-white">
                         <div class="w-48 h-52 mx-auto">
-                            <img :src="editUser.photo || '{{ asset('images/profile.png') }}'" alt="Profile Picture" class="w-full h-full object-cover rounded-md">
-                        </div>                        
+                            <img id="profilePic" src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('images/profile.png') }}" alt="Profile Picture" class="w-full h-full object-cover rounded-md">
+                        </div>
                         <div class="flex flex-col md:flex-row">
                             <div class="mt-2 mr-8 w-full md:w-3/5">
                                 <div class="flex flex-col items-start mb-4">
-                                    <span class="font-normal text-black mb-2 ">Nama:</span>
-                                    <template x-if="!isEditing">
-                                        <input x-model="user.nama" class="w-full font-normal text-black bg-[#E9F3EF] rounded p-2" disabled />
-                                    </template>
+                                    <span class="font-normal text-black mb-2">Nama:</span>
+                                    <input value="{{ $user->name }}" class="w-full font-normal text-black bg-[#E9F3EF] rounded p-2" disabled />
                                 </div>
                                 
                                 <div class="flex flex-col items-start mb-4">
                                     <span class="font-normal text-black mb-2">Email:</span>
-                                    <template x-if="!isEditing">
-                                        <input x-model="user.email" class="w-full font-normal text-black  bg-[#E9F3EF] rounded p-2" disabled />
-                                    </template>
+                                    <input value="{{ $user->email }}" class="w-full font-normal text-black  bg-[#E9F3EF] rounded p-2" disabled />
                                 </div>
                                 <div class="flex flex-col items-start mb-4">
                                     <span class="font-normal text-black mb-2">Kata Sandi:</span>
-                                    <template x-if="!isEditing">
-                                        <input type="password" x-model="user.password" class="w-full font-normal text-black  bg-[#E9F3EF] rounded p-2" disabled />
-                                    </template>
+                                    <input type="password" value="******" class="w-full font-normal text-black  bg-[#E9F3EF] rounded p-2" disabled />
                                 </div>
                             </div>
                             <div class="mt-2 w-full">
                                 <div class="flex flex-col items-start mb-4">
                                     <span class="font-normal text-black mb-2">NIP:</span>
-                                    <template x-if="!isEditing">
-                                        <input x-model="user.nip" class="w-full font-normal text-black  bg-[#E9F3EF] rounded p-2" disabled />
-                                    </template>
+                                    <input value="{{ $user->nip }}" class="w-full font-normal text-black  bg-[#E9F3EF] rounded p-2" disabled />
                                 </div>
                                 <div class="flex flex-col items-start mb-4">
                                     <span class="font-normal text-black mb-2">Jabatan:</span>
-                                    <template x-if="!isEditing">
-                                        <input x-model="user.jabatan" class="w-full font-normal text-black  bg-[#E9F3EF] rounded p-2" disabled />
-                                    </template>
+                                    <input value="{{ $user->role }}" class="w-full font-normal text-black  bg-[#E9F3EF] rounded p-2" disabled />
                                 </div>
                                 <div class="flex flex-col items-start mb-4">
                                     <span class="font-normal text-black mb-2">Bidang:</span>
-                                    <template x-if="!isEditing">
-                                        <input  x-model="user.bidang" class="w-full font-normal text-black  bg-[#E9F3EF] rounded p-2" disabled />
-                                    </template>
+                                    <input value="{{ $user->bidang ?? '-'  }}" class="w-full font-normal text-black  bg-[#E9F3EF] rounded p-2" disabled />
                                 </div>
                             </div>
                         </div>
                     </div>
-            
+                
                     <!-- Edit Profile Info -->
                     <div class="w-full lg:w-4/12 p-4 bg-white rounded-xl mt-5 lg:mt-0">
                         <h2 class="text-xl text-center font-medium mb-4 border-b border-gray-500 pb-2 pt-4">Ubah Informasi Profil</h2>
-                        <div class="mb-4 mt-12">
-                            <label for="editNama" class="block font-normal text-black mb-2">Nama</label>
-                            <input id="editNama" x-model="editUser.nama" :placeholder="user.nama" class="w-full font-normal text-black border focus:outline-[#D3E6DF] rounded p-2" />
-                        </div>
+                        <form action="{{ route('users.updateProfil', $user->id) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
                         
-                        <div class="mb-4">
-                            <label for="editEmail" class="block font-normal text-black mb-2">Email</label>
-                            <input id="editEmail" x-model="editUser.email" :placeholder="user.email" class="w-full font-normal text-black border focus:outline-[#D3E6DF] rounded p-2" />
-                        </div>
-                        <div class="mb-4">
-                            <label for="editPassword" class="block font-normal text-black mb-2">Kata Sandi</label>
-                            <input type="password" id="editPassword" x-model="editUser.password" :placeholder="user.password" class="w-full font-normal text-black border focus:outline-[#D3E6DF] rounded p-2" />
-                        </div>
-                        <div class="flex justify-between mt-40 ">
-                            <button @click="$refs.fileInput.click()" class="flex items-center justify-center bg-[#22805E] text-white text-[13px] md:text-[14px] lg:text-[13px] font-semibold h-11 w-28 md:w-36 lg:w-28 rounded-lg shadow-md">
-                                <svg class="mr-2" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0_933_7015)">
-                                    <path d="M19.6663 15.8333C19.6663 16.2754 19.4907 16.6993 19.1782 17.0118C18.8656 17.3244 18.4417 17.5 17.9997 17.5H2.99967C2.55765 17.5 2.13372 17.3244 1.82116 17.0118C1.5086 16.6993 1.33301 16.2754 1.33301 15.8333V6.66667C1.33301 6.22464 1.5086 5.80072 1.82116 5.48816C2.13372 5.17559 2.55765 5 2.99967 5H6.33301L7.99967 2.5H12.9997L14.6663 5H17.9997C18.4417 5 18.8656 5.17559 19.1782 5.48816C19.4907 5.80072 19.6663 6.22464 19.6663 6.66667V15.8333Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M10.5003 14.1667C12.3413 14.1667 13.8337 12.6743 13.8337 10.8333C13.8337 8.99238 12.3413 7.5 10.5003 7.5C8.65938 7.5 7.16699 8.99238 7.16699 10.8333C7.16699 12.6743 8.65938 14.1667 10.5003 14.1667Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </g>
-                                    <defs>
-                                    <clipPath id="clip0_933_7015">
-                                    <rect width="20" height="20" fill="white" transform="translate(0.5)"/>
-                                    </clipPath>
-                                    </defs>
-                                </svg>    
-                                Ganti Foto
-                            </button>
-                            <button @click="isEditing = false; user = { ...editUser }" class="flex items-center justify-center bg-[#22805E] text-white text-[13px] md:text-[14px] lg:text-[13px] font-semibold h-11 w-28 md:w-36 lg:w-28 rounded-lg shadow-md">
-                                <svg class="mr-2" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9.66699 3.8335H3.83366C3.39163 3.8335 2.96771 4.00909 2.65515 4.32165C2.34259 4.63421 2.16699 5.05814 2.16699 5.50016V17.1668C2.16699 17.6089 2.34259 18.0328 2.65515 18.3453C2.96771 18.6579 3.39163 18.8335 3.83366 18.8335H15.5003C15.9424 18.8335 16.3663 18.6579 16.6788 18.3453C16.9914 18.0328 17.167 17.6089 17.167 17.1668V11.3335" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M15.917 2.5832C16.2485 2.25168 16.6982 2.06543 17.167 2.06543C17.6358 2.06543 18.0855 2.25168 18.417 2.5832C18.7485 2.91472 18.9348 3.36436 18.9348 3.8332C18.9348 4.30204 18.7485 4.75168 18.417 5.0832L10.5003 12.9999L7.16699 13.8332L8.00033 10.4999L15.917 2.5832Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                Perbarui
-                            </button>
-                        </div>
-                        <input type="file" x-ref="fileInput" class="hidden" @change="previewImage">
+                            <div class="mb-4 mt-12">
+                                <label for="editNama" class="block font-normal text-black mb-2">Nama</label>
+                                <input id="editNama" name="name" value="{{ $user->name }}" class="w-full font-normal text-black border focus:outline-[#D3E6DF] rounded p-2" />
+                            </div>
+                        
+                            <div class="mb-4">
+                                <label for="editEmail" class="block font-normal text-black mb-2">Email</label>
+                                <input id="editEmail" name="email" value="{{ $user->email }}" class="w-full font-normal text-black border focus:outline-[#D3E6DF] rounded p-2" />
+                            </div>
+                        
+                            <div class="mb-4">
+                                <label for="editPassword" class="block font-normal text-black mb-2">Kata Sandi</label>
+                                <input type="password" id="editPassword" name="password" placeholder="Masukkan kata sandi baru" class="w-full font-normal text-black border focus:outline-[#D3E6DF] rounded p-2" />
+                            </div>
+                        
+                            <div class="flex justify-between mt-40">
+                                <button type="button" class="flex items-center justify-center bg-[#22805E] text-white text-[13px] md:text-[14px] lg:text-[13px] font-semibold h-11 w-28 md:w-36 lg:w-28 rounded-lg shadow-md" onclick="document.getElementById('profile_picture').click()">
+                                    <svg class="mr-2" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_933_7015)">
+                                        <path d="M19.6663 15.8333C19.6663 16.2754 19.4907 16.6993 19.1782 17.0118C18.8656 17.3244 18.4417 17.5 17.9997 17.5H2.99967C2.55765 17.5 2.13372 17.3244 1.82116 17.0118C1.5086 16.6993 1.33301 16.2754 1.33301 15.8333V6.66667C1.33301 6.22464 1.5086 5.80072 1.82116 5.48816C2.13372 5.17559 2.55765 5 2.99967 5H6.33301L7.99967 2.5H12.9997L14.6663 5H17.9997C18.4417 5 18.8656 5.17559 19.1782 5.48816C19.4907 5.80072 19.6663 6.22464 19.6663 6.66667V15.8333Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M10.5003 14.1667C12.3413 14.1667 13.8337 12.6743 13.8337 10.8333C13.8337 8.99238 12.3413 7.5 10.5003 7.5C8.65938 7.5 7.16699 8.99238 7.16699 10.8333C7.16699 12.6743 8.65938 14.1667 10.5003 14.1667Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </g>
+                                        <defs>
+                                        <clipPath id="clip0_933_7015">
+                                        <rect width="20" height="20" fill="white" transform="translate(0.5)"/>
+                                        </clipPath>
+                                        </defs>
+                                    </svg>
+                                    Ganti Foto
+                                </button>
+                                <button type="submit" class="flex items-center justify-center bg-[#22805E] text-white text-[13px] md:text-[14px] lg:text-[13px] font-semibold h-11 w-28 md:w-36 lg:w-28 rounded-lg shadow-md">
+                                    <svg class="mr-2" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.66699 3.8335H3.83366C3.39163 3.8335 2.96771 4.00909 2.65515 4.32165C2.34259 4.63421 2.16699 5.05814 2.16699 5.50016V17.1668C2.16699 17.6089 2.34259 18.0328 2.65515 18.3453C2.96771 18.6579 3.39163 18.8335 3.83366 18.8335H15.5003C15.9424 18.8335 16.3663 18.6579 16.6788 18.3453C16.9914 18.0328 17.167 17.6089 17.167 17.1668V11.3335" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M15.917 2.5832C16.2485 2.25168 16.6982 2.06543 17.167 2.06543C17.6358 2.06543 18.0855 2.25168 18.417 2.5832C18.7485 2.91472 18.9348 3.36436 18.9348 3.8332C18.9348 4.30204 18.7485 4.75168 18.417 5.0832L10.5003 12.9999L7.16699 13.8332L8.00033 10.4999L15.917 2.5832Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    Perbarui
+                                </button>
+                            </div>
+                            <input type="file" id="profile_picture" name="profile_picture" class="hidden">
+                        </form>
                     </div>
                 </div>
-            </div> 
+            </div>            
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $('#profile_picture').on('change', function() {
+                    var formData = new FormData();
+                    formData.append('profile_picture', this.files[0]);
+                    formData.append('_token', '{{ csrf_token() }}');
+            
+                    $.ajax({
+                        url: "{{ route('users.uploadProfilePicture') }}",
+                        method: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            if (response.success) {
+                                // Update profile picture src
+                                $('#profilePic').attr('src', response.new_image_url);
+                            }
+                        },
+                        error: function(response) {
+                            alert('Gagal mengunggah gambar.');
+                        }
+                    });
+                });
+            </script>
         </div>           
     </div>
-    <script>
-        function previewImage(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-            reader.onload = (e) => { 
-                this.editUser.photo = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    </script>
+
 </body>
 </html>
