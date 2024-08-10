@@ -242,7 +242,7 @@
                     <li class="flex justify-center p-2 mx-6">
                         <a href="formatLaporan" class="bg-[#22805E] px-5 py-3" x-show="!sidebarOpen" title="Format Laporan">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M14 2V8H20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -292,8 +292,10 @@
                         <div class="flex">
                             <img src="{{ asset('images/docs.png') }}" alt="" class="w-10 md:w-12 h-10 md:h-12">
                             <div class="flex flex-col mx-4">
-                                <h2 class="text-[12px] md:text-[14px] lg:text-[17px] font-bold">Format Laporan Lama</h2>
-                                <p class="text-sm text-gray-600 italic">Nama Format Laporan</p>
+                                <h2 class="text-[12px] md:text-[14px] lg:text-[17px] font-bold">Format Laporan</h2>
+                                @foreach ($formats as $reportFormat)
+                                <p class="text-sm text-gray-600 italic">{{ $reportFormat->original_name }}</p>
+                                @endforeach
                             </div>
                         </div>
                         <div class="flex items-center justify-between">
@@ -303,12 +305,13 @@
                                     <!-- Tampilkan pesan bahwa tidak ada format laporan yang tersedia -->
                                     <p class="text-gray-600 italic">Tidak ada format laporan yang tersedia.</p>
                                 @else
-                                    @foreach ($formats as $reportFormat)
+                                    @php
+                                        $reportFormat = $formats->first();
+                                    @endphp
                                     <!-- Tombol unduh -->
                                     <a href="{{ route('formatLaporan.download', $reportFormat->id) }}" class="bg-[#22805E] text-white text-[12px] md:text-[14px] lg:text-[17px] font-semibold mt-4 sm:mt-0 mr-0 sm:mr-2 px-2 md:px-2 lg:px-2 xl:px-10 py-1 rounded-[5px] hover:bg-[#1A5D45] flex flex-row">
                                         <span>Unduh</span>
                                     </a>
-                                    @endforeach
 
                                     <!-- Tombol hapus semua -->
                                     <form action="{{ route('formatLaporan.destroyAll') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus semua format laporan?');">
@@ -321,7 +324,7 @@
                                 @endif
                             </div>
                         </div>
-                    </div>                    
+                    </div>                      
                 </div>                
             </div>                    
             
@@ -340,10 +343,10 @@
                                 <div class="flex flex-col px-7 items-center text-[13px] md:text-base text-gray-600">
                                     <label for="file-upload" class="mr-2 md:mr-0 mt-2 md:mt-0 relative cursor-pointer bg-[#E1ECE7] rounded-md font-medium text-green-600 hover:text-green-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-green-500 flex-shrink-0">
                                         <span>Pilih Berkas</span>
-                                        <input id="file-upload" name="file" type="file" class="sr-only" accept=".pdf,.doc,.docx,.png,.jpg">
+                                        <input id="file-upload" name="file" type="file" class="sr-only" accept=".pdf,.doc,.docx">
                                     </label>
                                     <p class="text-[10px] md:text-[12px] lg:text-base whitespace-nowrap">atau seret dan letakkan di sini</p>
-                                    <p class="text-[10px] md:text-[12px] lg:text-base text-gray-500">PDF, DOC, PNG, JPG hingga 10MB</p>
+                                    <p class="text-[10px] md:text-[12px] lg:text-base text-gray-500">PDF, DOC, DOCX hingga 10MB</p>
                                 </div>
                                 <div id="file-selected" class="hidden mt-2 text-green-600">
                                     File telah diseret dan ditempatkan. Siap untuk diunggah.
@@ -363,28 +366,30 @@
 
     <!-- Pop-up sukses Format Laporan Berhasil ditambahkan -->
     @if(session('success'))
-    <div x-data="{ showPopup: true }" x-show="showPopup" class="fixed top-0 right-0 mt-5 mr-5 p-4 bg-green-100 border border-green-400 text-green-700 rounded z-50">
+    <div x-data="{ showPopup: true }" x-show="showPopup" class="fixed top-0 right-0 mt-5 mr-5 p-4 bg-green-100 border border-green-400 text-green-700 rounded z-50 popup-success">
         {{ session('success') }}
-        <button @click="showPopup = false" class="ml-2 text-green-600">×</button>
+        <button @click="showPopup = false" class="ml-2 text-green-600"></button>
     </div>
     @endif
 
-    @if(session('error'))
-    <div x-data="{ showPopup: true }" x-show="showPopup" class="fixed top-0 right-0 mt-5 mr-5 p-4 bg-red-100 border border-red-400 text-red-700 rounded z-50">
-        {{ session('error') }}
+    @if($errors->any())
+    <div x-data="{ showPopup: true }" x-show="showPopup" class="fixed top-0 right-0 mt-5 mr-5 p-4 bg-red-100 border border-red-400 text-red-700 rounded z-50 flex">
+        @foreach($errors->all() as $error)
+            <p>{{ $error }}</p>
+        @endforeach
         <button @click="showPopup = false" class="ml-2 text-red-600">×</button>
     </div>
     @endif
 
+
     <script>
         // Script untuk menampilkan popup saat pengguna berhasil ditambahkan
         document.addEventListener('DOMContentLoaded', function () {
-            @if(session('success'))
-                document.querySelector('.alert-success').style.display = 'block';
+            if (document.querySelector('.popup-success')) {
                 setTimeout(function () {
-                    document.querySelector('.alert-success').classList.add('alert-hidden');
-                }, 3000);
-            @endif
+                    document.querySelector('.popup-success').classList.add('hidden');
+                }, 5000); // 3000 milidetik = 3 detik
+    }
         });
 
         // Script untuk menangani dropzone

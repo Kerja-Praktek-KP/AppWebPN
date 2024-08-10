@@ -27,8 +27,21 @@ class ReportFormatController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:pdf,doc,docx,png,jpg|max:10240',
+            'file' => 'required|mimes:pdf,doc,docx|max:10240',
+        ], [
+            'file.mimes' => 'Format file tidak didukung.',
+            'file.max' => 'Ukuran file terlalu besar.',
+            'file.required' => 'File yang diunggah tidak ada.',
         ]);
+        
+        // Hapus format laporan lama jika ada
+        $existingFormat = ReportFormat::first(); // Asumsikan hanya ada satu format laporan yang disimpan
+        if ($existingFormat) {
+            if (Storage::exists($existingFormat->file_path)) {
+                Storage::delete($existingFormat->file_path);
+            }
+            $existingFormat->delete();
+        }
 
        // Menyimpan nama asli file
         $originalName = $request->file('file')->getClientOriginalName();
