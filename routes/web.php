@@ -211,3 +211,8 @@ Route::post('/unggahLaporanKoordinatorPengawas', [UnggahLaporanKPController::cla
 use App\Http\Controllers\UnggahLaporanPimpinanController;
 Route::get('/unggahLaporanKoordinatorPimpinan', [UnggahLaporanPimpinanController::class, 'create']);
 Route::post('/unggahLaporanKoordinatorPimpinan', [UnggahLaporanPimpinanController::class, 'store'])->name('unggahLaporanPimpinan');
+
+// Rute Temuan Pengawas
+use App\Http\Controllers\TemuanController;
+Route::get('/penilaianDetailPemberiLaporan_Pengawas', [TemuanController::class, 'create']);
+Route::post('/penilaianDetailPemberiLaporan_Pengawas', [TemuanController::class, 'store'])->name('TemuanPW');

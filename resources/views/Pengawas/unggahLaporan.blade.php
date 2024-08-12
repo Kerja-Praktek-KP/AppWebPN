@@ -175,7 +175,7 @@
                     }
     </style>
 </head>
-<body class="bg-[#F2F3F9] overflow-hidden" x-data="{ sidebarOpen: true ,jenisLaporan: 'mingguan'}">
+<body class="bg-[#F2F3F9] overflow-hidden" x-data="{ sidebarOpen: true ,jenisLaporan: 'Laporan Mingguan'}">
     
     <!-- Header -->
     <header class="w-full flex justify-between bg-white items-center p-2 drop-shadow-md relative z-50">
@@ -371,7 +371,7 @@
                         <option>Desember</option>
                     </select>
                 </div>                
-                <div class="form-group"  x-show="jenisLaporan === 'mingguan' || jenisLaporan === 'tlhp-mingguan'">
+                <div class="form-group"  x-show="jenisLaporan === 'Laporan Mingguan'">
                     <label for="minggu" class="block text-[13px] md:text-lg font-medium text-gray-700">Minggu</label>
                     <select id="minggu" name="minggu" class="text-[13px] md:text-md custom-caret pl-3 mt-o md:mt-1 block w-full border-gray-300 rounded-md shadow-md h-10">
                         <option>Laporan Minggu 1</option>

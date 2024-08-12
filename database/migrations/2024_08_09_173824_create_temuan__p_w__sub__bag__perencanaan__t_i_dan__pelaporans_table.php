@@ -11,14 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('temuan__p_w__sub__bag__perencanaan__t_i_dan__pelaporans', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_temuan');
-            $table->enum('jenis', ['Temuan Mingguan', 'Temuan Bulanan']);
-            $table->string('file_path');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('temuan__p_w__sub__bag__perencanaan__t_i_dan__pelaporans')) {
+            Schema::create('temuan__p_w__sub__bag__perencanaan__t_i_dan__pelaporans', function (Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger('user_id'); // Menambahkan kolom user_id
+                $table->string('nama')->nullable(); // Menambahkan kolom nama
+                $table->string('nip')->nullable();  // Menambahkan kolom nip
+                $table->string('bidang')->nullable(); // Menambahkan kolom bidang
+                $table->string('role')->nullable(); // Menambahkan kolom role
+                $table->string('nama_temuan');
+                $table->string('file_path');
+                $table->timestamps();
+
+                
+            });
+        }
     }
+
 
     /**
      * Reverse the migrations.

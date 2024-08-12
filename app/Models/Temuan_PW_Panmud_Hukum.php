@@ -11,9 +11,12 @@ class Temuan_PW_Panmud_Hukum extends Model
 
     protected $fillable = [
         'nama_temuan',
-        'jenis',
         'file_path',
-        'user_id'
+        'user_id',
+        'nama',   // Tambahkan kolom 'nama'
+        'nip',    // Tambahkan kolom 'nip'
+        'bidang', // Tambahkan kolom 'bidang'
+        'role'    // Tambahkan kolom 'role'
     ];
 
     // Relasi ke user

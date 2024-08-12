@@ -11,9 +11,12 @@ class Temuan_PW_Sub_Bag_Umum_dan_Keuangan extends Model
 
     protected $fillable = [
         'nama_temuan',
-        'jenis',
         'file_path',
-        'user_id'
+        'user_id',
+        'nama',   // Tambahkan kolom 'nama'
+        'nip',    // Tambahkan kolom 'nip'
+        'bidang', // Tambahkan kolom 'bidang'
+        'role'    // Tambahkan kolom 'role'
     ];
 
     // Relasi ke user
