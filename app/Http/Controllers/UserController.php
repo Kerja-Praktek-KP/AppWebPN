@@ -144,6 +144,8 @@ class UserController extends Controller
                     return redirect()->intended('/berandaKoordinatorPengawas');
                 case 'Pimpinan':
                     return redirect()->intended('/berandaPimpinan');
+                case 'Super Admin':
+                    return redirect()->intended('/kelolaAkun');
                 default:
                     return redirect()->intended('/');
             }
