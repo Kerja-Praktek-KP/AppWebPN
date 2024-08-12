@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('role')->nullable(); // Menambahkan kolom role
             $table->string('nama_laporan');
             $table->enum('jenis', ['Laporan Mingguan', 'Laporan Bulanan', 'TLHP Mingguan', 'TLHP Bulanan']);
+            $table->string('bulan');
+            $table->string('minggu')->nullable();
             $table->string('file_path');
             $table->timestamps();
 

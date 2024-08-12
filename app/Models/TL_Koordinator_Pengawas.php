@@ -11,9 +11,12 @@ class TL_Koordinator_Pengawas extends Model
 
     protected $fillable = [
         'nama_laporan',
-        'tanggal_laporan',
+        'bulan',
         'file_path',
-        'user_id'
+        'user_id',
+        'nama',   // Tambahkan kolom 'nama'
+        'nip',    // Tambahkan kolom 'nip'
+        'role'    // Tambahkan kolom 'role'
     ];
 
     // Relasi ke user

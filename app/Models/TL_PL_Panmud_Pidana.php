@@ -12,12 +12,14 @@ class TL_PL_Panmud_Pidana extends Model
     protected $fillable = [
         'nama_laporan',
         'jenis',
+        'bulan',
+        'minggu',
         'file_path',
         'user_id',
-        'nama',
-        'nip',
-        'bidang',
-        'role',
+        'nama',   // Tambahkan kolom 'nama'
+        'nip',    // Tambahkan kolom 'nip'
+        'bidang', // Tambahkan kolom 'bidang'
+        'role'    // Tambahkan kolom 'role'
     ];
 
     // Relasi ke user

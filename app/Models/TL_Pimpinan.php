@@ -13,7 +13,10 @@ class TL_Pimpinan extends Model
         'nama_laporan',
         'jenis',
         'file_path',
-        'user_id'
+        'user_id',
+        'nama',   // Tambahkan kolom 'nama'
+        'nip',    // Tambahkan kolom 'nip'
+        'role'    // Tambahkan kolom 'role'
     ];
 
     // Relasi ke user

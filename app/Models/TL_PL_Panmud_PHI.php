@@ -12,6 +12,8 @@ class TL_PL_Panmud_PHI extends Model
     protected $fillable = [
         'nama_laporan',
         'jenis',
+        'bulan',
+        'minggu',
         'file_path',
         'user_id',
         'nama',   // Tambahkan kolom 'nama'

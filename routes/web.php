@@ -111,7 +111,8 @@ Route::get('/penilaianDetailPemberiLaporan_KoordinatorPengawas', function () {
 Route::get('/riwayatLaporanKoordinatorPengawas', function () {
     return view('Koordinator Pengawas.riwayatLaporan');
 });
-//rute pengawas
+
+// rute pengawas
 
 Route::get('/berandaPengawas', function () {
     return view('Pengawas.beranda');
@@ -196,3 +197,17 @@ use App\Http\Controllers\UnggahLaporanPLController;
 Route::get('/unggahLaporan', [UnggahLaporanPLController::class, 'create']);
 Route::post('/unggahLaporan', [UnggahLaporanPLController::class, 'store'])->name('unggahLaporanPL');
 
+// Rute Unggah Laporan Pengawas
+use App\Http\Controllers\UnggahLaporanPWController;
+Route::get('/unggahLaporanPengawas', [UnggahLaporanPWController::class, 'create']);
+Route::post('/unggahLaporanPengawas', [UnggahLaporanPWController::class, 'store'])->name('unggahLaporanPW');
+
+// Rute Unggah Laporan Koordinator Pengawas
+use App\Http\Controllers\UnggahLaporanKPController;
+Route::get('/unggahLaporanKoordinatorPengawas', [UnggahLaporanKPController::class, 'create']);
+Route::post('/unggahLaporanKoordinatorPengawas', [UnggahLaporanKPController::class, 'store'])->name('unggahLaporanKP');
+
+// Rute Unggah Laporan Pimpinan
+use App\Http\Controllers\UnggahLaporanPimpinanController;
+Route::get('/unggahLaporanKoordinatorPimpinan', [UnggahLaporanPimpinanController::class, 'create']);
+Route::post('/unggahLaporanKoordinatorPimpinan', [UnggahLaporanPimpinanController::class, 'store'])->name('unggahLaporanPimpinan');

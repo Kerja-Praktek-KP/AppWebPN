@@ -12,6 +12,8 @@ class TL_PL_Sub_Bag_Perencanaan_TI_dan_Pelaporan extends Model
     protected $fillable = [
         'nama_laporan',
         'jenis',
+        'bulan',
+        'minggu',
         'file_path',
         'user_id',
         'nama',   // Tambahkan kolom 'nama'

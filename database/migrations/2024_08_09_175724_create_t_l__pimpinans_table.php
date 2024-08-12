@@ -16,7 +16,14 @@ return new class extends Migration
             $table->string('nama_laporan');
             $table->enum('jenis', ['Laporan TLHP', 'Laporan Eksternal']);
             $table->string('file_path');
+            $table->unsignedBigInteger('user_id'); // Menambahkan kolom user_id
+            $table->string('nama')->nullable(); // Menambahkan kolom nama
+            $table->string('nip')->nullable();   // Menambahkan kolom nip
+            $table->string('role')->nullable();   // Menambahkan kolom role
             $table->timestamps();
+
+            // Menambahkan foreign key constraint (Opsional, jika Anda ingin menghubungkannya dengan tabel users)
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

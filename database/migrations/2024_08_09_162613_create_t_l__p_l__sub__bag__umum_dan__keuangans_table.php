@@ -13,17 +13,19 @@ return new class extends Migration
     {
         Schema::create('t_l__p_l__sub__bag__umum_dan__keuangans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_laporan');
-            $table->enum('jenis', ['Laporan Mingguan', 'Laporan Bulanan', 'TLHP Mingguan', 'TLHP Bulanan']);
-            $table->string('file_path');
             $table->unsignedBigInteger('user_id'); // Menambahkan kolom user_id
             $table->string('nama')->nullable(); // Menambahkan kolom nama
-            $table->string('nip')->nullable();   // Menambahkan kolom nip
+            $table->string('nip')->nullable();  // Menambahkan kolom nip
             $table->string('bidang')->nullable(); // Menambahkan kolom bidang
-            $table->string('role')->nullable();   // Menambahkan kolom role
+            $table->string('role')->nullable(); // Menambahkan kolom role
+            $table->string('nama_laporan');
+            $table->enum('jenis', ['Laporan Mingguan', 'Laporan Bulanan', 'TLHP Mingguan', 'TLHP Bulanan']);
+            $table->string('bulan');
+            $table->string('minggu')->nullable();
+            $table->string('file_path');
             $table->timestamps();
 
-            // Menambahkan foreign key constraint (Opsional, jika Anda ingin menghubungkannya dengan tabel users)
+            // Menambahkan foreign key constraint
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

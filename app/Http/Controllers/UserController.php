@@ -156,26 +156,26 @@ class UserController extends Controller
     {
         $user = Auth::user(); // Assuming the user is logged in
 
-        if ($user->role === 'Super Admin' && $userId) {
-            $targetUser = User::find($userId);
+        // if ($user->role === 'Super Admin' && $userId) {
+        //     $targetUser = User::find($userId);
 
-            if (!$targetUser) {
-                return redirect('/')->withErrors('User not found.');
-            }
+        //     if (!$targetUser) {
+        //         return redirect('/')->withErrors('User not found.');
+        //     }
 
-            switch ($targetUser->role) {
-                case 'Pemberi Laporan':
-                    return view('Super Admin.akunPemberiLaporan', compact('targetUser'));
-                case 'Pengawas':
-                    return view('Super Admin.akunPengawas', compact('targetUser'));
-                case 'Koordinator Pengawas':
-                    return view('Super Admin.akunKoordinatorPengawas', compact('targetUser'));
-                case 'Pimpinan':
-                    return view('Super Admin.akunPimpinan', compact('targetUser'));
-                default:
-                    return redirect('/')->withErrors('Role not found.');
-            }
-        }
+        //     switch ($targetUser->role) {
+        //         case 'Pemberi Laporan':
+        //             return view('Super Admin.akunPemberiLaporan', compact('targetUser'));
+        //         case 'Pengawas':
+        //             return view('Super Admin.akunPengawas', compact('targetUser'));
+        //         case 'Koordinator Pengawas':
+        //             return view('Super Admin.akunKoordinatorPengawas', compact('targetUser'));
+        //         case 'Pimpinan':
+        //             return view('Super Admin.akunPimpinan', compact('targetUser'));
+        //         default:
+        //             return redirect('/')->withErrors('Role not found.');
+        //     }
+        // }
 
         // Handle the profile view for non-Super Admin users
         switch ($user->role) {

@@ -64,7 +64,7 @@
         </div>
         <div class="flex items-center">
             <div class="mx-2 sm:mx-4 flex items-center">
-                <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-10 w-10 rounded-full">
+                <img id="profilePic" src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('images/profile.png') }}" alt="Profile Picture" class="h-10 w-10 rounded-full">
                 <div class="-ml-0 sm:ml-4">
                     <p class="text-[15px] font-semibold text-black sr-only sm:not-sr-only">{{ Auth::user()->name }}</p>
                     <p class="md:text-[15px] text-[#686767] sr-only sm:not-sr-only">Pemberi Laporan</p>
@@ -90,7 +90,7 @@
                         </a>
                     </li>
                     <li class="p-3 pl-8 hover:bg-gray-200 mx-full my-4" x-show="sidebarOpen">
-                        <a href="unggahLaporanPemberiLaporan" class="flex items-center text-black font-medium">
+                        <a href="unggahLaporan" class="flex items-center text-black font-medium">
                             <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M14 2V8H20" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
