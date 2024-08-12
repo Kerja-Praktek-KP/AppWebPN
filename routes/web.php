@@ -196,6 +196,10 @@ Route::post('/users/uploadProfilePicture', [UserController::class, 'uploadProfil
 use App\Http\Controllers\UnggahLaporanPLController;
 Route::get('/unggahLaporan', [UnggahLaporanPLController::class, 'create']);
 Route::post('/unggahLaporan', [UnggahLaporanPLController::class, 'store'])->name('unggahLaporanPL');
+Route::get('/riwayatLaporanPemberiLaporan', [UnggahLaporanPLController::class, 'laporan'])->name('riwayatLaporanPL');
+Route::get('/riwayatTLHPPemberiLaporan', [UnggahLaporanPLController::class, 'tlhp'])->name('riwayatTLHPPL');
+Route::get('/riwayatLaporanPemberiLaporan/{id}', [UnggahLaporanPLController::class, 'downloadLaporan'])->name('unduhLaporan');
+Route::get('/riwayatTLHPPemberiLaporan/{id}', [UnggahLaporanPLController::class, 'downloadTLHP'])->name('unduhTLHP');
 
 // Rute Unggah Laporan Pengawas
 use App\Http\Controllers\UnggahLaporanPWController;

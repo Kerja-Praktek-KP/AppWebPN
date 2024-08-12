@@ -16,6 +16,92 @@ use Illuminate\Support\Facades\Auth;
 
 class UnggahLaporanPLController extends Controller
 {
+    public function laporan()
+    {
+        $user = Auth::user();
+        $model = $this->getModelByBidang($user->bidang);
+
+        if (!$model) {
+            return redirect()->route('riwayatLaporanPL')->with('error', 'Bidang tidak dikenali.');
+        }
+
+        $laporanMingguan = $model::where('jenis', 'Laporan Mingguan')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $laporanBulanan = $model::where('jenis', 'Laporan Bulanan')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('Pemberi Laporan.riwayatLaporanPemberiLaporan', [
+            'laporanMingguan' => $laporanMingguan,
+            'laporanBulanan' => $laporanBulanan,
+        ]);
+    }
+
+    public function downloadLaporan($id)
+    {
+        $user = Auth::user();
+        $model = $this->getModelByBidang($user->bidang);
+
+        if (!$model) {
+            return redirect()->route('riwayatLaporanPL')->with('error', 'Bidang tidak dikenali.');
+        }
+
+        $laporan = $model::findOrFail($id);
+
+        $filePath = storage_path("app/{$laporan->file_path}");
+
+        if (!file_exists($filePath)) {
+            return redirect()->route('riwayatLaporanPL')->with('error', 'File tidak ditemukan.');
+        }
+
+        return response()->download($filePath, $laporan->nama_laporan);
+
+    }
+
+    public function tlhp()
+    {
+        $user = Auth::user();
+        $model = $this->getModelByBidang($user->bidang);
+
+        if (!$model) {
+            return redirect()->route('riwayatTLHPPL')->with('error', 'Bidang tidak dikenali.');
+        }
+
+        $tlhpMingguan = $model::where('jenis', 'TLHP Mingguan')
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        $tlhpBulanan = $model::where('jenis', 'TLHP Bulanan')
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return view('Pemberi Laporan.riwayatTLHPPemberiLaporan', [
+            'tlhpMingguan' => $tlhpMingguan,
+            'tlhpBulanan' => $tlhpBulanan,
+        ]);
+    }
+
+    public function downloadTLHP($id)
+    {
+        $user = Auth::user();
+        $model = $this->getModelByBidang($user->bidang);
+
+        if (!$model) {
+            return redirect()->route('riwayatTLHPPL')->with('error', 'Bidang tidak dikenali.');
+        }
+
+        $laporan = $model::findOrFail($id);
+
+        $filePath = storage_path("app/{$laporan->file_path}");
+
+        if (!file_exists($filePath)) {
+            return redirect()->route('riwayatLaporanPL')->with('error', 'File tidak ditemukan.');
+        }
+
+        return response()->download($filePath, $laporan->nama_laporan);
+    }
 
     public function create()
     {
