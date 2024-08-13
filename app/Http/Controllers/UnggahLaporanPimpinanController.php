@@ -13,6 +13,45 @@ class UnggahLaporanPimpinanController extends Controller
         return view('Pimpinan.unggahLaporan');
     }
 
+    
+    public function laporan()
+    {
+        $user = Auth::user();
+
+        $tlhp = TL_Pimpinan::where('jenis', 'Laporan TLHP')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $eksternal = TL_Pimpinan::where('jenis', 'Laporan Eksternal')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('Pimpinan.riwayatLaporan', [
+            'laporanTLHP' => $tlhp,
+            'laporanEksternal' => $eksternal,
+        ]);
+    }
+
+
+    public function downloadLaporan($id)
+    {
+     
+        $model =TL_Pimpinan::class;
+
+        $laporan = $model::findOrFail($id);
+        $filePath = storage_path("app/public/{$laporan->file_path}");
+
+        // Ambil ekstensi file dari file_path
+        $fileNameWithExtension = $laporan->nama_laporan . '.' . pathinfo($laporan->file_path, PATHINFO_EXTENSION);
+        
+        if (!file_exists($filePath)) {
+            return redirect()->route('riwayatLaporanPL')->with('error', 'File tidak ditemukan.');
+        }
+
+        return response()->download($filePath, $fileNameWithExtension);
+    }
+
+
     public function store(Request $request)
     {
         $request->validate([
@@ -23,7 +62,7 @@ class UnggahLaporanPimpinanController extends Controller
 
         try {
             // Simpan file dan ambil path-nya
-            $filePath = $request->file('file-upload')->store('laporan');
+            $filePath = $request->file('file-upload')->store('laporan', 'public');
 
             // Ambil data pengguna yang sedang login
             $user = Auth::user();

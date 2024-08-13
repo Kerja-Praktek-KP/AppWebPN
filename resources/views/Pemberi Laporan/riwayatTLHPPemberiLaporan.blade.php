@@ -286,7 +286,7 @@
                 mingguan: {!! json_encode($tlhpMingguan->map(function($laporan) {
                     return [
                         'id' => $laporan->id,
-                        'judul' => $laporan->nama_laporan,
+                        'judul' => $laporan->nama_laporan_with_format,
                         'jenis' => $laporan->jenis,
                         'tanggal' => $laporan->created_at->format('d F Y')
                     ];
@@ -294,7 +294,7 @@
                 bulanan: {!! json_encode($tlhpBulanan->map(function($laporan) {
                     return [
                         'id' => $laporan->id,
-                        'judul' => $laporan->nama_laporan,
+                        'judul' => $laporan->nama_laporan_with_format,
                         'jenis' => $laporan->jenis,
                         'tanggal' => $laporan->created_at->format('d F Y')
                     ];

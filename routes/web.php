@@ -205,16 +205,22 @@ Route::get('/riwayatTLHPPemberiLaporan/{id}', [UnggahLaporanPLController::class,
 use App\Http\Controllers\UnggahLaporanPWController;
 Route::get('/unggahLaporanPengawas', [UnggahLaporanPWController::class, 'create']);
 Route::post('/unggahLaporanPengawas', [UnggahLaporanPWController::class, 'store'])->name('unggahLaporanPW');
+Route::get('/riwayatLaporanPengawas', [UnggahLaporanPWController::class, 'laporan'])->name('riwayatLaporanPW');
+Route::get('/riwayatLaporanPengawas/{id}', [UnggahLaporanPWController::class, 'downloadLaporan'])->name('unduhLaporan');
 
 // Rute Unggah Laporan Koordinator Pengawas
 use App\Http\Controllers\UnggahLaporanKPController;
 Route::get('/unggahLaporanKoordinatorPengawas', [UnggahLaporanKPController::class, 'create']);
 Route::post('/unggahLaporanKoordinatorPengawas', [UnggahLaporanKPController::class, 'store'])->name('unggahLaporanKP');
+Route::get('/riwayatLaporanKoordinatorPengawas', [UnggahLaporanKPController::class, 'laporan'])->name('riwayatLaporanKP');
+Route::get('/riwayatLaporanKoordinatorPengawas/{id}', [UnggahLaporanKPController::class, 'downloadLaporan'])->name('unduhLaporan');
 
 // Rute Unggah Laporan Pimpinan
 use App\Http\Controllers\UnggahLaporanPimpinanController;
 Route::get('/unggahLaporanKoordinatorPimpinan', [UnggahLaporanPimpinanController::class, 'create']);
 Route::post('/unggahLaporanKoordinatorPimpinan', [UnggahLaporanPimpinanController::class, 'store'])->name('unggahLaporanPimpinan');
+Route::get('/riwayatLaporanPimpinan', [UnggahLaporanPimpinanController::class, 'laporan'])->name('laporanPimpinan');
+Route::get('/riwayatLaporanPimpinan/{id}', [UnggahLaporanPimpinanController::class, 'downloadLaporan'])->name('unduhLaporanPimpinan');
 
 // Rute Temuan Pengawas
 use App\Http\Controllers\TemuanController;

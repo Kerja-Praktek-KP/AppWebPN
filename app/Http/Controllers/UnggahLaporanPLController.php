@@ -16,6 +16,13 @@ use Illuminate\Support\Facades\Auth;
 
 class UnggahLaporanPLController extends Controller
 {
+
+    public function create()
+    {
+        return view('Pemberi Laporan.unggahLaporan');
+    }
+
+
     public function laporan()
     {
         $user = Auth::user();
@@ -39,26 +46,6 @@ class UnggahLaporanPLController extends Controller
         ]);
     }
 
-    public function downloadLaporan($id)
-    {
-        $user = Auth::user();
-        $model = $this->getModelByBidang($user->bidang);
-
-        if (!$model) {
-            return redirect()->route('riwayatLaporanPL')->with('error', 'Bidang tidak dikenali.');
-        }
-
-        $laporan = $model::findOrFail($id);
-
-        $filePath = storage_path("app/{$laporan->file_path}");
-
-        if (!file_exists($filePath)) {
-            return redirect()->route('riwayatLaporanPL')->with('error', 'File tidak ditemukan.');
-        }
-
-        return response()->download($filePath, $laporan->nama_laporan);
-
-    }
 
     public function tlhp()
     {
@@ -83,6 +70,38 @@ class UnggahLaporanPLController extends Controller
         ]);
     }
 
+
+    public function downloadLaporan($id)
+    {
+        $user = Auth::user();
+        $model = $this->getModelByBidang($user->bidang);
+
+        if (!$model) {
+            // \Log::error('Model tidak ditemukan untuk bidang: ' . $user->bidang);
+            return redirect()->route('riwayatLaporanPL')->with('error', 'Bidang tidak dikenali.');
+        }
+
+        $laporan = $model::findOrFail($id);
+        $filePath = storage_path("app/public/{$laporan->file_path}"); // Path file di storage
+
+        // Ambil ekstensi file dari file_path
+        $fileNameWithExtension = $laporan->nama_laporan . '.' . pathinfo($laporan->file_path, PATHINFO_EXTENSION);
+
+        // \Log::info('Mencoba mengunduh file dari path: ' . $filePath);
+
+        if (!file_exists($filePath)) {
+            // \Log::error('File tidak ditemukan di path: ' . $filePath);
+            return redirect()->route('riwayatLaporanPL')->with('error', 'File tidak ditemukan.');
+        }
+
+        // \Log::info('File ditemukan, mulai mengunduh: ' . $filePath);
+
+        // Gunakan nama file dengan ekstensi saat mengunduh
+        return response()->download($filePath, $fileNameWithExtension);
+    }
+
+    
+
     public function downloadTLHP($id)
     {
         $user = Auth::user();
@@ -94,19 +113,19 @@ class UnggahLaporanPLController extends Controller
 
         $laporan = $model::findOrFail($id);
 
-        $filePath = storage_path("app/{$laporan->file_path}");
+        $filePath = storage_path("app/public/{$laporan->file_path}");
+
+        // Ambil ekstensi file dari file_path
+        $fileNameWithExtension = $laporan->nama_laporan . '.' . pathinfo($laporan->file_path, PATHINFO_EXTENSION);
 
         if (!file_exists($filePath)) {
             return redirect()->route('riwayatLaporanPL')->with('error', 'File tidak ditemukan.');
         }
 
-        return response()->download($filePath, $laporan->nama_laporan);
+        return response()->download($filePath, $fileNameWithExtension);
     }
 
-    public function create()
-    {
-        return view('Pemberi Laporan.unggahLaporan');
-    }
+
 
     public function store(Request $request)
     {
@@ -131,7 +150,8 @@ class UnggahLaporanPLController extends Controller
 
         try {
             // Simpan file dan ambil path-nya
-            $filePath = $request->file('file-upload')->store('laporan');
+            $filePath = $request->file('file-upload')->store('laporan', 'public');
+
 
             // Ambil data pengguna yang sedang login
             $user = Auth::user();
@@ -163,6 +183,7 @@ class UnggahLaporanPLController extends Controller
         }
     }
 
+    
     private function getModelByBidang($bidang)
     {
         switch ($bidang) {

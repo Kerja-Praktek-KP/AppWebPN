@@ -14,6 +14,44 @@ class UnggahLaporanKPController extends Controller
         return view('Koordinator Pengawas.unggahLaporan');
     }
 
+
+    public function laporan()
+    {
+        $user = Auth::user();
+
+        // Mengambil data laporan berdasarkan user_id pengguna yang sedang login
+        $laporans = TL_Koordinator_Pengawas::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+
+        // Mengirim data laporan ke view
+        return view('Koordinator Pengawas.riwayatLaporan', compact('laporans'));
+    }
+
+
+    public function downloadLaporan($id)
+    {
+        
+        $model = TL_Koordinator_Pengawas::class;
+
+        $laporan = $model::findOrFail($id);
+        $filePath = storage_path("app/public/{$laporan->file_path}"); // Path file di storage
+
+        // Ambil ekstensi file dari file_path
+        $fileNameWithExtension = $laporan->nama_laporan . '.' . pathinfo($laporan->file_path, PATHINFO_EXTENSION);
+
+        \Log::info('Mencoba mengunduh file dari path: ' . $filePath);
+
+        if (!file_exists($filePath)) {
+            \Log::error('File tidak ditemukan di path: ' . $filePath);
+            return redirect()->route('riwayatLaporanKP')->with('error', 'File tidak ditemukan.');
+        }
+
+        \Log::info('File ditemukan, mulai mengunduh: ' . $filePath);
+
+        // Gunakan nama file dengan ekstensi saat mengunduh
+        return response()->download($filePath, $fileNameWithExtension);
+    }
+
+
     public function store(Request $request)
     {
         $request->validate([
@@ -24,7 +62,7 @@ class UnggahLaporanKPController extends Controller
 
         try {
             // Simpan file dan ambil path-nya
-            $filePath = $request->file('file-upload')->store('laporan');
+            $filePath = $request->file('file-upload')->store('laporan', 'public');
 
             // Ambil data pengguna yang sedang login
             $user = Auth::user();

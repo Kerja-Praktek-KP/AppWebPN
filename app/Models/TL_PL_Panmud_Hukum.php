@@ -9,6 +9,8 @@ class TL_PL_Panmud_Hukum extends Model
 {
     use HasFactory;
 
+    use HasFactory;
+
     protected $fillable = [
         'nama_laporan',
         'jenis',
@@ -16,15 +18,22 @@ class TL_PL_Panmud_Hukum extends Model
         'minggu',
         'file_path',
         'user_id',
-        'nama',   // Tambahkan kolom 'nama'
-        'nip',    // Tambahkan kolom 'nip'
-        'bidang', // Tambahkan kolom 'bidang'
-        'role'    // Tambahkan kolom 'role'
+        'nama',
+        'nip',
+        'bidang',
+        'role'
     ];
 
     // Relasi ke user
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    // Accessor untuk mendapatkan nama laporan beserta format file-nya
+    public function getNamaLaporanWithFormatAttribute()
+    {
+        $extension = pathinfo($this->file_path, PATHINFO_EXTENSION);
+        return "{$this->nama_laporan}.{$extension}";
     }
 }

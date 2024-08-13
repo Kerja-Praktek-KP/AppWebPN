@@ -24,4 +24,10 @@ class Temuan_PW_Sub_Bag_Umum_dan_Keuangan extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getNamaLaporanWithFormatAttribute()
+    {
+        $extension = pathinfo($this->file_path, PATHINFO_EXTENSION);
+        return "{$this->nama_temuan}.{$extension}";
+    }
 }

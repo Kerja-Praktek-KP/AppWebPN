@@ -24,4 +24,11 @@ class TL_Pimpinan extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // Accessor untuk mendapatkan nama laporan beserta format file-nya
+    public function getNamaLaporanWithFormatAttribute()
+    {
+        $extension = pathinfo($this->file_path, PATHINFO_EXTENSION);
+        return "{$this->nama_laporan}.{$extension}";
+    }
 }

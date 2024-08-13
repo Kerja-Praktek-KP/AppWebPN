@@ -21,6 +21,60 @@ class UnggahLaporanPWController extends Controller
         return view('Pengawas.unggahLaporan');
     }
 
+
+    public function laporan()
+    {
+        $user = Auth::user();
+        $model = $this->getModelByBidang($user->bidang);
+
+        if (!$model) {
+            return redirect()->route('riwayatLaporanPW')->with('error', 'Bidang tidak dikenali.');
+        }
+
+        $laporanMingguan = $model::where('jenis', 'Laporan Mingguan')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $laporanBulanan = $model::where('jenis', 'Laporan Bulanan')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('pengawas.riwayatLaporan', [
+            'laporanMingguan' => $laporanMingguan,
+            'laporanBulanan' => $laporanBulanan,
+        ]);
+    }
+
+    public function downloadLaporan($id)
+    {
+        $user = Auth::user();
+        $model = $this->getModelByBidang($user->bidang);
+
+        if (!$model) {
+            // \Log::error('Model tidak ditemukan untuk bidang: ' . $user->bidang);
+            return redirect()->route('riwayatLaporanPW')->with('error', 'Bidang tidak dikenali.');
+        }
+
+        $laporan = $model::findOrFail($id);
+        $filePath = storage_path("app/public/{$laporan->file_path}"); // Path file di storage
+
+        // Ambil ekstensi file dari file_path
+        $fileNameWithExtension = $laporan->nama_laporan . '.' . pathinfo($laporan->file_path, PATHINFO_EXTENSION);
+
+        // \Log::info('Mencoba mengunduh file dari path: ' . $filePath);
+
+        if (!file_exists($filePath)) {
+            // \Log::error('File tidak ditemukan di path: ' . $filePath);
+            return redirect()->route('riwayatLaporanPW')->with('error', 'File tidak ditemukan.');
+        }
+
+        // \Log::info('File ditemukan, mulai mengunduh: ' . $filePath);
+
+        // Gunakan nama file dengan ekstensi saat mengunduh
+        return response()->download($filePath, $fileNameWithExtension);
+    }
+
+
     public function store(Request $request)
     {
         $request->validate([
