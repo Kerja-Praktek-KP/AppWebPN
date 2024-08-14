@@ -199,9 +199,9 @@
         </aside>    
 
         <!-- Main Content -->
-        <div :class="sidebarOpen ? 'w-11/12' : 'w-full'" class="flex-1 p-5 transition-all duration-300 ">
-            <div class="grid grid-cols-1 gap-4 mb-4">
-                <div class="bg-white p-4 rounded-[5px] w-5/6 md:w-2/4 lg:w-full xl:w-3/4 ml-1">
+        <div :class="sidebarOpen ? 'w-11/12' : 'w-full'" class="flex-1 p-5">
+            <div class="flex flex-col md:flex-row   mb-4 ">
+                <div class="bg-white p-4 rounded-[5px] w-full md:w-2/4 lg:w-full xl:w-3/4 ml-1 mr-4 mb-4 md:mb-0">
                     <p class="text-center md:text-[12px] lg:text-[16px] text-black font-semibold mb-4">Status Pelaporan Mingguan</p>
                     <div class="flex items-center justify-between space-x-6 md:space-x-2 lg:space-x-4 xl:space-x-12 mx-8">
                         <div class="flex space-x-2 lg:space-x-4 xl:space-x-6">
@@ -217,7 +217,7 @@
                     </div>
                 </div>
         
-                <div class="bg-white p-4 rounded-[5px] transition-all duration-300 w-full">
+                <div class="bg-white p-4 rounded-[5px] w-full">
                     <p class="text-center md:text-[12px] lg:text-[16px] text-black font-semibold mb-4">Status Pelaporan Bulanan</p>
                     <div class="flex items-center justify-between space-x-4 mx-8">
                         <div class="flex flex-col md:flex-row lg:flex-row xl:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">

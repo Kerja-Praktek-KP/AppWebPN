@@ -21,10 +21,9 @@ class TemuanController extends Controller
         return view('Pengawas.penilaianDetailPemberiLaporan');
     }
 
+
     public function store(Request $request)
     {
-
-        
         $request->validate([
             'judul' => 'required|string|max:255',
             'file-upload' => 'required|file|mimes:pdf,doc,docx,png,jpg,jpeg|max:10240',
@@ -32,7 +31,8 @@ class TemuanController extends Controller
 
         try {
             // Simpan file dan ambil path-nya
-            $filePath = $request->file('file-upload')->store('laporan');
+            $file = $request->file('file-upload');
+            $filePath = $file->store('laporan', 'public');
 
             // Ambil data pengguna yang sedang login
             $user = Auth::user();
@@ -47,12 +47,12 @@ class TemuanController extends Controller
             // Buat entri laporan baru
             $model::create([
                 'nama_temuan' => $request->input('judul'),
-                'file_path' => $filePath,
-                'user_id' => $user->id, // ID pengguna
-                'nama' => $user->name, // Nama pengguna
-                'nip' => $user->nip ?? '', // NIP pengguna jika ada
-                'bidang' => $user->bidang ?? '', // Bidang pengguna jika ada
-                'role' => $user->role ?? '', // Role pengguna jika ada
+                'file_path' => $filePath, // Path relatif dari storage
+                'user_id' => $user->id,
+                'nama' => $user->name,
+                'nip' => $user->nip ?? '',
+                'bidang' => $user->bidang ?? '',
+                'role' => $user->role ?? '',
             ]);
 
             return redirect()->route('TemuanPW')->with('success', 'Laporan berhasil diunggah');
@@ -60,6 +60,7 @@ class TemuanController extends Controller
             return redirect()->route('TemuanPW')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
+
 
     private function getModelByBidang($bidang)
     {
@@ -85,4 +86,47 @@ class TemuanController extends Controller
                 return null;
         }
     }
+
+    
+    public function downloadTemuan($id)
+    {
+        // Ambil pengguna yang sedang login
+        $user = Auth::user();
+        
+        // Tentukan model berdasarkan bidang pengguna
+        $model = $this->getModelByBidang($user->bidang);
+
+        // Jika bidang tidak dikenali, kembali dengan pesan error
+        if (!$model) {
+            return redirect()->route('pemberitahuan')->with('error', 'Bidang tidak dikenali.');
+        }
+
+        // Temukan temuan berdasarkan ID
+        $temuan = $model::findOrFail($id);
+
+        // Buat path lengkap ke file
+        $filePath = storage_path("app/public/{$temuan->file_path}");
+
+        // Log informasi untuk debugging
+        \Log::info('File path untuk unduhan: ' . $filePath);
+
+        // Cek apakah file ada di path tersebut
+        if (!file_exists($filePath)) {
+            \Log::error('File tidak ditemukan di path: ' . $filePath);
+            return redirect()->route('pemberitahuan')->with('error', 'File tidak ditemukan.');
+        }
+
+        // Ambil nama file beserta ekstensi untuk unduhan
+        $fileNameWithExtension = $temuan->nama_temuan . '.' . pathinfo($temuan->file_path, PATHINFO_EXTENSION);
+
+        // Log nama file yang akan diunduh
+        \Log::info('Nama file untuk unduhan: ' . $fileNameWithExtension);
+
+        // Kembalikan respons unduhan dengan nama file dan path yang benar
+        return response()->download($filePath, $fileNameWithExtension);
+
+        response()->download($filePath, $fileNameWithExtension);
+    }
 }
+
+

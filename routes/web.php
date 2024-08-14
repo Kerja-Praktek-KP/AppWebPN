@@ -226,3 +226,10 @@ Route::get('/riwayatLaporanPimpinan/{id}', [UnggahLaporanPimpinanController::cla
 use App\Http\Controllers\TemuanController;
 Route::get('/penilaianDetailPemberiLaporan_Pengawas', [TemuanController::class, 'create']);
 Route::post('/penilaianDetailPemberiLaporan_Pengawas', [TemuanController::class, 'store'])->name('TemuanPW');
+Route::get('/unduh-temuan/{id}', [TemuanController::class, 'downloadTemuan'])->name('unduhTemuan');
+
+// Rute Pemberitahuan
+use App\Http\Controllers\PemberitahuanController;
+Route::get('/pemberitahuan', [PemberitahuanController::class, 'index']);
+
+
