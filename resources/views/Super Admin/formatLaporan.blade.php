@@ -301,28 +301,26 @@
                         <div class="flex items-center justify-between">
                             <!-- Tombol unduh dan hapus tetap muncul meskipun tidak ada data -->
                             <div class="flex">
-                                @if ($formats->isEmpty())
-                                    <!-- Tampilkan pesan bahwa tidak ada format laporan yang tersedia -->
-                                    <p class="text-gray-600 italic">Tidak ada format laporan yang tersedia.</p>
-                                @else
-                                    @php
-                                        $reportFormat = $formats->first();
-                                    @endphp
-                                    <!-- Tombol unduh -->
-                                    <a href="{{ route('formatLaporan.download', $reportFormat->id) }}" class="bg-[#22805E] text-white text-[12px] md:text-[14px] lg:text-[17px] font-semibold mt-4 sm:mt-0 mr-0 sm:mr-2 px-2 md:px-2 lg:px-2 xl:px-10 py-1 rounded-[5px] hover:bg-[#1A5D45] flex flex-row">
-                                        <span>Unduh</span>
-                                    </a>
+    @if ($formats->isEmpty())
+        <!-- Tampilkan pesan bahwa tidak ada format laporan yang tersedia -->
+        <p class="text-gray-600 italic">Tidak ada format laporan yang tersedia.</p>
+    @else
+        <!-- Tombol unduh -->
+        <a href="{{ route('formatLaporan.download') }}" class="bg-[#22805E] text-white text-[12px] md:text-[14px] lg:text-[17px] font-semibold mt-4 sm:mt-0 mr-0 sm:mr-2 px-2 md:px-2 lg:px-2 xl:px-10 py-1 rounded-[5px] hover:bg-[#1A5D45] flex flex-row">
+            <span>Unduh</span>
+        </a>
 
-                                    <!-- Tombol hapus semua -->
-                                    <form action="{{ route('formatLaporan.destroyAll') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus semua format laporan?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="bg-[#FD3259] text-white text-[12px] md:text-[14px] lg:text-[17px] font-semibold mt-4 sm:mt-0 mr-0 sm:mr-2 px-2 md:px-2 lg:px-2 xl:px-10 py-1 rounded-[5px] hover:bg-[#BF2643] flex flex-row">
-                                            <span>Hapus</span>
-                                        </button>
-                                    </form>
-                                @endif
-                            </div>
+        <!-- Tombol hapus semua -->
+        <form action="{{ route('formatLaporan.destroyAll') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus semua format laporan?');">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="bg-[#FD3259] text-white text-[12px] md:text-[14px] lg:text-[17px] font-semibold mt-4 sm:mt-0 mr-0 sm:mr-2 px-2 md:px-2 lg:px-2 xl:px-10 py-1 rounded-[5px] hover:bg-[#BF2643] flex flex-row">
+                <span>Hapus</span>
+            </button>
+        </form>
+    @endif
+</div>
+
                         </div>
                     </div>                      
                 </div>                

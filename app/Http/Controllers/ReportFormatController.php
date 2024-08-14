@@ -17,6 +17,13 @@ class ReportFormatController extends Controller
         return view('Super Admin.formatLaporan', compact('formats'));
     }
 
+    public function indexPemberiLaporan()
+    {
+        $formats = ReportFormat::all();
+        // dd($formats); // Memastikan data sudah benar sebelum dikirim ke view
+        return view('Pemberi Laporan.unggahLaporan', compact('formats'));
+    }
+
 
 
     public function create()
@@ -58,14 +65,17 @@ class ReportFormatController extends Controller
         return redirect()->back()->with('success', 'Format laporan berhasil di unggah');
     }
 
-    public function download(ReportFormat $reportFormat)
+    public function download()
     {
-        if (Storage::exists($reportFormat->file_path)) {
+        $reportFormat = ReportFormat::first(); // Mengambil satu-satunya file format laporan
+
+        if ($reportFormat && Storage::exists($reportFormat->file_path)) {
             return Storage::download($reportFormat->file_path, $reportFormat->original_name);
         }
 
-        return redirect()->route('report_formats.index')->with('error', 'File tidak ditemukan.');
+        return redirect()->route('formatLaporan.index')->with('error', 'File tidak ditemukan.');
     }
+
 
     public function destroyAll()
     {
