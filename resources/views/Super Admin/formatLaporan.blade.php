@@ -290,7 +290,11 @@
                 <div class="flex flex-col">
                     <div class="flex items-center justify-between">
                         <div class="flex">
-                            <img src="{{ asset('images/docs.png') }}" alt="" class="w-10 md:w-12 h-10 md:h-12">
+                            <svg class="h-6 sm:h-10 w-6 sm:w-10 mr-2 mt-2" width="55" height="55" viewBox="0 0 356 458" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 50.8571C0 37.369 5.35814 24.4333 14.8957 14.8957C24.4333 5.35814 37.369 0 50.8571 0H171.643C173.329 0 174.946 0.66977 176.138 1.86197C177.33 3.05416 178 4.67112 178 6.35714V127.143C178 140.631 183.358 153.567 192.896 163.104C202.433 172.642 215.369 178 228.857 178H349.643C351.329 178 352.946 178.67 354.138 179.862C355.33 181.054 356 182.671 356 184.357V406.857C356 420.345 350.642 433.281 341.104 442.819C331.567 452.356 318.631 457.714 305.143 457.714H50.8571C37.369 457.714 24.4333 452.356 14.8957 442.819C5.35814 433.281 0 420.345 0 406.857V50.8571Z" fill="#518EF8"/>
+                                <path d="M203.428 127.143V15.3588C203.425 14.0998 203.797 12.8685 204.495 11.821C205.194 10.7734 206.188 9.95688 207.351 9.47478C208.514 8.99269 209.794 8.86678 211.028 9.11301C212.263 9.35925 213.397 9.96654 214.286 10.8579L345.141 141.713C346.033 142.602 346.64 143.736 346.886 144.971C347.132 146.205 347.006 147.485 346.524 148.648C346.042 149.812 345.226 150.805 344.178 151.504C343.131 152.202 341.899 152.574 340.64 152.571H228.856C222.112 152.571 215.644 149.892 210.876 145.123C206.107 140.355 203.428 133.887 203.428 127.143Z" fill="#ACD1FC"/>
+                                <path d="M89 267H241.571M89 343.286H216.143" stroke="white" stroke-width="27" stroke-linecap="round"/>
+                            </svg>
                             <div class="flex flex-col mx-4">
                                 <h2 class="text-[12px] md:text-[14px] lg:text-[17px] font-bold">Format Laporan</h2>
                                 @foreach ($formats as $reportFormat)
@@ -301,25 +305,25 @@
                         <div class="flex items-center justify-between">
                             <!-- Tombol unduh dan hapus tetap muncul meskipun tidak ada data -->
                             <div class="flex">
-    @if ($formats->isEmpty())
-        <!-- Tampilkan pesan bahwa tidak ada format laporan yang tersedia -->
-        <p class="text-gray-600 italic">Tidak ada format laporan yang tersedia.</p>
-    @else
-        <!-- Tombol unduh -->
-        <a href="{{ route('formatLaporan.download') }}" class="bg-[#22805E] text-white text-[12px] md:text-[14px] lg:text-[17px] font-semibold mt-4 sm:mt-0 mr-0 sm:mr-2 px-2 md:px-2 lg:px-2 xl:px-10 py-1 rounded-[5px] hover:bg-[#1A5D45] flex flex-row">
-            <span>Unduh</span>
-        </a>
+                            @if ($formats->isEmpty())
+                                <!-- Tampilkan pesan bahwa tidak ada format laporan yang tersedia -->
+                                <p class="text-gray-600 italic">Tidak ada format laporan yang tersedia.</p>
+                            @else
+                                <!-- Tombol unduh -->
+                                <a href="{{ route('formatLaporan.download') }}" class="bg-[#22805E] text-white text-[12px] md:text-[14px] lg:text-[17px] font-semibold mt-4 sm:mt-0 mr-0 sm:mr-2 px-2 md:px-2 lg:px-2 xl:px-10 py-1 rounded-[5px] hover:bg-[#1A5D45] flex flex-row">
+                                    <span>Unduh</span>
+                                </a>
 
-        <!-- Tombol hapus semua -->
-        <form action="{{ route('formatLaporan.destroyAll') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus semua format laporan?');">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="bg-[#FD3259] text-white text-[12px] md:text-[14px] lg:text-[17px] font-semibold mt-4 sm:mt-0 mr-0 sm:mr-2 px-2 md:px-2 lg:px-2 xl:px-10 py-1 rounded-[5px] hover:bg-[#BF2643] flex flex-row">
-                <span>Hapus</span>
-            </button>
-        </form>
-    @endif
-</div>
+                                <!-- Tombol hapus semua -->
+                                <form action="{{ route('formatLaporan.destroyAll') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus semua format laporan?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-[#FD3259] text-white text-[12px] md:text-[14px] lg:text-[17px] font-semibold mt-4 sm:mt-0 mr-0 sm:mr-2 px-2 md:px-2 lg:px-2 xl:px-10 py-1 rounded-[5px] hover:bg-[#BF2643] flex flex-row">
+                                        <span>Hapus</span>
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
 
                         </div>
                     </div>                      
