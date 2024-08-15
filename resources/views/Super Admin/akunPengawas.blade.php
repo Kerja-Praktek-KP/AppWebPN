@@ -256,6 +256,7 @@
                                             <button @click="isEditing = false; document.getElementById('profilePic').src = originalImageUrl; resetFileInput();" class="border border-[#22805E] text-[#22805E] font-semibold px-8 py-1.5 shadow-md rounded-lg">Batal</button>
                                         </div>
                                     </template>
+                                    <!-- Tombol Hapus Akun -->
                                     <template x-if="!isEditing">
                                         <button @click.prevent="showPopup = true" class="flex bg-[#FD3259] text-white text-[14px] md:text-[12px] font-semibold px-4 py-1 rounded-[5px] shadow-md hover:bg-red-800">Hapus Akun</button>
                                     </template>
@@ -264,13 +265,18 @@
                         </div>
                     </template>
             
+                    <!-- Popup konfirmasi -->
                     <template x-if="showPopup">
                         <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
                             <div class="bg-white px-0 py-3 md:px-6 md:py-6 rounded-lg shadow-lg">
                                 <h2 class="text-base md:text-base lg:text-xl font-normal mx-8 mb-4">Apakah kamu yakin menghapus akun ini?</h2>
                                 <div class="flex justify-center items-center space-x-4">
                                     <button @click="showPopup = false" class="bg-[#9B9B9B] text-white py-2 px-4 w-20 md:w-40 mr-4 rounded-md">Batal</button>
-                                    <button @click="confirmDeletion" class="bg-[#FD3259] text-white py-2 px-4 w-20 md:w-40 rounded-md">Ya</button>
+                                    <form action="{{ route('users.destroy', ['id' => $targetUser->id]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="bg-[#FD3259] text-white py-2 px-4 w-20 md:w-40 rounded-md">Ya</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -278,12 +284,6 @@
                 </div>
             </form>
             
-            <!-- Form untuk penghapusan akun -->
-            <form id="deleteUserForm" action="{{ route('users.destroy', ['id' => $targetUser->id]) }}" method="POST" style="display: none;">
-                @csrf
-                @method('DELETE')
-            </form>            
-
             <!-- Sertakan jQuery -->
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
@@ -335,26 +335,6 @@
                 $(document).ready(function() {
                     console.log($('#deleteUserForm').attr('action')); // Memeriksa URL action
                 });
-
-                function confirmDeletion() {
-                    var redirectUrl = "{{ route('kelolaAkun') }}";
-                    console.log("Redirecting to: ", redirectUrl);
-
-                    $.ajax({
-                        url: $('#deleteUserForm').attr('action'),
-                        method: 'DELETE',
-                        data: $('#deleteUserForm').serialize(),
-                        success: function(response) {
-                            // Setelah berhasil, sembunyikan pop-up dan tampilkan pesan sukses
-                            document.querySelector('[x-data]').__x.$data.showPopup = false;
-                            window.location.href = redirectUrl;  // Redirect ke halaman yang diinginkan
-                        },
-                        error: function(response) {
-                            console.log(response); // Debugging jika perlu
-                            alert('Gagal menghapus akun.');
-                        }
-                    });
-                }
             </script>        
         </div>          
     </div>

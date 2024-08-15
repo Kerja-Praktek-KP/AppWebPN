@@ -294,16 +294,25 @@ class UserController extends Controller
             Storage::delete('public/profile_pictures/' . $user->profile_picture);
         }
 
+        // Simpan role pengguna yang akan dihapus sebelum dihapus
+        $role = $user->role;
+
         $user->delete();
 
         \Log::info('User deleted successfully', ['user_id' => $id]);
 
-        // Lakukan redirect ke halaman kelolaAkun
-        \Log::info('Redirecting to kelolaAkun after deletion');
-        return redirect()->route('kelolaAkun')->with('success', 'Akun berhasil dihapus.');
-        
+        // Redirect berdasarkan role pengguna
+        if ($role == 'Pimpinan' || $role == 'Koordinator Pengawas') {
+            \Log::info('Redirecting to kelolaAkun after deletion');
+            return redirect()->route('kelolaAkun')->with('success', 'Akun berhasil dihapus.');
+        } elseif ($role == 'Pemberi Laporan' || $role == 'Pengawas') {
+            \Log::info('Redirecting to anggota after deletion');
+            return redirect()->route('anggota')->with('success', 'Akun berhasil dihapus.');
+        } else {
+            // Redirect default jika role tidak sesuai dengan yang diharapkan
+            return redirect()->route('home')->with('success', 'Akun berhasil dihapus.');
+        }
     }
-
 
     public function akunPengawas()
     {
