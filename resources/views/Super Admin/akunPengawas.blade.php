@@ -160,7 +160,7 @@
         <!-- Main Content -->
         <div :class="[sidebarOpen ? 'w-11/12' : 'w-full', 'bg-[#F2F3F9] ml-0 md:ml-28 lg:ml-16 xl:ml-60 flex-1 p-12 transition-all duration-300']">
             <div class="ml-auto flex items-center justify-end absolute top-20 right-14">
-                <a href="anggota" class="flex w-fit items-center justify-center px-6 py-2 text-[11px] md:text-[12px] lg:text-[12px] bg-white rounded-[5px]">
+                <a href="{{ route('anggota', ['bidang' => $bidang]) }}" class="flex w-fit items-center justify-center px-6 py-2 text-[11px] md:text-[12px] lg:text-[12px] bg-white rounded-[5px]">
                     <svg class="mr-2 w-3 md:w-3 lg:w-5 h-3 md:h-3 lg:h-5" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8 6H21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M8 12H21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

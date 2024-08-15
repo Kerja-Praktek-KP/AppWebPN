@@ -67,7 +67,6 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Pengguna berhasil ditambahkan.');
     }
 
-
     public function edit(User $user)
     {
         return view('users.edit', compact('user'));
@@ -274,13 +273,25 @@ class UserController extends Controller
         $targetUser = User::where('role', 'Koordinator Pengawas')->firstOrFail();
         return view('Super Admin.akunKoordinatorPengawas', compact('targetUser'));
     }
-
+    
     public function akunPemberiLaporan()
     {
         $this->authorizeSuperAdmin(); // Cek apakah pengguna adalah Super Admin
 
-        $targetUser = User::where('role', 'Pemberi Laporan')->firstOrFail();
-        return view('Super Admin.akunPemberiLaporan', compact('targetUser'));
+        // Ambil ID pengguna dari query string
+        $userId = request()->query('user_id');
+
+        if (!$userId) {
+            return redirect('/')->withErrors('Tidak ada pengguna yang dipilih.');
+        }
+
+        // Ambil data pengguna berdasarkan ID dari query string
+        $targetUser = User::findOrFail($userId);
+
+        // Ambil bidang dari session
+        $bidang = session('selected_bidang', null);
+
+        return view('Super Admin.akunPemberiLaporan', compact('targetUser', 'bidang'));
     }
 
     public function destroy($id)
@@ -317,9 +328,21 @@ class UserController extends Controller
     public function akunPengawas()
     {
         $this->authorizeSuperAdmin(); // Cek apakah pengguna adalah Super Admin
-
-        $targetUser = User::where('role', 'Pengawas')->firstOrFail();
-        return view('Super Admin.akunPengawas', compact('targetUser'));
+    
+        // Ambil ID pengguna dari query string
+        $userId = request()->query('user_id');
+    
+        if (!$userId) {
+            return redirect('/')->withErrors('Tidak ada pengguna yang dipilih.');
+        }
+    
+        // Ambil data pengguna berdasarkan ID dari query string
+        $targetUser = User::findOrFail($userId);
+    
+        // Ambil bidang dari session
+        $bidang = session('selected_bidang', null);
+    
+        return view('Super Admin.akunPengawas', compact('targetUser', 'bidang'));
     }
 
     private function authorizeSuperAdmin()
@@ -331,7 +354,7 @@ class UserController extends Controller
 
     public function showAnggota()
     {
-        // Ambil semua bidang yang valid
+        // Daftar bidang yang valid
         $validBidangs = [
             'Panmud Perdata',
             'Panmud Pidana',
@@ -343,18 +366,26 @@ class UserController extends Controller
             'Sub Bag. Umum dan Keuangan'
         ];
 
-        // Ambil pengguna berdasarkan bidang yang valid dan role
-        $usersByBidang = [];
-        foreach ($validBidangs as $bidang) {
-            $usersByBidang[$bidang] = User::where('bidang', $bidang)
-                ->where(function($query) {
-                    $query->where('role', 'Pengawas')
-                        ->orWhere('role', 'Pemberi Laporan');
-                })
-                ->get();
+        // Ambil bidang dari query string
+        $bidang = request()->query('bidang');
+
+        // Jika bidang tidak valid, redirect ke halaman utama dengan error
+        if ($bidang === null || !in_array($bidang, $validBidangs)) {
+            return redirect('/')->withErrors('Bidang tidak valid.');
         }
 
-        return view('Super Admin.anggota', compact('usersByBidang'));
+        // Simpan bidang ke session
+        session(['selected_bidang' => $bidang]);
+
+        // Ambil pengguna berdasarkan bidang dan role
+        $usersByBidang = User::where('bidang', $bidang)
+            ->where(function($query) {
+                $query->where('role', 'Pengawas')
+                    ->orWhere('role', 'Pemberi Laporan');
+            })
+            ->get();
+
+        return view('Super Admin.anggota', compact('usersByBidang', 'bidang'));
     }
 
     public function kelolaAkun()
@@ -428,5 +459,4 @@ class UserController extends Controller
         // Redirect ke halaman sebelumnya dengan pesan sukses
         return back()->with('success', 'Profil berhasil diperbarui.');
     }
-
 }

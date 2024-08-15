@@ -172,35 +172,31 @@
             </div>            
             <h2 class="text-xs font-semibold mb-4">Pengawas</h2>
             <div :class="[sidebarOpen ? 'grid-cols-2' : 'grid-cols-2 md:grid-cols-3', sidebarOpen ? 'w-10/12' : 'w-full', 'grid gap-6']">
-                @foreach($usersByBidang as $bidang => $users)
-                    @foreach($users->where('role', 'Pengawas') as $user)
-                        <a href="{{ route('users.akunPengawas', $user->id) }}" class="bg-white p-4 rounded-[5px] hover:shadow-lg text-left w-full transition ease-in-out hover:scale-105 hover:bg-white duration-700">
-                            <div class="flex items-center">
-                                <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-12 w-12 rounded-full">
-                                <div class="ml-4 break-all">
-                                    <p class="text-base font-semibold text-black">{{ $user->name }}</p>
-                                    <p class="text-sm font-light text-gray-600">{{ $user->role }}</p>
-                                </div>
+                @foreach($usersByBidang->where('role', 'Pengawas') as $user)
+                    <a href="{{ route('users.akunPengawas', ['user_id' => $user->id]) }}" class="bg-white p-4 rounded-[5px] hover:shadow-lg text-left w-full transition ease-in-out hover:scale-105 hover:bg-white duration-700">
+                        <div class="flex items-center">
+                            <img id="profilePic" src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('images/profile.png') }}"  alt="Profile" class="h-12 w-12 rounded-full">
+                            <div class="ml-4 break-all">
+                                <p class="text-base font-semibold text-black">{{ $user->name }}</p>
+                                <p class="text-sm font-light text-gray-600">{{ $user->role }}</p>
                             </div>
-                        </a>
-                    @endforeach
+                        </div>
+                    </a>
                 @endforeach
             </div>
 
             <h2 class="text-xs font-semibold mb-4 mt-10">Pemberi Laporan</h2>
             <div :class="[sidebarOpen ? 'grid-cols-2' : 'grid-cols-2 md:grid-cols-3', sidebarOpen ? 'w-10/12' : 'w-full', 'grid gap-6']">
-                @foreach($usersByBidang as $bidang => $users)
-                    @foreach($users->where('role', 'Pemberi Laporan') as $user)
-                        <a href="{{ route('users.akunPemberiLaporan', $user->id) }}" class="bg-white p-4 rounded-[5px] hover:shadow-lg text-left w-full transition ease-in-out  hover:scale-105 hover:bg-white duration-700">
-                            <div class="flex items-center">
-                                <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-12 w-12 rounded-full">
-                                <div class="ml-4 break-all">
-                                    <p class="text-base font-semibold text-black">{{ $user->name }}</p>
-                                    <p class="text-sm font-light text-gray-600">{{ $user->role }}</p>
-                                </div>
+                @foreach($usersByBidang->where('role', 'Pemberi Laporan') as $user)
+                    <a href="{{ route('users.akunPemberiLaporan', ['user_id' => $user->id]) }}" class="bg-white p-4 rounded-[5px] hover:shadow-lg text-left w-full transition ease-in-out  hover:scale-105 hover:bg-white duration-700">
+                        <div class="flex items-center">
+                            <img id="profilePic" src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('images/profile.png') }}" alt="Profile" class="h-12 w-12 rounded-full">
+                            <div class="ml-4 break-all">
+                                <p class="text-base font-semibold text-black">{{ $user->name }}</p>
+                                <p class="text-sm font-light text-gray-600">{{ $user->role }}</p>
                             </div>
-                        </a>
-                    @endforeach
+                        </div>
+                    </a>
                 @endforeach
             </div>
         </main>              
