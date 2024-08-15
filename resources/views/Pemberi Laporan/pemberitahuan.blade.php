@@ -231,8 +231,11 @@
                                 </svg>
                                 <div class="flex flex-col justify-center mr-2 max-w-full">
                                     <h2 class="text-sm sm:text-lg font-semibold w-auto overflow-hidden text-ellipsis whitespace-nowrap truncate max-w-[35ch] sm:max-w-[45ch] md:max-w-[40ch] lg:max-w-[40ch] xl:max-w-[70ch]">
-                                        {{ $temuan->nama_laporan_with_format}}
+                                        {{ $temuan->nama_laporan_with_format }}
                                     </h2>
+                                    <p class="text-xs text-gray-500 mt-1">
+                                        {{ \Carbon\Carbon::parse($temuan->created_at)->format('d M Y, H:i') }}
+                                    </p>
                                 </div>
                             </div>
                             <a href="{{ route('unduhTemuan', ['id' => $temuan->id]) }}" class="flex items-center justify-center bg-[#22805E] text-white font-semibold px-2 sm:px-4 py-1 rounded-[5px] shadow-md hover:bg-green-800" download>

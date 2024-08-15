@@ -205,14 +205,15 @@
                     <p class="text-center md:text-[12px] lg:text-[16px] text-black font-semibold mb-4">Status Pelaporan Mingguan</p>
                     <div class="flex items-center justify-between space-x-6 md:space-x-2 lg:space-x-4 xl:space-x-12 mx-8">
                         <div class="flex space-x-2 lg:space-x-4 xl:space-x-6">
-                            <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                            <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                            <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                            <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
+                            <div class="flex space-x-2 lg:space-x-4 xl:space-x-6">
+                                @foreach ($statusMingguan as  $status)
+                                    <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 {{ $status ? 'bg-[#22805E]' : 'bg-gray-300' }} rounded-full"></div>
+                                @endforeach
+                            </div>
                         </div>
                         <div class="flex space-x-4">
-                            <div class="text-gray-600 md:text-[12px] lg:text-[16px]">0/4</div>
-                            <div class="px-3 md:px-2 lg:px-3 py-1 bg-[#22805E] text-white md:text-[12px] lg:text-[16px] rounded-[5px]">Januari</div>
+                            <div class="text-gray-600 md:text-[12px] lg:text-[16px]">{{ count(array_filter($statusMingguan)) }}/4</div>
+                            <div class="px-3 md:px-2 lg:px-3 py-1 bg-[#22805E] text-white md:text-[12px] lg:text-[16px] rounded-[5px]">{{ $currentMonth }}</div>
                         </div>
                     </div>
                 </div>
@@ -222,23 +223,14 @@
                     <div class="flex items-center justify-between space-x-4 mx-8">
                         <div class="flex flex-col md:flex-row lg:flex-row xl:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
                             <div class="grid grid-cols-6 gap-6 md:gap-6 xl:flex xl:space-x-4">
-                                <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
+                                @foreach ($statusBulanan as  $status)
+                                <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 {{ $status ?? false ? 'bg-[#22805E]' : 'bg-gray-300' }} rounded-full"></div>
+                                @endforeach
                             </div>
                         </div>
                         <div class="flex space-x-6">
-                            <div class="text-gray-600 md:text-[12px] lg:text-[16px]">0/12</div>
-                            <button class="px-3 md:px-2 lg:px-3 py-1 bg-[#22805E] text-white md:text-[12px] lg:text-[16px] rounded-[5px]">2024</button>
+                            <div class="text-gray-600 md:text-[12px] lg:text-[16px]">{{ count(array_filter($statusBulanan)) }}/12</div>
+                            <button class="px-3 md:px-2 lg:px-3 py-1 bg-[#22805E] text-white md:text-[12px] lg:text-[16px] rounded-[5px]">{{ $currentYear }}</button>
                         </div>
                     </div>
                 </div>               

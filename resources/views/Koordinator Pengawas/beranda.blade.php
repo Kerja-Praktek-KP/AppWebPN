@@ -180,26 +180,19 @@
         <main :class="sidebarOpen ? 'w-11/12 ' : 'w-full'" class="flex-1 p-8 overflow-y-auto pb-20 transition-all duration-300"> 
             <div class="grid grid-col-1 gap-4 mb-4">
                 <div class="bg-white p-4 rounded-[5px] transition-all duration-300">
-                    <p class="text-center text-[11px] md:text-[12px] lg:text-[16px] text-black font-semibold mb-4">Status Pelaporan Bulanan</p>
-                    <div class="flex items-center justify-center space-x-7 md:space-x-2 lg:space-x-6 xl:space-x-12 mx-8">
-                        <div class="flex flex-col lg:flex-row xl:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
-                            <div :class="sidebarOpen ? 'ml-1 md:ml-10 lg:ml-10' : 'ml-1 md:ml-22 lg:ml-70 '" class="grid grid-cols-6 gap-6 md:gap-2 xl:flex xl:space-x-4">
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
+                    <p class="text-center md:text-[12px] lg:text-[16px] text-black font-semibold mb-4">Status Pelaporan Bulanan</p>
+                    <div class="flex items-center justify-between space-x-4 mx-8 ">
+                        <div class="flex flex-col md:flex-row lg:flex-row xl:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
+                            <div class="grid grid-cols-6 gap-6 md:gap-6 xl:flex xl:space-x-4">
+                                @foreach ($statusBulanan as $index => $status)
+                                <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 {{ $status ?? false ? 'bg-[#22805E]' : 'bg-gray-300' }} rounded-full"></div>
+                            @endforeach
                             </div>
                         </div>
-                        <div class="text-gray-600 text-[11px] md:text-[12px] lg:text-[12px]">0/12</div>
-                        <div class="px-3 md:px-2 lg:px-2 py-1 bg-[#22805E] text-white text-[11px] md:text-[12px] lg:text-[12px] rounded-[5px]">2024</div>
+                        <div class="flex space-x-6">
+                            <div class="text-gray-600 md:text-[12px] lg:text-[16px]">{{ count(array_filter($statusBulanan)) }}/12</div>
+                            <button class="px-3 md:px-2 lg:px-3 py-1 bg-[#22805E] text-white md:text-[12px] lg:text-[16px] rounded-[5px]">{{ $currentYear }}</button>
+                        </div>
                     </div>
                 </div>
             </div>

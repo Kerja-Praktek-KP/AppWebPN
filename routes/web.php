@@ -232,4 +232,14 @@ Route::get('/unduh-temuan/{id}', [TemuanController::class, 'downloadTemuan'])->n
 use App\Http\Controllers\PemberitahuanController;
 Route::get('/pemberitahuan', [PemberitahuanController::class, 'index']);
 
+// Rute Status Pemberi Laporan
+use App\Http\Controllers\StatusPLController;
+Route::get('/berandaPemberiLaporan', [StatusPLController::class, 'getStatus'])->name('berandaPemberiLaporan');
 
+// Rute Status Pengawas
+use App\Http\Controllers\StatusPWController;
+Route::get('/berandaPengawas', [StatusPWController::class, 'getStatus'])->name('berandaPengawas');
+
+// Rute Status Koordinator Pengawas
+use App\Http\Controllers\StatusKPController;
+Route::get('/berandaKoordinatorPengawas', [StatusKPController::class, 'getStatus'])->name('berandaKoordinatorPengawas');
