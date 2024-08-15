@@ -243,3 +243,12 @@ Route::get('/berandaPengawas', [StatusPWController::class, 'getStatus'])->name('
 // Rute Status Koordinator Pengawas
 use App\Http\Controllers\StatusKPController;
 Route::get('/berandaKoordinatorPengawas', [StatusKPController::class, 'getStatus'])->name('berandaKoordinatorPengawas');
+
+Route::get('/akunPimpinan', [UserController::class, 'akunPimpinan'])->name('users.akunPimpinan');
+Route::get('/akunKoordinatorPengawas', [UserController::class, 'akunKoordinatorPengawas'])->name('users.akunKoordinatorPengawas');
+Route::get('/akunPemberiLaporan', [UserController::class, 'akunPemberiLaporan'])->name('users.akunPemberiLaporan');
+Route::get('/akunPengawas', [UserController::class, 'akunPengawas'])->name('users.akunPengawas');
+Route::get('/kelolaAkun', [UserController::class, 'kelolaAkun'])->name('kelolaAkun');
+Route::put('/akun/{role}', [UserController::class, 'editAkunProfil'])->name('users.editAkunProfil');
+Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');    
+Route::get('/anggota', [UserController::class, 'showAnggota'])->name('anggota');

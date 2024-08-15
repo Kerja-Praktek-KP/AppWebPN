@@ -116,14 +116,7 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'Pengguna berhasil diperbarui.');
     }
 
-
-    public function destroy(User $user)
-    {
-        $user->delete();
-        return redirect()->route('users.index')->with('success', 'Pengguna berhasil dihapus.');
-    }
-
-        public function login(Request $request)
+    public function login(Request $request)
     {
         $request->validate([
             'nama' => 'required|string',
@@ -157,6 +150,25 @@ class UserController extends Controller
     public function showProfile($userId = null)
     {
         $user = Auth::user(); // Assuming the user is logged in
+
+        // Jika user adalah Super Admin dan $userId diberikan, tampilkan akun pengguna lain
+        if ($user->role === 'Super Admin' && $userId !== null) {
+            $targetUser = User::findOrFail($userId); // Mengambil data pengguna berdasarkan ID
+        
+            // Menampilkan profil berdasarkan peran pengguna
+            switch ($targetUser->role) {
+                case 'Pemberi Laporan':
+                    return view('Super Admin.akunPemberiLaporan', compact('targetUser'));
+                case 'Pengawas':
+                    return view('Super Admin.akunPengawas', compact('targetUser'));
+                case 'Koordinator Pengawas':
+                    return view('Super Admin.akunKoordinatorPengawas', compact('targetUser'));
+                case 'Pimpinan':
+                    return view('Super Admin.akunPimpinan', compact('targetUser'));
+                default:
+                    return redirect('/super-admin')->withErrors('Role not found.');
+            }
+        }
 
         // Handle the profile view for non-Super Admin users
         switch ($user->role) {
@@ -245,6 +257,167 @@ class UserController extends Controller
         }
     
         return response()->json(['success' => true, 'new_image_url' => $newImageUrl]);
-    }    
+    }  
+    
+    public function akunPimpinan()
+    {
+        $this->authorizeSuperAdmin(); // Cek apakah pengguna adalah Super Admin
+
+        $targetUser = User::where('role', 'Pimpinan')->firstOrFail();
+        return view('Super Admin.akunPimpinan', compact('targetUser'));
+    }
+
+    public function akunKoordinatorPengawas()
+    {
+        $this->authorizeSuperAdmin(); // Cek apakah pengguna adalah Super Admin
+
+        $targetUser = User::where('role', 'Koordinator Pengawas')->firstOrFail();
+        return view('Super Admin.akunKoordinatorPengawas', compact('targetUser'));
+    }
+
+    public function akunPemberiLaporan()
+    {
+        $this->authorizeSuperAdmin(); // Cek apakah pengguna adalah Super Admin
+
+        $targetUser = User::where('role', 'Pemberi Laporan')->firstOrFail();
+        return view('Super Admin.akunPemberiLaporan', compact('targetUser'));
+    }
+
+    public function destroy($id)
+    {
+        $this->authorizeSuperAdmin();
+        
+        $user = User::findOrFail($id);
+
+        // Hapus gambar profil jika ada
+        if ($user->profile_picture) {
+            Storage::delete('public/profile_pictures/' . $user->profile_picture);
+        }
+
+        $user->delete();
+
+        \Log::info('User deleted successfully', ['user_id' => $id]);
+
+        // Lakukan redirect ke halaman kelolaAkun
+        \Log::info('Redirecting to kelolaAkun after deletion');
+        return redirect()->route('kelolaAkun')->with('success', 'Akun berhasil dihapus.');
+        
+    }
+
+
+    public function akunPengawas()
+    {
+        $this->authorizeSuperAdmin(); // Cek apakah pengguna adalah Super Admin
+
+        $targetUser = User::where('role', 'Pengawas')->firstOrFail();
+        return view('Super Admin.akunPengawas', compact('targetUser'));
+    }
+
+    private function authorizeSuperAdmin()
+    {
+        if (Auth::user()->role !== 'Super Admin') {
+            abort(403, 'Unauthorized action.');
+        }
+    }
+
+    public function showAnggota()
+    {
+        // Ambil semua bidang yang valid
+        $validBidangs = [
+            'Panmud Perdata',
+            'Panmud Pidana',
+            'Panmud Tipikor',
+            'Panmud PHI',
+            'Panmud Hukum',
+            'Sub Bag. Perencanaan, TI, dan Pelaporan',
+            'Sub Bag. Kepegawaian dan Ortala',
+            'Sub Bag. Umum dan Keuangan'
+        ];
+
+        // Ambil pengguna berdasarkan bidang yang valid dan role
+        $usersByBidang = [];
+        foreach ($validBidangs as $bidang) {
+            $usersByBidang[$bidang] = User::where('bidang', $bidang)
+                ->where(function($query) {
+                    $query->where('role', 'Pengawas')
+                        ->orWhere('role', 'Pemberi Laporan');
+                })
+                ->get();
+        }
+
+        return view('Super Admin.anggota', compact('usersByBidang'));
+    }
+
+    public function kelolaAkun()
+    {
+        $user = Auth::user(); // Mendapatkan user yang sedang login
+
+        // Pastikan hanya Super Admin yang dapat mengakses halaman ini
+        if ($user->role !== 'Super Admin') {
+            return redirect('/')->withErrors('Unauthorized access.');
+        }
+
+        // Ambil target users berdasarkan beberapa role
+        $targetUsers = User::whereIn('role', ['Pimpinan', 'Pemberi Laporan', 'Pengawas', 'Koordinator Pengawas'])->get();
+
+        // Ambil daftar bidang yang valid
+        $validBidangs = [
+            'Panmud Perdata',
+            'Panmud Pidana',
+            'Panmud Tipikor',
+            'Panmud PHI',
+            'Panmud Hukum',
+            'Sub Bag. Perencanaan, TI, dan Pelaporan',
+            'Sub Bag. Kepegawaian dan Ortala',
+            'Sub Bag. Umum dan Keuangan'
+        ];
+
+        // Kelompokkan users berdasarkan bidang untuk 'Pemberi Laporan' dan 'Pengawas'
+        $groupedUsers = $targetUsers->whereIn('role', ['Pemberi Laporan', 'Pengawas'])
+                                    ->groupBy('bidang');
+
+        // Mengirim variabel ke view
+        return view('Super Admin.kelolaAkun', compact('user', 'targetUsers', 'groupedUsers', 'validBidangs'));
+    }
+
+    public function editAkunProfil(Request $request, $role)
+    {
+        $this->authorizeSuperAdmin(); // Pastikan hanya Super Admin yang bisa mengakses
+
+        // Temukan pengguna berdasarkan role
+        $user = User::where('role', $role)->firstOrFail();
+
+        // Validasi data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8',
+            'profile_picture' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        // Update data pengguna
+        $userData = [
+            'name' => $request->name,
+            'email' => $request->email,
+        ];
+
+        if ($request->filled('password')) {
+            $userData['password'] = Hash::make($request->password);
+        }
+
+        if ($request->hasFile('profile_picture')) {
+            if ($user->profile_picture) {
+                Storage::disk('public')->delete($user->profile_picture);
+            }
+
+            $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+            $userData['profile_picture'] = $path;
+        }
+
+        $user->update($userData);
+
+        // Redirect ke halaman sebelumnya dengan pesan sukses
+        return back()->with('success', 'Profil berhasil diperbarui.');
+    }
 
 }

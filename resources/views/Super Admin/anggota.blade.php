@@ -172,57 +172,37 @@
             </div>            
             <h2 class="text-xs font-semibold mb-4">Pengawas</h2>
             <div :class="[sidebarOpen ? 'grid-cols-2' : 'grid-cols-2 md:grid-cols-3', sidebarOpen ? 'w-10/12' : 'w-full', 'grid gap-6']">
-                <a href="akunPengawas" class="bg-white p-4 rounded-[5px] hover:shadow-lg text-left w-full transition ease-in-out  hover:scale-105 hover:bg-white duration-700">
-                    <div class="flex items-center">
-                        <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-12 w-12 rounded-full">
-                        <div class="ml-4 break-all">
-                            <p class="text-base font-semibold text-black">John Doe</p>
-                            <p class="text-sm font-light text-gray-600">Anggota Divisi</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="akunPengawas" class="bg-white p-4 rounded-[5px] hover:shadow-lg text-left w-full transition ease-in-out  hover:scale-105 hover:bg-white duration-700">
-                    <div class="flex items-center">
-                        <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-12 w-12 rounded-full">
-                        <div class="ml-4 break-all">
-                            <p class="text-base font-semibold text-black">John Doe</p>
-                            <p class="text-sm font-light text-gray-600">Anggota Divisi</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="akunPengawas" class="bg-white p-4 rounded-[5px] hover:shadow-lg text-left w-full transition ease-in-out  hover:scale-105 hover:bg-white duration-700">
-                    <div class="flex items-center">
-                        <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-12 w-12 rounded-full">
-                        <div class="ml-4 break-all">
-                            <p class="text-base font-semibold text-black">John Doe</p>
-                            <p class="text-sm font-light text-gray-600">Anggota Divisi</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="akunPengawas" class="bg-white p-4 rounded-[5px] hover:shadow-lg text-left w-full transition ease-in-out  hover:scale-105 hover:bg-white duration-700">
-                    <div class="flex items-center">
-                        <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-12 w-12 rounded-full">
-                        <div class="ml-4 break-all">
-                            <p class="text-base font-semibold text-black">John Doe</p>
-                            <p class="text-sm font-light text-gray-600">Anggota Divisi</p>
-                        </div>
-                    </div>
-                </a>
+                @foreach($usersByBidang as $bidang => $users)
+                    @foreach($users->where('role', 'Pengawas') as $user)
+                        <a href="{{ route('users.akunPengawas', $user->id) }}" class="bg-white p-4 rounded-[5px] hover:shadow-lg text-left w-full transition ease-in-out hover:scale-105 hover:bg-white duration-700">
+                            <div class="flex items-center">
+                                <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-12 w-12 rounded-full">
+                                <div class="ml-4 break-all">
+                                    <p class="text-base font-semibold text-black">{{ $user->name }}</p>
+                                    <p class="text-sm font-light text-gray-600">{{ $user->role }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    @endforeach
+                @endforeach
             </div>
 
-            <h2 class="text-xs font-semibold mb-4 mt-10">Anggota Divisi</h2>
+            <h2 class="text-xs font-semibold mb-4 mt-10">Pemberi Laporan</h2>
             <div :class="[sidebarOpen ? 'grid-cols-2' : 'grid-cols-2 md:grid-cols-3', sidebarOpen ? 'w-10/12' : 'w-full', 'grid gap-6']">
-                <a href="akunPemberiLaporan" class="bg-white p-4 rounded-[5px] hover:shadow-lg text-left w-full transition ease-in-out  hover:scale-105 hover:bg-white duration-700">
-                    <div class="flex items-center">
-                        <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-12 w-12 rounded-full">
-                        <div class="ml-4 break-all">
-                            <p class="text-base font-semibold text-black">Arie</p>
-                            <p class="text-sm font-light text-gray-600">Pemberi Laporan</p>
-                        </div>
-                    </div>
-                </a>
+                @foreach($usersByBidang as $bidang => $users)
+                    @foreach($users->where('role', 'Pemberi Laporan') as $user)
+                        <a href="{{ route('users.akunPemberiLaporan', $user->id) }}" class="bg-white p-4 rounded-[5px] hover:shadow-lg text-left w-full transition ease-in-out  hover:scale-105 hover:bg-white duration-700">
+                            <div class="flex items-center">
+                                <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-12 w-12 rounded-full">
+                                <div class="ml-4 break-all">
+                                    <p class="text-base font-semibold text-black">{{ $user->name }}</p>
+                                    <p class="text-sm font-light text-gray-600">{{ $user->role }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    @endforeach
+                @endforeach
             </div>
-
         </main>              
     </div>
 </body>

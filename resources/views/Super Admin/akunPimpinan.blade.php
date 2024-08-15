@@ -46,7 +46,7 @@
         }       
     </style>
 </head>
-<body class="bg-[#F2F3F9] overflow-hidden" x-data="{ sidebarOpen: true, isEditing: false, user: { nama: 'Arie', nip: '2104111010066', email: 'Arie@gmail.com', password: '******', jabatan: 'Pemimpin', divisi: '-'}, editUser: {}, showPopup: false, showUserForm: true }">
+<body class="bg-[#F2F3F9] overflow-hidden" x-data="{ sidebarOpen: true }">
     <!-- Header -->
     <header class="w-full flex justify-between bg-white items-center p-2 drop-shadow-md relative z-50">
         <div class="flex items-center">
@@ -172,109 +172,191 @@
                     Kembali
                 </a>
             </div>
-            <template x-if="showUserForm">
-                <div class="flex flex-col lg:flex-row items-center justify-center bg-white h-fit w-80 md:w-80 lg:w-fit mr-44 md:mr-0 lg:mr-0 rounded-[5px] mt-5 lg:mt-20">
-                    <div class="relative items-center p-5 md:p-2 mr-4 ml-0 md:ml-10 lg:ml-10">
-                        <img :src="editUser.photo || '{{ asset('images/profile.png') }}'" alt="Profile Picture" class="w-40 md:w-52 lg:w-64 h-40 md:h-48 lg:h-52">
-                        <button x-show="isEditing" @click="$refs.fileInput.click()" class="absolute top-10 p-2">
-                            <img src="{{ asset('images/camera.png') }}"  alt="Profile Image" class="w-6 h-6">
-                        </button>
-                        <input type="file" x-ref="fileInput" class="hidden" @change="previewImage">
-                    </div>
-                    <div class="items-center w-1/2 mt-6 mr-0 md:mr-20">
-                        <div class="flex items-center mb-2">
-                            <span class="w-3/4 font-semibold text-[14px] md:text-[12px] lg:[12px] text-black">Nama:</span>
-                            <template x-if="!isEditing">
-                                <span x-text="user.nama" class="w-5/6 text-[14px] md:text-[12px] lg:[12px] font-normal text-black p-1"></span>
-                            </template>
-                            <template x-if="isEditing">
-                                <input x-model="editUser.nama" class="w-3/4 text-[14px] md:text-[12px] lg:[12px] font-semibold text-black border rounded p-1" />
-                            </template>
-                        </div>
-                        <div class="flex items-center mb-4 md:mb-2">
-                            <span class="w-3/4 font-semibold text-[14px] md:text-[12px] lg:[12px] text-black">NIP:</span>
-                            <template x-if="!isEditing">
-                                <span x-text="user.nip" class="w-3/4 text-[14px] md:text-[12px] lg:[12px] font-normal text-black p-1"></span>
-                            </template>
-                            <template x-if="isEditing">
-                                <input x-model="editUser.nip" class="w-3/4 text-[14px] md:text-[12px] lg:[12px] font-semibold text-black border  rounded p-1" />
-                            </template>
-                        </div>
-                        <div class="flex items-center mb-4 md:mb-2">
-                            <span class="w-3/4 font-semibold text-[14px] md:text-[12px] lg:[12px] text-black">Email:</span>
-                            <template x-if="!isEditing">
-                                <span x-text="user.email" class="w-3/4 text-[14px] md:text-[12px] lg:[12px] font-normal text-black p-1"></span>
-                            </template>
-                            <template x-if="isEditing">
-                                <input x-model="editUser.email" class="w-3/4 text-[14px] md:text-[12px] lg:[12px] font-semibold text-black border  rounded p-1" />
-                            </template>
-                        </div>
-                        <div class="flex items-center mb-4 md:mb-2 ">
-                            <span class="w-3/4 font-semibold text-[14px] md:text-[12px] lg:[12px] text-black">Password:</span>
-                            <template x-if="!isEditing">
-                                <span x-text="user.password" class="w-2/3 font-normal  text-black p-1"></span>
-                            </template>
-                            <template x-if="isEditing">
-                                <input type="password" x-model="editUser.password" class=" w-3/4 text-[14px] md:text-[12px] lg:[12px] font-semibold text-black border rounded p-1" />
-                            </template>
-                        </div>
-                        <template x-if="!isEditing">
-                            <div class="flex items-center mb-4 md:mb-2">
-                                <span class="w-5/6 font-semibold text-[14px] md:text-[12px] lg:[12px] text-black">Jabatan:</span>
-                                <span x-text="user.jabatan" class="w-3/4 text-[14px] md:text-[12px] lg:[12px] font-normal text-black p-1"></span>
-                            </div>
-                        </template>
-                        <template x-if="!isEditing">
-                            <div class="flex items-center mb-4 md:mb-2">
-                                <span class="w-3/4 font-semibold text-[14px] md:text-[12px] lg:[12px] text-black">Bidang:</span>
-                                <span x-text="user.divisi" class="w-3/4 text-[14px] md:text-[12px] lg:[12px] font-normal text-black p-1"></span>
-                            </div>
-                        </template>
-                        <div class="flex item-center justify-start mt-5 mb-5">
-                            <template x-if="!isEditing">
-                                <button @click="isEditing = true; editUser = { ...user }" class="flex bg-[#22805E] text-white text-[14px] md:text-[12px] font-semibold px-4 py-1 rounded-[5px] shadow-md hover:bg-green-800 mr-2">
-                                    <svg class="mr-2" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9.66699 3.8335H3.83366C3.39163 3.8335 2.96771 4.00909 2.65515 4.32165C2.34259 4.63421 2.16699 5.05814 2.16699 5.50016V17.1668C2.16699 17.6089 2.34259 18.0328 2.65515 18.3453C2.96771 18.6579 3.39163 18.8335 3.83366 18.8335H15.5003C15.9424 18.8335 16.3663 18.6579 16.6788 18.3453C16.9914 18.0328 17.167 17.6089 17.167 17.1668V11.3335" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M15.917 2.5832C16.2485 2.25168 16.6982 2.06543 17.167 2.06543C17.6358 2.06543 18.0855 2.25168 18.417 2.5832C18.7485 2.91472 18.9348 3.36436 18.9348 3.8332C18.9348 4.30204 18.7485 4.75168 18.417 5.0832L10.5003 12.9999L7.16699 13.8332L8.00033 10.4999L15.917 2.5832Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                    Ubah Profil
+            <form action="{{ route('users.editAkunProfil',  ['role' => 'Pimpinan']) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+            
+                <!-- Tempatkan x-data di elemen yang lebih tinggi -->
+                <div x-data="{ sidebarOpen: true, isEditing: false, showPopup: false, showUserForm: true, originalImageUrl: '', previewImageUrl: '' }">
+                    <template x-if="showUserForm">
+                        <div class="flex flex-col lg:flex-row items-center justify-center bg-white h-fit w-80 md:w-80 lg:w-fit mr-44 md:mr-0 lg:mr-0 rounded-[5px] mt-5 lg:mt-20">
+                            <div class="relative items-center p-5 md:p-2 mr-4 ml-0 md:ml-10 lg:ml-10">
+                                <img id="profilePic" :src="previewImageUrl || originalImageUrl || '{{ $targetUser->profile_picture ? asset('storage/' . $targetUser->profile_picture) : asset('images/profile.png') }}'" alt="Profile Picture" class="w-40 md:w-52 lg:w-64 h-40 md:h-48 lg:h-52">
+                                <button x-show="isEditing" type="button" class="absolute top-0 p-2" onclick="document.getElementById('profile_picture').click()">
+                                    <img src="{{ asset('images/camera.png') }}" alt="Profile Image" class="w-6 h-6">
                                 </button>
-                            </template>
-                            <template x-if="isEditing">
-                                <div>
-                                    <button @click="isEditing = false; user = { ...editUser }" class="bg-[#22805E] text-white font-semibold px-8 py-1.5 shadow-md rounded-lg mr-4 mb-2">Simpan</button>
-                                    <button @click="isEditing = false; editUser = { ...user }" class="border border-[#22805E] text-[#22805E] font-semibold px-8 py-1.5 shadow-md rounded-lg">Batal</button>
+                                <input type="file" id="profile_picture" name="profile_picture" class="hidden" @change="previewImage">
+                            </div>
+                            <div class="items-center w-1/2 mt-6 mr-0 md:mr-20">
+                                <!-- Nama -->
+                                <div class="flex flex-row items-center mb-2">
+                                    <span class="w-2/6 font-semibold text-[14px] md:text-[12px] lg:[12px] text-black">Nama:</span>
+                                    <template x-if="!isEditing">
+                                        <span class="text-[14px] md:text-[12px] lg:[12px] font-normal text-black p-1">{{ $targetUser->name }}</span>
+                                    </template>
+                                    <template x-if="isEditing">
+                                        <input id="editNama" name="name" value="{{ $targetUser->name }}" class="text-[14px] md:text-[12px] lg:[12px] font-semibold text-black border rounded p-1" />
+                                    </template>
                                 </div>
-                            </template>
-                            <template x-if="!isEditing">
-                                <button @click="showPopup = true" class="flex bg-[#FD3259] text-white text-[14px] md:text-[12px] font-semibold px-4 py-1 rounded-[5px] shadow-md hover:bg-green-800">
-                                    Hapus Akun
-                                </button>
-                            </template>
+                                <!-- NIP -->
+                                <template x-if="!isEditing">
+                                    <div class="flex items-center mb-4 md:mb-2">
+                                        <span class="w-2/6 font-semibold text-[14px] md:text-[12px] lg:[12px] text-black">NIP:</span>
+                                        <span class="text-[14px] md:text-[12px] lg:[12px] font-normal text-black p-1">{{ $targetUser->nip }}</span>
+                                    </div>
+                                </template>
+                                <!-- Email -->
+                                <div class="flex items-center mb-4 md:mb-2 w-full">
+                                    <span class="w-2/6 font-semibold text-[14px] md:text-[12px] lg:[12px] text-black">Email:</span>
+                                    <template x-if="!isEditing">
+                                        <span class="text-[14px] md:text-[12px] lg:[12px] font-normal text-black p-1">{{ $targetUser->email }}</span>
+                                    </template>
+                                    <template x-if="isEditing">
+                                        <input id="editEmail" name="email" value="{{ $targetUser->email }}" class="text-[14px] md:text-[12px] lg:[12px] font-semibold text-black border rounded p-1" />
+                                    </template>
+                                </div>
+                                <!-- Password -->
+                                <div class="flex items-center mb-4 md:mb-2 ">
+                                    <span class="w-2/6 font-semibold text-[14px] md:text-[12px] lg:[12px] text-black">Password:</span>
+                                    <template x-if="!isEditing">
+                                        <span class="w-2/3 font-normal text-black p-1">******</span>
+                                    </template>
+                                    <template x-if="isEditing">
+                                        <input type="password" id="editPassword" name="password" placeholder="Masukkan kata sandi baru" class="text-[14px] md:text-[12px] lg:[12px] font-semibold text-black border rounded p-1" />
+                                    </template>
+                                </div>
+                                <!-- Jabatan -->
+                                <template x-if="!isEditing">
+                                    <div class="flex items-center mb-4 md:mb-2">
+                                        <span class="w-2/6 font-semibold text-[14px] md:text-[12px] lg:[12px] text-black">Jabatan:</span>
+                                        <span class="text-[14px] md:text-[12px] lg:[12px] font-normal text-black p-1">{{ $targetUser->role }}</span>
+                                    </div>
+                                </template>
+                                <!-- Bidang -->
+                                <template x-if="!isEditing">
+                                    <div class="flex items-center mb-4 md:mb-2">
+                                        <span class="w-2/6 font-semibold text-[14px] md:text-[12px] lg:[12px] text-black">Bidang:</span>
+                                        <span class="text-[14px] md:text-[12px] lg:[12px] font-normal text-black p-1">{{ $targetUser->bidang ?? '-'  }}</span>
+                                    </div>
+                                </template>
+                                <!-- Tombol Edit dan Batal -->
+                                <div class="flex item-center justify-start mt-5 mb-5">
+                                    <template x-if="!isEditing">
+                                        <button @click="isEditing = true; originalImageUrl = document.getElementById('profilePic').src;" class="flex bg-[#22805E] text-white text-[14px] md:text-[12px] font-semibold px-4 py-1 rounded-[5px] shadow-md hover:bg-green-800 mr-2">
+                                            <svg class="mr-2" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M9.66699 3.8335H3.83366C3.39163 3.8335 2.96771 4.00909 2.65515 4.32165C2.34259 4.63421 2.16699 5.05814 2.16699 5.50016V17.1668C2.16699 17.6089 2.34259 18.0328 2.65515 18.3453C2.96771 18.6579 3.39163 18.8335 3.83366 18.8335H15.5003C15.9424 18.8335 16.3663 18.6579 16.6788 18.3453C16.9914 18.0328 17.167 17.6089 17.167 17.1668V11.3335" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M15.917 2.5832C16.2485 2.25168 16.6982 2.06543 17.167 2.06543C17.6358 2.06543 18.0855 2.25168 18.417 2.5832C18.7485 2.91472 18.9348 3.36436 18.9348 3.8332C18.9348 4.30204 18.7485 4.75168 18.417 5.0832L10.5003 12.9999L7.16699 13.8332L8.00033 10.4999L15.917 2.5832Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            Ubah Profil
+                                        </button>
+                                    </template>
+                                    <template x-if="isEditing">
+                                        <div>
+                                            <button type="submit" class="bg-[#22805E] text-white font-semibold px-8 py-1.5 shadow-md rounded-lg mr-4 mb-2">Simpan</button>
+                                            <button @click="isEditing = false; document.getElementById('profilePic').src = originalImageUrl; resetFileInput();" class="border border-[#22805E] text-[#22805E] font-semibold px-8 py-1.5 shadow-md rounded-lg">Batal</button>
+                                        </div>
+                                    </template>
+                                    <template x-if="!isEditing">
+                                        <button @click.prevent="showPopup = true" class="flex bg-[#FD3259] text-white text-[14px] md:text-[12px] font-semibold px-4 py-1 rounded-[5px] shadow-md hover:bg-red-800">Hapus Akun</button>
+                                    </template>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </template>
+            
+                    <template x-if="showPopup">
+                        <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+                            <div class="bg-white px-0 py-3 md:px-6 md:py-6 rounded-lg shadow-lg">
+                                <h2 class="text-base md:text-base lg:text-xl font-normal mx-8 mb-4">Apakah kamu yakin menghapus akun ini?</h2>
+                                <div class="flex justify-center items-center space-x-4">
+                                    <button @click="showPopup = false" class="bg-[#9B9B9B] text-white py-2 px-4 w-20 md:w-40 mr-4 rounded-md">Batal</button>
+                                    <button @click="confirmDeletion" class="bg-[#FD3259] text-white py-2 px-4 w-20 md:w-40 rounded-md">Ya</button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
                 </div>
-            </template>
-            <div x-show="showPopup" x-transition class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-                <div class="bg-white px-0 py-3 md:px-6 md:py-6 rounded-lg shadow-lg">
-                    <h2 class="text-base md:text-base lg:text-xl font-normal mx-8 mb-4">Apakah kamu yakin menghapus akun ini?</h2>
-                    <div class="flex justify-center items-center">
-                        <button @click="showPopup = false" class="bg-[#9B9B9B] text-white py-2 px-4 w-20 md:w-40 mr-4 rounded-md">Batal</button>
-                        <button @click="showPopup = false; showUserForm = false" class="bg-[#FD3259] text-white py-2 px-4 w-20 md:w-40 rounded-md">Ya</button>
-                    </div>
-                </div>
-            </div>          
-        </div>          
+            </form>
+            
+            <!-- Form untuk penghapusan akun -->
+            <form id="deleteUserForm" action="{{ route('users.destroy', ['id' => $targetUser->id]) }}" method="POST" style="display: none;">
+                @csrf
+                @method('DELETE')
+            </form>            
+
+            <!-- Sertakan jQuery -->
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                // Fungsi untuk mereset input file
+                function resetFileInput() {
+                    const input = document.getElementById('profile_picture');
+                    input.value = ''; // Reset input file
+                }
+                
+                // Upload gambar profil
+                $('#profile_picture').on('change', function() {
+                    var formData = new FormData();
+                    formData.append('profile_picture', this.files[0]);
+                    formData.append('_token', '{{ csrf_token() }}');
+
+                    $.ajax({
+                        url: "{{ route('users.uploadProfilePicture', ['id' => $targetUser->id]) }}",
+                        method: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            if (response.success) {
+                                // Update src gambar profil
+                                $('#profilePic').attr('src', response.new_image_url);
+                            }
+                        },
+                        error: function(response) {
+                            alert('Gagal mengunggah gambar.');
+                        }
+                    });
+                });
+
+                // Preview gambar sebelum diupload
+                function previewImage(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            document.getElementById('profilePic').src = e.target.result;
+                            document.querySelector('[x-data]').__x.$data.previewImageUrl = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+
+                document.getElementById('profile_picture').addEventListener('change', previewImage);
+
+                $(document).ready(function() {
+                    console.log($('#deleteUserForm').attr('action')); // Memeriksa URL action
+                });
+
+                function confirmDeletion() {
+                    var redirectUrl = '/kelolaAkun';
+                    console.log("Redirecting to: ", redirectUrl);
+
+                    $.ajax({
+                        url: $('#deleteUserForm').attr('action'),
+                        method: 'DELETE',
+                        data: $('#deleteUserForm').serialize(),
+                        success: function(response) {
+                            // Setelah berhasil, sembunyikan pop-up dan tampilkan pesan sukses
+                            document.querySelector('[x-data]').__x.$data.showPopup = false;
+                            window.location.href = redirectUrl ;  // Redirect ke halaman yang diinginkan
+                        },
+                        error: function(response) {
+                            console.log(response); // Debugging jika perlu
+                            alert('Gagal menghapus akun.');
+                        }
+                    });
+                }
+            </script>
+        </div>                    
     </div>
-    <script>
-        function previewImage(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                this.editUser.photo = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    </script>
 </body>
 </html>
