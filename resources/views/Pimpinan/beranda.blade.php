@@ -179,20 +179,30 @@
 
         <main :class="sidebarOpen ? 'w-11/12 ' : 'w-full'" class="flex-1 p-8 overflow-y-auto pb-20 transition-all duration-300">            
             <div class="grid-cols-1 grid gap-6 h-20 mb-6">
-                <a href="penilaianDetailKoordinatorPengawas" class="bg-white p-2 rounded-lg hover:shadow-lg  w-full transition ease-in-out delay-150 hover:-translate-y-0 hover:scale-100 hover:bg-white duration-300 flex flex-col justify-start items-center">
-                    <p class="text-sm lg:text-base font-semibold text-black mt-5">Kordinator Pengawas</p>
-                </a>
+                @foreach($targetUsers as $targetUser)
+                    @if(Auth::user()->role === 'Pimpinan')
+                        @if($targetUser->role == 'Koordinator Pengawas')
+                            <a href="{{ route('/penilaianDetaailPemberiLaporan') }}" class="bg-white p-2 rounded-lg hover:shadow-lg w-full transition ease-in-out delay-150 hover:-translate-y-0 hover:scale-105 hover:bg-white duration-300 flex flex-col justify-start items-center">
+                                <div class="flex flex-col justify-start items-center h-14">
+                                    <p class="text-sm md:text-base font-semibold text-black mt-5 md:mt-4">Koordinator Pengawas</p>
+                                </div>
+                            </a>
+                        @endif
+                    @endif
+                @endforeach
             </div>
             <div class="grid-cols-2 grid gap-6 h-1/4">
-                <a href="anggotaPimpinan" class="bg-white p-2 rounded-lg hover:shadow-lg  w-full transition ease-in-out delay-150 hover:-translate-y-0 hover:scale-105 hover:bg-white duration-300 flex flex-col justify-start items-center">
-                    <p class="text-sm lg:text-base font-semibold text-black mt-3 ">Nama Divisi 1</p>
-                </a>
-                <a href="anggotaPimpinan" class="bg-white p-2 rounded-lg hover:shadow-lg  w-full transition ease-in-out delay-150 hover:-translate-y-0 hover:scale-105 hover:bg-white duration-300 flex flex-col justify-start items-center">
-                    <p class="text-sm lg:text-base font-semibold text-black mt-3 ">Nama Divisi 1</p>
-                </a>
-                <a href="anggotaPimpinan" class="bg-white p-2 rounded-lg hover:shadow-lg  w-full transition ease-in-out delay-150 hover:-translate-y-0 hover:scale-105 hover:bg-white duration-300 flex flex-col justify-start items-center">
-                    <p class="text-sm lg:text-base font-semibold text-black mt-3 ">Nama Divisi 1</p>
-                </a>
+                @if(Auth::user()->role === 'Pimpinan')    
+                    @foreach($groupedUsers as $bidang => $users)
+                        @if($bidang && in_array($bidang, $validBidangs))
+                        <a href="{{ route('anggota', ['bidang' => $bidang]) }}" class="bg-white p-2 rounded-lg w-full transition ease-in-out delay-150 hover:-translate-y-0 hover:scale-105 hover:bg-white duration-300 flex flex-col justify-start items-center">
+                            <div class="flex flex-col justify-start items-center h-14">
+                                <p class="text-sm md:text-base font-semibold text-black mt-5 md:mt-4">{{ $bidang }}</p>
+                            </div>
+                        </a>
+                        @endif
+                    @endforeach
+                @endif
             </div>
         </main>              
     </div>

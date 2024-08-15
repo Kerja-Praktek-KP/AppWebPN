@@ -387,6 +387,14 @@ class UserController extends Controller
             })
             ->get();
 
+        // Cek peran pengguna yang sedang login
+        $user = Auth::user();
+        if ($user->role === 'Pimpinan') {
+            // Jika pengguna adalah Pimpinan, arahkan ke tampilan Pimpinan.anggota
+            return view('Pimpinan.anggota', compact('usersByBidang', 'bidang'));
+        }
+
+        // Jika bukan Pimpinan, arahkan ke tampilan Super Admin.anggota
         return view('Super Admin.anggota', compact('usersByBidang', 'bidang'));
     }
 
@@ -394,13 +402,25 @@ class UserController extends Controller
     {
         $user = Auth::user(); // Mendapatkan user yang sedang login
 
-        // Pastikan hanya Super Admin yang dapat mengakses halaman ini
-        if ($user->role !== 'Super Admin') {
+        // Cek apakah yang login adalah Super Admin atau Pimpinan
+        if ($user->role === 'Super Admin') {
+            // Ambil target users berdasarkan beberapa role
+            $targetUsers = User::whereIn('role', ['Pimpinan', 'Pemberi Laporan', 'Pengawas', 'Koordinator Pengawas'])->get();
+
+            // Kelompokkan users berdasarkan bidang untuk 'Pemberi Laporan' dan 'Pengawas'
+            $groupedUsers = $targetUsers->whereIn('role', ['Pemberi Laporan', 'Pengawas'])
+                                        ->groupBy('bidang');
+        } elseif ($user->role === 'Pimpinan') {
+            // Ambil target users khusus untuk Pimpinan
+            $targetUsers = User::whereIn('role', ['Koordinator Pengawas', 'Pemberi Laporan', 'Pengawas'])->get();
+
+            // Kelompokkan users berdasarkan bidang untuk 'Pemberi Laporan' dan 'Pengawas'
+            $groupedUsers = $targetUsers->whereIn('role', ['Pemberi Laporan', 'Pengawas'])
+                                        ->groupBy('bidang');
+        } else {
+            // Jika bukan Super Admin atau Pimpinan, redirect dengan pesan error
             return redirect('/')->withErrors('Unauthorized access.');
         }
-
-        // Ambil target users berdasarkan beberapa role
-        $targetUsers = User::whereIn('role', ['Pimpinan', 'Pemberi Laporan', 'Pengawas', 'Koordinator Pengawas'])->get();
 
         // Ambil daftar bidang yang valid
         $validBidangs = [
@@ -414,12 +434,12 @@ class UserController extends Controller
             'Sub Bag. Umum dan Keuangan'
         ];
 
-        // Kelompokkan users berdasarkan bidang untuk 'Pemberi Laporan' dan 'Pengawas'
-        $groupedUsers = $targetUsers->whereIn('role', ['Pemberi Laporan', 'Pengawas'])
-                                    ->groupBy('bidang');
-
         // Mengirim variabel ke view
-        return view('Super Admin.kelolaAkun', compact('user', 'targetUsers', 'groupedUsers', 'validBidangs'));
+        if ($user->role === 'Super Admin') {
+            return view('Super Admin.kelolaAkun', compact('user', 'targetUsers', 'groupedUsers', 'validBidangs'));
+        } else {
+            return view('Pimpinan.beranda', compact('user', 'targetUsers', 'groupedUsers', 'validBidangs'));
+        }
     }
 
     public function editAkunProfil(Request $request, $role)

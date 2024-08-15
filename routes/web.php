@@ -249,6 +249,7 @@ Route::get('/akunKoordinatorPengawas', [UserController::class, 'akunKoordinatorP
 Route::get('/akunPemberiLaporan', [UserController::class, 'akunPemberiLaporan'])->name('users.akunPemberiLaporan');
 Route::get('/akunPengawas', [UserController::class, 'akunPengawas'])->name('users.akunPengawas');
 Route::get('/kelolaAkun', [UserController::class, 'kelolaAkun'])->name('kelolaAkun');
+Route::get('/berandaPimpinan', [UserController::class, 'kelolaAkun'])->name('berandaPimpinan');
 Route::put('/akun/{role}', [UserController::class, 'editAkunProfil'])->name('users.editAkunProfil');
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');    
 Route::get('/anggota', [UserController::class, 'showAnggota'])->name('anggota');
