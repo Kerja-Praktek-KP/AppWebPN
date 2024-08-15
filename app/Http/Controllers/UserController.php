@@ -127,6 +127,8 @@ class UserController extends Controller
         if ($user && Hash::check($request->password, $user->password)) {
             Auth::login($user);
 
+            session()->flash('showNotification', true);
+            
             switch ($user->role) {
                 case 'Pemberi Laporan':
                     return redirect()->intended('/berandaPemberiLaporan');
