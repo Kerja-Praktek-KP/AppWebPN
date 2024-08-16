@@ -182,7 +182,7 @@
                 @foreach($targetUsers as $targetUser)
                     @if(Auth::user()->role === 'Pimpinan')
                         @if($targetUser->role == 'Koordinator Pengawas')
-                            <a href="{{ route('/penilaianDetaailPemberiLaporan') }}" class="bg-white p-2 rounded-lg hover:shadow-lg w-full transition ease-in-out delay-150 hover:-translate-y-0 hover:scale-105 hover:bg-white duration-300 flex flex-col justify-start items-center">
+                            <a href="{{ route('penilaianDetailKoordinatorPengawas') }}" class="bg-white p-2 rounded-lg hover:shadow-lg w-full transition ease-in-out delay-150 hover:-translate-y-0 hover:scale-105 hover:bg-white duration-300 flex flex-col justify-start items-center">
                                 <div class="flex flex-col justify-start items-center h-14">
                                     <p class="text-sm md:text-base font-semibold text-black mt-5 md:mt-4">Koordinator Pengawas</p>
                                 </div>

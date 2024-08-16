@@ -31,18 +31,17 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // rute pimpinan
-
-Route::get('/penilaianDetailKoordinatorPengawas', function () {
-    return view('Pimpinan.penilaianDetailKoordinatorPengawas');
-});
-
 Route::get('/penilaianDetailPengawas', function () {
     return view('Pimpinan.penilaianDetailPengawas');
-});
+})->name('penilaianDetailPengawas');
 
 Route::get('/penilaianDetailPemberiLaporan', function () {
     return view('Pimpinan.penilaianDetailPemberiLaporan');
-});
+})->name('penilaianDetailPemberiLaporan');
+
+Route::get('/penilaianDetailKoordinatorPengawas', function () {
+    return view('Pimpinan.penilaianDetailKoordinatorPengawas');
+})->name('penilaianDetailKoordinatorPengawas');
 
 Route::get('/berandaPimpinan', function () {
     return view('Pimpinan.beranda');
