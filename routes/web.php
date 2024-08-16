@@ -242,6 +242,9 @@ use App\Http\Controllers\InfoDetailUserController;
 Route::get('/penilaianDetailPemberiLaporanPengawas', [InfoDetailUserController::class, 'showPemberiLaporan'])->name('pengawas.pemberiLaporan');
 Route::get('/penilaianDetailPemberiLaporanPengawas/{id}', [InfoDetailUserController::class, 'downloadLaporan'])->name('pengawas.downloadLaporan');
 
+use App\Http\Controllers\infoDetailKPController;
+Route::get('/penilaianDetailKoordinatorPengawas', [infoDetailKPController::class, 'showKoordinatorPengawas'])->name('penilaianDetailKoordinatorPengawasPimpinan');
+Route::get('/penilaianDetailKoordinatorPengawas/{id}', [InfoDetailKPController::class, 'downloadLaporan'])->name('pimpinan.downloadLaporan');
 
 // Rute Status Koordinator Pengawas
 use App\Http\Controllers\StatusKPController;

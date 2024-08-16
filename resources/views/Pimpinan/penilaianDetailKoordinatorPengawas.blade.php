@@ -181,11 +181,21 @@
         <main :class="sidebarOpen ? 'w-11/12' : 'w-full'" class="flex-1 flex-col transition-all p-4 duration-300 overflow-y-auto pb-24">
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center">
-                    <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-8 md:h-8 lg:h-10 xl:h-14 w-8 md:w-8 lg:w-10 xl:w-14 rounded-full mr-4">
-                    <div>
-                        <p class="text-[12px] md:text-[16px] font-semibold">Panca Wiguna, S.H</p>
-                        <p class="text-[10px] text-gray-600">Koordinator Pengawas</p>
-                    </div>
+                    @if($koordinatorPengawas->isEmpty())
+                    <p class="text-gray-600">Tidak ada KP Laporan di bidang Anda.</p>
+                @else
+                    @foreach($koordinatorPengawas as $KP)
+                        <div class="flex items-center">
+                            <img src="{{ $KP->profile_picture ? asset('storage/' . $KP->profile_picture) : asset('images/profile.png') }}" 
+                                            alt="Profile" 
+                                            class="h-8 md:h-8 lg:h-10 xl:h-14 w-8 md:w-8 lg:w-10 xl:w-14 rounded-full mr-4">
+                            <div>
+                                <p class="text-[16px] md:text-base font-semibold">{{ $KP->name }}</p>
+                                <p class="text-[10px] text-gray-600">{{ $KP->role }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
                 </div>
                 <div class="ml-auto flex items-center justify-center">
                     <a href="berandaPimpinan" class="flex w-fit items-center justify-center px-6 py-2 text-[11px] md:text-[12px] lg:text-[12px] bg-white rounded-[5px]">
@@ -208,22 +218,13 @@
                     <div class="flex items-center justify-center space-x-7 md:space-x-2 lg:space-x-6 xl:space-x-12 mx-8">
                         <div class="flex flex-col lg:flex-row xl:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
                             <div :class="sidebarOpen ? 'ml-1 md:ml-10 lg:ml-10' : 'ml-1 md:ml-22 lg:ml-70 '" class="grid grid-cols-6 gap-6 md:gap-2 xl:flex xl:space-x-4">
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
-                                <div class="w-3 md:w-3 lg:w-4 h-3 lg:h-4 md:h-3 bg-gray-300 rounded-full"></div>
+                                @foreach ($statusBulanan as $status)
+                                    <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 {{ $status ? 'bg-[#22805E]' : 'bg-gray-300' }} rounded-full"></div>
+                                @endforeach
                             </div>
                         </div>
-                        <div class="text-gray-600 text-[11px] md:text-[12px] lg:text-[12px]">0/12</div>
-                        <div class="px-3 md:px-2 lg:px-2 py-1 bg-[#22805E] text-white text-[11px] md:text-[12px] lg:text-[12px] rounded-[5px]">2024</div>
+                        <div class="text-gray-600 text-[11px] md:text-[12px] lg:text-[12px]">{{ count(array_filter($statusBulanan)) }}/12</div>
+                        <div class="px-3 md:px-2 lg:px-2 py-1 bg-[#22805E] text-white text-[11px] md:text-[12px] lg:text-[12px] rounded-[5px]">{{ $currentYear }}</div>
                     </div>
                 </div>
             </div>
@@ -233,7 +234,7 @@
             </div>
         
             <!-- Table -->
-            <div id="laporan-mingguan" class="category laporan bg-white p-2 w-full rounded-[5px] mx-auto">
+            <div id="xlaporan" class="category laporan bg-white p-2 w-full rounded-[5px] mx-auto">
                 <table class="min-w-full leading-normal">
                     <thead>
                         <tr>
@@ -243,7 +244,7 @@
                             <th class="px-2 md:px-5 py-3 text-center text-[10px] md:text-[14px] font-bold text-black uppercase tracking-normal">Unduh Laporan</th>
                         </tr>
                     </thead>
-                    <tbody id="mingguanTableBody">
+                    <tbody id="laporanTableBody">
 
                     </tbody>
                 </table>
@@ -265,45 +266,41 @@
         </main>
     </div> 
     <script>
-        let reports = [
-            // Data laporan mingguan contoh
-            { id: 1, judul: 'Laporan Mingguan', tanggal: '12 September 2024' },
-            { id: 2, judul: 'Laporan Mingguan', tanggal: '12 September 2024' },
-            { id: 3, judul: 'Laporan Mingguan', tanggal: '12 September 2024' },
-            { id: 4, judul: 'Laporan Mingguan', tanggal: '12 September 2024' },
-            { id: 5, judul: 'Laporan Mingguan', tanggal: '12 September 2024' },
-            { id: 6, judul: 'Laporan Mingguan', tanggal: '12 September 2024' },
-            { id: 7, judul: 'Laporan Mingguan', tanggal: '12 September 2024' },
-            { id: 8, judul: 'Laporan Mingguan', tanggal: '12 September 2024' },
-            { id: 9, judul: 'Laporan Mingguan', tanggal: '12 September 2024' },
-            { id: 10, judul: 'Laporan Mingguan', tanggal: '12 September 2024' },
-            // Tambahkan lebih banyak data sesuai kebutuhan
-        ];
+        let reports = {
+            riwayatLaporan: {!! json_encode($laporan->map(function($laporan) {
+                return [
+                    'id' => $laporan->id,
+                    'judul' => $laporan->nama_laporan_with_format,
+                    'tanggal' => $laporan->created_at->format('d F Y')
+                ];
+            })) !!}
+        };
+
 
         const itemsPerPage = 5;
         let currentPage = 1;
 
         function renderTable() {
-            const tableBody = document.getElementById('mingguanTableBody');
+            const tableBody = document.getElementById('laporanTableBody');
             tableBody.innerHTML = '';
 
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
-            const currentItems = reports.slice(startIndex, endIndex);
+            const currentItems = reports.riwayatLaporan.slice(startIndex, endIndex);
 
             currentItems.forEach((report, index) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                 <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[8px] md:text-[12px] capitalize">${startIndex + index + 1}</td>
-                    <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[8px] md:text-[12px] capitalize">${report.judul}</td>
-                    <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[8px] md:text-[12px] capitalize">${report.tanggal}</td>
-                    <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[8px] md:text-[12px] capitalize">
-                        <button>
-                            <svg class="w-3 h-6 md:w-5 lg:w-16 md:h-5 lg:h-18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12.1291 6.78125H10.5391V1.78125C10.5391 1.23125 10.0891 0.78125 9.53906 0.78125H5.53906C4.98906 0.78125 4.53906 1.23125 4.53906 1.78125V6.78125H2.94906C2.05906 6.78125 1.60906 7.86125 2.23906 8.49125L6.82906 13.0813C7.21906 13.4713 7.84906 13.4713 8.23906 13.0813L12.8291 8.49125C13.4591 7.86125 13.0191 6.78125 12.1291 6.78125ZM0.539062 16.7812C0.539062 17.3312 0.989062 17.7812 1.53906 17.7812H13.5391C14.0891 17.7812 14.5391 17.3312 14.5391 16.7812C14.5391 16.2312 14.0891 15.7812 13.5391 15.7812H1.53906C0.989062 15.7812 0.539062 16.2312 0.539062 16.7812Z" fill="#22805E"/>
-                            </svg>
-                        </button>
-                    </td>
+                        <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[8px] md:text-[12px] capitalize">${report.judul}</td>
+                        <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[8px] md:text-[12px] capitalize">${report.tanggal}</td>
+                        <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[8px] md:text-[12px] capitalize">
+                            <a href="/riwayatLaporanKoordinatorPengawas/${report.id}" class="text-green-700 flex justify-center">
+                                <svg class="w-3 h-6 md:w-16 md:h-18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.1291 6.78125H10.5391V1.78125C10.5391 1.23125 10.0891 0.78125 9.53906 0.78125H5.53906C4.98906 0.78125 4.53906 1.23125 4.53906 1.78125V6.78125H2.94906C2.05906 6.78125 1.60906 7.86125 2.23906 8.49125L6.82906 13.0813C7.21906 13.4713 7.84906 13.4713 8.23906 13.0813L12.8291 8.49125C13.4591 7.86125 13.0191 6.78125 12.1291 6.78125ZM0.539062 16.7812C0.539062 17.3312 0.989062 17.7812 1.53906 17.7812H13.5391C14.0891 17.7812 14.5391 17.3312 14.5391 16.7812C14.5391 16.2312 14.0891 15.7812 13.5391 15.7812H1.53906C0.989062 15.7812 0.539062 16.2312 0.539062 16.7812Z" fill="#22805E"/>
+                                </svg>
+                            </a>
+                        </td>
                 `;
                 tableBody.appendChild(row);
             });
