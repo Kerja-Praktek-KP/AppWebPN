@@ -180,55 +180,32 @@
         <main :class="sidebarOpen ? 'w-11/12 ' : 'w-full'" class="flex-1 p-4 md:p-8 overflow-y-auto pb-20 transition-all duration-300">            
             <h2 class="text-xs font-semibold mb-4">Pengawas</h2>
             <div :class="[sidebarOpen ? 'grid-cols-2' : 'grid-cols-2 md:grid-cols-3', sidebarOpen ? 'w-10/12' : 'w-full', 'grid gap-6']">
-                <a href="penilaianDetailPengawas_KoordinatorPengawas" class="bg-white p-4 rounded-[5px] text-left w-full transition ease-in-out delay-0 hover:scale-105 hover:bg-white duration-700">
-                    <div class="flex items-center">
-                        <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-8 md:h-12 w-8 md:w-12 rounded-full">
-                        <div class="ml-4 break-all">
-                            <p class="text-[13px] md:text-base font-semibold text-black">John Doe</p>
-                            <p class="text-sm md:text-[13px] font-light text-gray-600">Anggota Divisi</p>
+                @foreach($usersByBidang->where('role', 'Pengawas') as $user)
+                    <a href="{{ route('penilaianDetailPengawasKoordinatorPengawas') }}" class="bg-white p-4 rounded-[5px] hover:shadow-lg text-left w-full transition ease-in-out hover:scale-105 hover:bg-white duration-700">
+                        <div class="flex items-center">
+                            <img id="profilePic" src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('images/profile.png') }}"  alt="Profile" class="h-12 w-12 rounded-full">
+                            <div class="ml-4 break-all">
+                                <p class="text-base font-semibold text-black">{{ $user->name }}</p>
+                                <p class="text-sm font-light text-gray-600">{{ $user->role }}</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                <a href="penilaianDetailPengawas_KoordinatorPengawas" class="bg-white p-4 rounded-[5px] text-left w-full transition ease-in-out delay-0 hover:scale-105 hover:bg-white duration-700">
-                    <div class="flex items-center">
-                        <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-8 md:h-12 w-8 md:w-12 rounded-full">
-                        <div class="ml-4 break-all">
-                            <p class="text-[13px] md:text-base font-semibold text-black">John Doe</p>
-                            <p class="text-sm md:text-[13px] font-light text-gray-600">Anggota Divisi</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="penilaianDetailPengawas_KoordinatorPengawas" class="bg-white p-4 rounded-[5px] text-left w-full transition ease-in-out delay-0 hover:scale-105 hover:bg-white duration-700">
-                    <div class="flex items-center">
-                        <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-8 md:h-12 w-8 md:w-12 rounded-full">
-                        <div class="ml-4 break-all">
-                            <p class="text-[13px] md:text-base font-semibold text-black">John Doe</p>
-                            <p class="text-sm md:text-[13px] font-light text-gray-600">Anggota Divisi</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="penilaianDetailPengawas_KoordinatorPengawas" class="bg-white p-4 rounded-[5px] text-left w-full transition ease-in-out delay-0 hover:scale-105 hover:bg-white duration-700">
-                    <div class="flex items-center">
-                        <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-8 md:h-12 w-8 md:w-12 rounded-full">
-                        <div class="ml-4 break-all">
-                            <p class="text-[13px] md:text-base font-semibold text-black">John Doe</p>
-                            <p class="text-sm md:text-[13px] font-light text-gray-600">Anggota Divisi</p>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                @endforeach
             </div>
 
             <h2 class="text-xs font-semibold mb-4 mt-10">Anggota Divisi</h2>
             <div :class="[sidebarOpen ? 'grid-cols-2' : 'grid-cols-2 md:grid-cols-3', sidebarOpen ? 'w-10/12' : 'w-full', 'grid gap-6']">
-                <a href="penilaianDetailPemberiLaporan_KoordinatorPengawas" class="bg-white p-4 rounded-[5px] text-left w-full transition ease-in-out delay-0 hover:scale-105 hover:bg-white duration-700">
-                    <div class="flex items-center">
-                        <img src="{{ asset('images/profile.png') }}" alt="Profile" class="h-8 md:h-12 w-8 md:w-12 rounded-full">
-                        <div class="ml-4 break-all">
-                            <p class="text-[13px] md:text-base font-semibold text-black">Arie</p>
-                            <p class="text-sm md:text-[13px] font-light text-gray-600">Pemberi Laporan</p>
+                @foreach($usersByBidang->where('role', 'Pemberi Laporan') as $user)
+                    <a href="{{ route('penilaianDetailPemberiLaporanKoordinatorPengawas') }}" class="bg-white p-4 rounded-[5px] hover:shadow-lg text-left w-full transition ease-in-out  hover:scale-105 hover:bg-white duration-700">
+                        <div class="flex items-center">
+                            <img id="profilePic" src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('images/profile.png') }}" alt="Profile" class="h-12 w-12 rounded-full">
+                            <div class="ml-4 break-all">
+                                <p class="text-base font-semibold text-black">{{ $user->name }}</p>
+                                <p class="text-sm font-light text-gray-600">{{ $user->role }}</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                @endforeach
             </div>
 
         </main>              

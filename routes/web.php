@@ -33,15 +33,15 @@ Route::middleware(['auth'])->group(function () {
 // rute pimpinan
 Route::get('/penilaianDetailPengawas', function () {
     return view('Pimpinan.penilaianDetailPengawas');
-})->name('penilaianDetailPengawas');
+})->name('penilaianDetailPengawasPimpinan');
 
 Route::get('/penilaianDetailPemberiLaporan', function () {
     return view('Pimpinan.penilaianDetailPemberiLaporan');
-})->name('penilaianDetailPemberiLaporan');
+})->name('penilaianDetailPemberiLaporanPimpinan');
 
 Route::get('/penilaianDetailKoordinatorPengawas', function () {
     return view('Pimpinan.penilaianDetailKoordinatorPengawas');
-})->name('penilaianDetailKoordinatorPengawas');
+})->name('penilaianDetailKoordinatorPengawasPimpinan');
 
 Route::get('/berandaPimpinan', function () {
     return view('Pimpinan.beranda');
@@ -101,11 +101,11 @@ Route::get('/anggotaKoordinatorPengawas', function () {
 
 Route::get('/penilaianDetailPengawas_KoordinatorPengawas', function () {
     return view('Koordinator Pengawas.penilaianDetailPengawas');
-});
+})->name('penilaianDetailPengawasKoordinatorPengawas');
 
 Route::get('/penilaianDetailPemberiLaporan_KoordinatorPengawas', function () {
     return view('Koordinator Pengawas.penilaianDetailPemberiLaporan');
-});
+})->name('penilaianDetailPemberiLaporanKoordinatorPengawas');
 
 Route::get('/riwayatLaporanKoordinatorPengawas', function () {
     return view('Koordinator Pengawas.riwayatLaporan');
@@ -253,6 +253,7 @@ Route::get('/akunPemberiLaporan', [UserController::class, 'akunPemberiLaporan'])
 Route::get('/akunPengawas', [UserController::class, 'akunPengawas'])->name('users.akunPengawas');
 Route::get('/kelolaAkun', [UserController::class, 'kelolaAkun'])->name('kelolaAkun');
 Route::get('/berandaPimpinan', [UserController::class, 'kelolaAkun'])->name('berandaPimpinan');
+Route::get('/berandaKoordinatorPengawas', [UserController::class, 'kelolaAkun'])->name('berandaKoordinatorPengawas');
 Route::put('/akun/{role}', [UserController::class, 'editAkunProfil'])->name('users.editAkunProfil');
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');    
 Route::get('/anggota', [UserController::class, 'showAnggota'])->name('anggota');

@@ -94,12 +94,12 @@ class InfoDetailUserController extends Controller
         // Menggabungkan Laporan Mingguan dan Laporan Bulanan menjadi satu variabel
         $laporan = $model::whereIn('jenis', ['Laporan Mingguan', 'Laporan Bulanan'])
             ->orderBy('created_at', 'desc')
-            ->get(['id', 'nama_laporan', 'created_at', 'jenis']);
+            ->get();
 
         // Menggabungkan TLHP Mingguan dan TLHP Bulanan menjadi satu variabel
         $tlhp = $model::whereIn('jenis', ['TLHP Mingguan', 'TLHP Bulanan'])
             ->orderBy('created_at', 'desc')
-            ->get(['id', 'nama_laporan', 'created_at', 'jenis']);
+            ->get();
 
 
         return view('Pengawas.penilaianDetailPemberiLaporan', [

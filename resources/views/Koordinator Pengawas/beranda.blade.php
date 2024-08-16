@@ -200,50 +200,17 @@
                 Bidang
             </div>          
             <div class="grid-cols-2 grid gap-6 ">                
-                <a href="anggotaKoordinatorPengawas" class="bg-white p-2 rounded-[5px] hover:shadow-lg  w-full transition ease-in-out delay-150 hover:-translate-y-0 hover:scale-105 hover:bg-white duration-300 flex flex-col justify-start items-center">
-                    <div class="flex flex-col justify-start items-center h-14">
-                        <p class="text-sm md:text-base font-semibold text-black mt-5 md:mt-4">Nama Divisi 1</p>
-                    </div>
-                </a>
-                <a href="anggotaKoordinatorPengawas" class="bg-white p-2 rounded-[5px] hover:shadow-lg  w-full transition ease-in-out delay-150 hover:-translate-y-0 hover:scale-105 hover:bg-white duration-300 flex flex-col justify-start items-center">
-                    <div class="flex flex-col justify-start items-center h-14">
-                        <p class="text-sm md:text-base font-semibold text-black mt-5 md:mt-4">Nama Divisi 1</p>
-                    </div>
-                </a>
-                <a href="anggotaKoordinatorPengawas" class="bg-white p-2 rounded-[5px] hover:shadow-lg  w-full transition ease-in-out delay-150 hover:-translate-y-0 hover:scale-105 hover:bg-white duration-300 flex flex-col justify-start items-center">
-                    <div class="flex flex-col justify-start items-center h-14">
-                        <p class="text-sm md:text-base font-semibold text-black mt-5 md:mt-4">Nama Divisi 1</p>
-                    </div>
-                </a>
-                <a href="anggotaKoordinatorPengawas" class="bg-white p-2 rounded-[5px] hover:shadow-lg  w-full transition ease-in-out delay-150 hover:-translate-y-0 hover:scale-105 hover:bg-white duration-300 flex flex-col justify-start items-center">
-                    <div class="flex flex-col justify-start items-center h-14">
-                        <p class="text-sm md:text-base font-semibold text-black mt-5 md:mt-4">Nama Divisi 1</p>
-                    </div>
-                </a>
-                <a href="anggotaKoordinatorPengawas" class="bg-white p-2 rounded-[5px] hover:shadow-lg  w-full transition ease-in-out delay-150 hover:-translate-y-0 hover:scale-105 hover:bg-white duration-300 flex flex-col justify-start items-center">
-                    <div class="flex flex-col justify-start items-center h-14">
-                        <p class="text-sm md:text-base font-semibold text-black mt-5 md:mt-4">Nama Divisi 1</p>
-                    </div>
-                </a>
-                <a href="anggotaKoordinatorPengawas" class="bg-white p-2 rounded-[5px] hover:shadow-lg  w-full transition ease-in-out delay-150 hover:-translate-y-0 hover:scale-105 hover:bg-white duration-300 flex flex-col justify-start items-center">
-                    <div class="flex flex-col justify-start items-center h-14">
-                        <p class="text-sm md:text-base font-semibold text-black mt-5 md:mt-4">Nama Divisi 1</p>
-                    </div>
-                </a>
-                <a href="anggotaKoordinatorPengawas" class="bg-white p-2 rounded-[5px] hover:shadow-lg  w-full transition ease-in-out delay-150 hover:-translate-y-0 hover:scale-105 hover:bg-white duration-300 flex flex-col justify-start items-center">
-                    <div class="flex flex-col justify-start items-center h-14">
-                        <p class="text-sm md:text-base font-semibold text-black mt-5 md:mt-4">Nama Divisi 1</p>
-                    </div>
-                </a>
-                <a href="anggotaKoordinatorPengawas" class="bg-white p-2 rounded-[5px] hover:shadow-lg  w-full transition ease-in-out delay-150 hover:-translate-y-0 hover:scale-105 hover:bg-white duration-300 flex flex-col justify-start items-center">
-                    <div class="flex flex-col justify-start items-center h-14">
-                        <p class="text-sm md:text-base font-semibold text-black mt-5 md:mt-4">Nama Divisi 1</p>
-                    </div>
-                </a>
-                
-                
-                
-                
+                @if(Auth::user()->role === 'Koordinator Pengawas')    
+                    @foreach($groupedUsers as $bidang => $users)
+                        @if($bidang && in_array($bidang, $validBidangs))
+                        <a href="{{ route('anggota', ['bidang' => $bidang]) }}" class="bg-white p-2 rounded-lg w-full transition ease-in-out delay-150 hover:-translate-y-0 hover:scale-105 hover:bg-white duration-300 flex flex-col justify-start items-center">
+                            <div class="flex flex-col justify-start items-center h-14">
+                                <p class="text-sm md:text-base font-semibold text-black mt-5 md:mt-4">{{ $bidang }}</p>
+                            </div>
+                        </a>
+                        @endif
+                    @endforeach
+                @endif
             </div>
         </main>              
     </div>
