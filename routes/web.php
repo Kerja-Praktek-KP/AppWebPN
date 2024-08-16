@@ -118,7 +118,7 @@ Route::get('/berandaPengawas', function () {
     return view('Pengawas.beranda');
 });
 
-Route::get('/penilaianDetailPemberiLaporan_Pengawas', function () {
+Route::get('/penilaianDetailPemberiLaporanPengawas', function () {
     return view('Pengawas.penilaianDetailPemberiLaporan');
 });
 
@@ -224,8 +224,8 @@ Route::get('/riwayatLaporanPimpinan/{id}', [UnggahLaporanPimpinanController::cla
 
 // Rute Temuan Pengawas
 use App\Http\Controllers\TemuanController;
-Route::get('/penilaianDetailPemberiLaporan_Pengawas', [TemuanController::class, 'create']);
-Route::post('/penilaianDetailPemberiLaporan_Pengawas', [TemuanController::class, 'store'])->name('TemuanPW');
+Route::get('/penilaianDetailPemberiLaporanPengawass', [TemuanController::class, 'create']);
+Route::post('/penilaianDetailPemberiLaporanPengawas', [TemuanController::class, 'store'])->name('TemuanPW');
 Route::get('/unduh-temuan/{id}', [TemuanController::class, 'downloadTemuan'])->name('unduhTemuan');
 
 // Rute Pemberitahuan
@@ -239,6 +239,10 @@ Route::get('/berandaPemberiLaporan', [StatusPLController::class, 'getStatus'])->
 // Rute Status Pengawas
 use App\Http\Controllers\StatusPWController;
 Route::get('/berandaPengawas', [StatusPWController::class, 'getStatus'])->name('berandaPengawas');
+use App\Http\Controllers\InfoDetailUserController;
+Route::get('/penilaianDetailPemberiLaporanPengawas', [InfoDetailUserController::class, 'showPemberiLaporan'])->name('pengawas.pemberiLaporan');
+Route::get('/penilaianDetailPemberiLaporanPengawas/{id}', [InfoDetailUserController::class, 'downloadLaporan'])->name('pengawas.downloadLaporan');
+
 
 // Rute Status Koordinator Pengawas
 use App\Http\Controllers\StatusKPController;
