@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Log;
 
 class InfoDetailUserController extends Controller
 {
-    public function showPemberiLaporan(Request $request, $id = null)
+    public function showPemberiLaporanuntukPengawas(Request $request, $id = null)
     {
         $currentUser = Auth::user(); // Mendapatkan pengguna yang sedang login
         $pemberiLaporan = User::where('role', 'Pemberi Laporan')
@@ -115,7 +115,167 @@ class InfoDetailUserController extends Controller
         ]);
     }
 
-    public function downloadLaporan($id)
+    public function showPemberiLaporanPimpinan($id)
+    {
+        // Mendapatkan data user Pemberi Laporan
+        $pemberiLaporan = User::findOrFail($id);
+
+        // Mendapatkan model berdasarkan bidang user saat ini
+        $model = $this->getModelByBidang($pemberiLaporan->bidang);
+
+        if (!$model) {
+            return redirect()->route('home')->with('error', 'Bidang tidak dikenali.');
+        }
+
+        $currentDate = Carbon::now();
+        $currentMonth = $currentDate->format('F');
+        $currentYear = $currentDate->year;
+
+        // Pemetaan bulan dari bahasa Inggris ke bahasa lokal
+        $months = [
+            'January' => 'Januari',
+            'February' => 'Februari',
+            'March' => 'Maret',
+            'April' => 'April',
+            'May' => 'Mei',
+            'June' => 'Juni',
+            'July' => 'Juli',
+            'August' => 'Agustus',
+            'September' => 'September',
+            'October' => 'Oktober',
+            'November' => 'November',
+            'December' => 'Desember',
+        ];
+
+        // Status Mingguan
+        $statusMingguan = [];
+        for ($i = 1; $i <= 4; $i++) {
+            $minggu = "Laporan Minggu $i";
+            $statusMingguan[$i] = $this->cekStatusLaporanMinggu($model, 'Laporan Mingguan', $minggu);
+        }
+        Log::info('Status Mingguan', ['statusMingguan' => $statusMingguan]);
+
+        // Status Bulanan
+        $statusBulanan = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $bulan = Carbon::create()->month($i)->format('F');
+            $bulanLocal = $months[$bulan];
+            $statusBulanan[$i] = $this->cekStatusLaporanBulan($model, 'Laporan Bulanan', $bulanLocal);
+        }
+        Log::info('Status Bulanan', ['statusBulanan' => $statusBulanan]);
+
+        // Status TLHP Mingguan
+        $statusTLHPMingguan = [];
+        for ($i = 1; $i <= 4; $i++) {
+            $minggu = "Laporan Minggu $i";
+            $statusTLHPMingguan[$i] = $this->cekStatusLaporanMinggu($model, 'TLHP Mingguan', $minggu);
+        }
+        Log::info('Status TLHP Mingguan', ['statusTLHPMingguan' => $statusTLHPMingguan]);
+
+        // Status TLHP Bulanan
+        $statusTLHPBulanan = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $bulan = Carbon::create()->month($i)->format('F');
+            $bulanLocal = $months[$bulan];
+            $statusTLHPBulanan[$i] = $this->cekStatusLaporanBulan($model, 'TLHP Bulanan', $bulanLocal);
+        }
+        Log::info('Status TLHP Bulanan', ['statusTLHPBulanan' => $statusTLHPBulanan]);
+
+        // Menggabungkan Laporan Mingguan dan Bulanan
+        $laporan = $model::whereIn('jenis', ['Laporan Mingguan', 'Laporan Bulanan'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Menggabungkan TLHP Mingguan dan Bulanan
+        $tlhp = $model::whereIn('jenis', ['TLHP Mingguan', 'TLHP Bulanan'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Mengirim data ke view pimpinan.penilaianDetailPemberiLaporan
+        return view('Pimpinan.penilaianDetailPemberiLaporan', [
+            'user' => $pemberiLaporan, // Ini mengoperasikan variabel $user ke view
+            'pemberiLaporan' => $pemberiLaporan,
+            'statusMingguan' => $statusMingguan,
+            'statusBulanan' => $statusBulanan,
+            'statusTLHPMingguan' => $statusTLHPMingguan,
+            'statusTLHPBulanan' => $statusTLHPBulanan,
+            'currentMonth' => $currentMonth,
+            'currentYear' => $currentYear,
+            'laporan' => $laporan,
+            'tlhp' => $tlhp,
+        ]);
+    }
+
+    public function showPengawasPimpinan($id)
+    {
+        // Mendapatkan data user Pemberi Laporan
+        $pengawas = User::findOrFail($id);
+
+        // Mendapatkan model berdasarkan bidang user saat ini
+        $model = $this->getModelByBidang($pengawas->bidang);
+
+        if (!$model) {
+            return redirect()->route('home')->with('error', 'Bidang tidak dikenali.');
+        }
+
+        $currentDate = Carbon::now();
+        $currentMonth = $currentDate->format('F');
+        $currentYear = $currentDate->year;
+
+        // Pemetaan bulan dari bahasa Inggris ke bahasa lokal
+        $months = [
+            'January' => 'Januari',
+            'February' => 'Februari',
+            'March' => 'Maret',
+            'April' => 'April',
+            'May' => 'Mei',
+            'June' => 'Juni',
+            'July' => 'Juli',
+            'August' => 'Agustus',
+            'September' => 'September',
+            'October' => 'Oktober',
+            'November' => 'November',
+            'December' => 'Desember',
+        ];
+
+        // Status Mingguan
+        $statusMingguan = [];
+        for ($i = 1; $i <= 4; $i++) {
+            $minggu = "Laporan Minggu $i";
+            $statusMingguan[$i] = $this->cekStatusLaporanMinggu($model, 'Laporan Mingguan', $minggu);
+        }
+
+        // Status Bulanan
+        $statusBulanan = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $bulan = Carbon::create()->month($i)->format('F');
+            $bulanLocal = $months[$bulan];
+            $statusBulanan[$i] = $this->cekStatusLaporanBulan($model, 'Laporan Bulanan', $bulanLocal);
+        }
+
+        // Menggabungkan Laporan Mingguan dan Bulanan
+        $laporanMingguan = $model::whereIn('jenis', ['Laporan Mingguan'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $laporanBulanan = $model::whereIn('jenis', ['Laporan Bulanan'])
+            ->orderBy('created_at', 'desc')
+            ->get();   
+
+        // Mengirim data ke view pimpinan.penilaianDetailPemberiLaporan
+        return view('Pimpinan.penilaianDetailPengawas', [
+            'user' => $pengawas, // Ini mengoperasikan variabel $user ke view
+            'pengawas' => $pengawas,
+            'statusMingguan' => $statusMingguan,
+            'statusBulanan' => $statusBulanan,
+            'currentMonth' => $currentMonth,
+            'currentYear' => $currentYear,
+            'laporanMingguan' => $laporanMingguan,
+            'laporanBulanan' => $laporanBulanan,
+        ]);
+    }
+
+    public function downloadLaporanPLuntukPengawas($id)
     {
         $currentUser = Auth::user(); // Mendapatkan pengguna yang sedang login
         $model = $this->getModelByBidang($currentUser->bidang);
@@ -151,6 +311,38 @@ class InfoDetailUserController extends Controller
         // Unduh file
         return response()->download($filePath, $fileNameWithExtension);
     }
+   
+    
+    public function downloadLaporanPLuntukPimpinan($id)
+    {
+        // Mendapatkan pengguna yang sedang login
+        $currentUser = Auth::user();
+
+        // Temukan laporan berdasarkan ID
+        $laporan = $this->getModelByBidang($currentUser->bidang)::find($id);
+
+        if (!$laporan) {
+            return redirect()->route('Pimpinan.penilaianDetailPemberiLaporan', ['id' => $id])
+                ->with('error', 'Laporan tidak ditemukan atau tidak dapat diakses.');
+        }
+
+        // Path file
+        $filePath = storage_path("app/public/{$laporan->file_path}");
+
+        // Nama file dengan ekstensi
+        $fileNameWithExtension = $laporan->nama_laporan . '.' . pathinfo($laporan->file_path, PATHINFO_EXTENSION);
+
+        // Cek apakah file ada
+        if (!file_exists($filePath)) {
+            return redirect()->route('Pimpinan.penilaianDetailPemberiLaporan', ['id' => $id])
+                ->with('error', 'File tidak ditemukan.');
+        }
+
+        // Unduh file
+        return response()->download($filePath, $fileNameWithExtension);
+    }
+
+
     private function getModelByBidang($bidang)
     {
         switch ($bidang) {
