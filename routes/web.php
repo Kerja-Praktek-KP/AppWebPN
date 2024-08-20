@@ -261,9 +261,9 @@ Route::put('/akun/{role}', [UserController::class, 'editAkunProfil'])->name('use
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');    
 Route::get('/anggota', [UserController::class, 'showAnggota'])->name('anggota');
 
-
-Route::get('/pimpinan/penilaian-detail-pengawas/{id}', [InfoDetailUserController::class, 'showPengawasPimpinan'])->name('penilaianDetailPengawas');
-
+use App\Http\Controllers\InfoDetailUserControllerPengawas;
+Route::get('/penilaianDetailPengawasPimpinan/{id}', [InfoDetailUserControllerPengawas::class, 'showPengawasPimpinan'])->name('penilaianDetailPengawas');
+Route::get('/downloadLaporanPWuntukPimpinan/{id}', [InfoDetailUserControllerPengawas::class, 'downloadLaporanPWuntukPimpinan'])->name('downloadLaporanPWuntukPimpinan');
 
 Route::get('/penilaianDetailPemberiLaporanPimpinan/{id}', [InfoDetailUserController::class, 'showPemberiLaporanPimpinan'])->name('penilaianDetailPemberiLaporanPimpinan');
 Route::get('/penilaianDetailPemberiLaporan/{id}', [InfoDetailKPController::class, 'downloadLaporanPLuntukPimpinan'])->name('pimpinan.downloadLaporanPLuntukPimpinan');

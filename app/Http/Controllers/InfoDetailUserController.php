@@ -208,7 +208,7 @@ class InfoDetailUserController extends Controller
 
     public function showPengawasPimpinan($id)
     {
-        // Mendapatkan data user Pemberi Laporan
+        // Mendapatkan data user Pengawas
         $pengawas = User::findOrFail($id);
 
         // Mendapatkan model berdasarkan bidang user saat ini
@@ -244,6 +244,7 @@ class InfoDetailUserController extends Controller
             $minggu = "Laporan Minggu $i";
             $statusMingguan[$i] = $this->cekStatusLaporanMinggu($model, 'Laporan Mingguan', $minggu);
         }
+        Log::info('Status Mingguan', ['statusMingguan' => $statusMingguan]);
 
         // Status Bulanan
         $statusBulanan = [];
@@ -252,17 +253,19 @@ class InfoDetailUserController extends Controller
             $bulanLocal = $months[$bulan];
             $statusBulanan[$i] = $this->cekStatusLaporanBulan($model, 'Laporan Bulanan', $bulanLocal);
         }
+        Log::info('Status Bulanan', ['statusBulanan' => $statusBulanan]);
 
         // Menggabungkan Laporan Mingguan dan Bulanan
-        $laporanMingguan = $model::whereIn('jenis', ['Laporan Mingguan'])
+        $laporan = $model::whereIn('jenis', ['Laporan Mingguan', 'Laporan Bulanan'])
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $laporanBulanan = $model::whereIn('jenis', ['Laporan Bulanan'])
+        // Menggabungkan TLHP Mingguan dan Bulanan
+        $tlhp = $model::whereIn('jenis', ['TLHP Mingguan', 'TLHP Bulanan'])
             ->orderBy('created_at', 'desc')
-            ->get();   
+            ->get();
 
-        // Mengirim data ke view pimpinan.penilaianDetailPemberiLaporan
+        // Mengirim data ke view pimpinan.penilaianDetailPengawas
         return view('Pimpinan.penilaianDetailPengawas', [
             'user' => $pengawas, // Ini mengoperasikan variabel $user ke view
             'pengawas' => $pengawas,
@@ -270,8 +273,8 @@ class InfoDetailUserController extends Controller
             'statusBulanan' => $statusBulanan,
             'currentMonth' => $currentMonth,
             'currentYear' => $currentYear,
-            'laporanMingguan' => $laporanMingguan,
-            'laporanBulanan' => $laporanBulanan,
+            'laporan' => $laporan,
+            'tlhp' => $tlhp,
         ]);
     }
 
