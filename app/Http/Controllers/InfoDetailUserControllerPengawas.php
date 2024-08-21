@@ -19,10 +19,16 @@ use Illuminate\Support\Facades\Log;
 class InfoDetailUserControllerPengawas extends Controller
 {
     //UNTUK PIMPINAN
-    public function showPengawasPimpinan($id)
+    public function showPengawasPimpinan(Request $request)
     {
+        // Mendapatkan ID dari query string
+        $id = $request->query('id');
+
         // Mendapatkan data user Pengawas
         $pengawas = User::findOrFail($id);
+
+        // Ambil bidang dari session
+        $bidang = session('selected_bidang', null);
 
         // Mendapatkan model berdasarkan bidang user saat ini
         $model = $this->getModelByBidang($pengawas->bidang);
@@ -90,6 +96,7 @@ class InfoDetailUserControllerPengawas extends Controller
             'currentYear' => $currentYear,
             'mingguan' => $mingguan,
             'bulanan' => $bulanan,
+            'bidang' => $bidang,
         ]);
     }
 
@@ -121,11 +128,16 @@ class InfoDetailUserControllerPengawas extends Controller
         return response()->download($filePath, $fileNameWithExtension);
     }
 
-    //UNTUK KOORDINATOR PENGAWAS
-    public function showPengawasKoordinatorPengawas($id)
+    public function showPengawasKoordinatorPengawas(Request $request)
     {
+        // Mengambil ID dari query string
+        $id = $request->query('id');
+
         // Mendapatkan data user Pengawas
         $pengawas = User::findOrFail($id);
+
+        // Ambil bidang dari session
+        $bidang = session('selected_bidang', null);
 
         // Mendapatkan model berdasarkan bidang user saat ini
         $model = $this->getModelByBidang($pengawas->bidang);
@@ -193,8 +205,10 @@ class InfoDetailUserControllerPengawas extends Controller
             'currentYear' => $currentYear,
             'mingguan' => $mingguan,
             'bulanan' => $bulanan,
+            'bidang' => $bidang,
         ]);
     }
+
 
     public function downloadLaporanPWuntukKoordinatorPengawas($id)
     {

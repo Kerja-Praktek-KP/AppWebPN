@@ -188,7 +188,7 @@
                     </div>
                 </div>                
                 <div class="ml-auto flex items-center justify-center">
-                    <a href="anggotaPimpinan" class="flex w-fit items-center justify-center px-6 py-2 text-[11px] md:text-[12px] lg:text-[12px] bg-white rounded-[5px]">
+                    <a href="{{ route('anggota', ['bidang' => $bidang]) }}" class="flex w-fit items-center justify-center px-6 py-2 text-[11px] md:text-[12px] lg:text-[12px] bg-white rounded-[5px]">
                         <svg class="mr-2 w-3 md:w-3 lg:w-5 h-3 md:h-3 lg:h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8 6H21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M8 12H21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

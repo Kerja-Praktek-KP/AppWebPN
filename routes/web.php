@@ -262,16 +262,17 @@ Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.de
 Route::get('/anggota', [UserController::class, 'showAnggota'])->name('anggota');
 
 use App\Http\Controllers\InfoDetailUserControllerPengawas;
-Route::get('/penilaianDetailPengawasPimpinan/{id}', [InfoDetailUserControllerPengawas::class, 'showPengawasPimpinan'])->name('penilaianDetailPengawasPimpinan');
+Route::get('/penilaianDetailPengawasPimpinan', [InfoDetailUserControllerPengawas::class, 'showPengawasPimpinan'])->name('penilaianDetailPengawasPimpinan');
 // Route::get('/downloadLaporanPWuntukPimpinan/{id}', [InfoDetailUserControllerPengawas::class, 'downloadLaporanPWuntukPimpinan'])->name('pimpinan.downloadLaporanPWuntukPimpinan');
 
-Route::get('/penilaianDetailPemberiLaporanPimpinan/{id}', [InfoDetailUserControllerPemberiLaporan::class, 'showPemberiLaporanuntukPimpinan'])->name('penilaianDetailPemberiLaporanPimpinan');
+Route::get('/penilaianDetailPemberiLaporanPimpinan', [InfoDetailUserControllerPemberiLaporan::class, 'showPemberiLaporanuntukPimpinan'])->name('penilaianDetailPemberiLaporanPimpinan');
 Route::get('/downloadLaporanPLuntukPimpinan/{id}', [InfoDetailUserControllerPemberiLaporan::class, 'downloadLaporanPLuntukPimpinan'])->name('pimpinan.downloadLaporanPLuntukPimpinan');
 
-Route::get('/penilaianDetailPengawasKoordinatorPengawas/{id}', [InfoDetailUserControllerPengawas::class, 'showPengawasKoordinatorPengawas'])->name('penilaianDetailPengawasKoordinatorPengawas');
+// Mengubah route untuk menggunakan query string `?id`
+Route::get('/penilaianDetailPengawasKoordinatorPengawas', [InfoDetailUserControllerPengawas::class, 'showPengawasKoordinatorPengawas'])->name('penilaianDetailPengawasKoordinatorPengawas');
 // Route::get('/downloadLaporanPWuntukKoordinatorPengawas/{id}', [InfoDetailUserControllerPengawas::class, 'downloadLaporanPWuntukKoordinatorPengawas'])->name('downloadLaporanPWuntukKoordinatorPengawas');
 
-Route::get('/penilaianDetailPemberiLaporanKoordinatorPengawas/{id}', [InfoDetailUserControllerPemberiLaporan::class, 'showPemberiLaporanuntukKoordinatorPengawas'])->name('penilaianDetailPemberiLaporanKoordinatorPengawas');
+Route::get('/penilaianDetailPemberiLaporanKoordinatorPengawas', [InfoDetailUserControllerPemberiLaporan::class, 'showPemberiLaporanuntukKoordinatorPengawas'])->name('penilaianDetailPemberiLaporanKoordinatorPengawas');
 Route::get('/downloadLaporanPLuntukKoordinatorPengawas/{id}', [InfoDetailUserControllerPemberiLaporan::class, 'downloadLaporanPLuntukKoordinatorPengawas'])->name('koordinatorPengawas.downloadLaporanPLuntukKoordinatorPengawas');
 
 

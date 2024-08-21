@@ -116,10 +116,16 @@ class InfoDetailUserControllerPemberiLaporan extends Controller
     }
 
     //============//============//============//============//
-    public function showPemberiLaporanuntukPimpinan($id)
+    public function showPemberiLaporanuntukPimpinan(Request $request)
     {
+        // Mendapatkan ID dari query string
+        $id = $request->query('id');
+
         // Mendapatkan data user Pemberi Laporan
         $pemberiLaporan = User::findOrFail($id);
+
+        // Ambil bidang dari session
+        $bidang = session('selected_bidang', null);
 
         // Mendapatkan model berdasarkan bidang user saat ini
         $model = $this->getModelByBidang($pemberiLaporan->bidang);
@@ -184,11 +190,13 @@ class InfoDetailUserControllerPemberiLaporan extends Controller
 
         // Menggabungkan Laporan Mingguan dan Bulanan
         $laporan = $model::whereIn('jenis', ['Laporan Mingguan', 'Laporan Bulanan'])
+            ->where('user_id', $id) // Menambahkan kondisi untuk user ID
             ->orderBy('created_at', 'desc')
             ->get();
 
         // Menggabungkan TLHP Mingguan dan Bulanan
         $tlhp = $model::whereIn('jenis', ['TLHP Mingguan', 'TLHP Bulanan'])
+            ->where('user_id', $id) // Menambahkan kondisi untuk user ID
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -204,14 +212,26 @@ class InfoDetailUserControllerPemberiLaporan extends Controller
             'currentYear' => $currentYear,
             'laporan' => $laporan,
             'tlhp' => $tlhp,
+            'bidang' => $bidang,
         ]);
     }
 
+
     //============//============//============//============//
-    public function showPemberiLaporanuntukKoordinatorPengawas($id)
+    public function showPemberiLaporanuntukKoordinatorPengawas(Request $request)
     {
+        // Mendapatkan ID dari query string
+        $id = $request->query('id');
+
+        if (!$id) {
+            return redirect()->route('home')->with('error', 'ID tidak ditemukan.');
+        }
+
         // Mendapatkan data user Pemberi Laporan
         $pemberiLaporan = User::findOrFail($id);
+
+        // Ambil bidang dari session
+        $bidang = session('selected_bidang', null);
 
         // Mendapatkan model berdasarkan bidang user saat ini
         $model = $this->getModelByBidang($pemberiLaporan->bidang);
@@ -284,7 +304,7 @@ class InfoDetailUserControllerPemberiLaporan extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        // Mengirim data ke view pimpinan.penilaianDetailPemberiLaporan
+        // Mengirim data ke view koordinator_pengawas.penilaianDetailPemberiLaporan
         return view('Koordinator Pengawas.penilaianDetailPemberiLaporan', [
             'user' => $pemberiLaporan, // Ini mengoperasikan variabel $user ke view
             'pemberiLaporan' => $pemberiLaporan,
@@ -296,8 +316,10 @@ class InfoDetailUserControllerPemberiLaporan extends Controller
             'currentYear' => $currentYear,
             'laporan' => $laporan,
             'tlhp' => $tlhp,
+            'bidang' => $bidang,
         ]);
     }
+
 
     //============//============//============//============//
     public function downloadLaporanPLuntukPengawas($id)
