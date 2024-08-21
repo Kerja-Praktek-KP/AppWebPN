@@ -361,7 +361,7 @@
                     <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[10px] md:text-[12px] capitalize">${report.tanggal}</td>
                     <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[10px] md:text-[12px] capitalize">${report.jenis}</td>
                     <td class="px-2 md:px-4 py-4 text-center font-medium bg-white text-[10px] md:text-[12px] capitalize">
-                        <a href="/penilaianDetailPemberiLaporan/${report.id}" class="text-green-700 flex justify-center" download>
+                        <a href="/downloadLaporanPLuntukPimpinan/${report.id}" class="text-green-700 flex justify-center" download>
                             <button>
                                 <svg class="w-3 h-6 md:w-5 lg:w-16 md:h-5 lg:h-18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12.1291 6.78125H10.5391V1.78125C10.5391 1.23125 10.0891 0.78125 9.53906 0.78125H5.53906C4.98906 0.78125 4.53906 1.23125 4.53906 1.78125V6.78125H2.94906C2.05906 6.78125 1.60906 7.86125 2.23906 8.49125L6.82906 13.0813C7.21906 13.4713 7.84906 13.4713 8.23906 13.0813L12.8291 8.49125C13.4591 7.86125 13.0191 6.78125 12.1291 6.78125ZM0.539062 16.7812C0.539062 17.3312 0.989062 17.7812 1.53906 17.7812H13.5391C14.0891 17.7812 14.5391 17.3312 14.5391 16.7812C14.5391 16.2312 14.0891 15.7812 13.5391 15.7812H1.53906C0.989062 15.7812 0.539062 16.2312 0.539062 16.7812Z" fill="#22805E"/>

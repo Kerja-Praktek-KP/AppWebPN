@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
-class InfoDetailUserController extends Controller
+class InfoDetailUserControllerPemberiLaporan extends Controller
 {
     public function showPemberiLaporanuntukPengawas(Request $request, $id = null)
     {
@@ -115,7 +115,8 @@ class InfoDetailUserController extends Controller
         ]);
     }
 
-    public function showPemberiLaporanPimpinan($id)
+    //============//============//============//============//
+    public function showPemberiLaporanuntukPimpinan($id)
     {
         // Mendapatkan data user Pemberi Laporan
         $pemberiLaporan = User::findOrFail($id);
@@ -206,13 +207,14 @@ class InfoDetailUserController extends Controller
         ]);
     }
 
-    public function showPengawasPimpinan($id)
+    //============//============//============//============//
+    public function showPemberiLaporanuntukKoordinatorPengawas($id)
     {
-        // Mendapatkan data user Pengawas
-        $pengawas = User::findOrFail($id);
+        // Mendapatkan data user Pemberi Laporan
+        $pemberiLaporan = User::findOrFail($id);
 
         // Mendapatkan model berdasarkan bidang user saat ini
-        $model = $this->getModelByBidang($pengawas->bidang);
+        $model = $this->getModelByBidang($pemberiLaporan->bidang);
 
         if (!$model) {
             return redirect()->route('home')->with('error', 'Bidang tidak dikenali.');
@@ -255,6 +257,23 @@ class InfoDetailUserController extends Controller
         }
         Log::info('Status Bulanan', ['statusBulanan' => $statusBulanan]);
 
+        // Status TLHP Mingguan
+        $statusTLHPMingguan = [];
+        for ($i = 1; $i <= 4; $i++) {
+            $minggu = "Laporan Minggu $i";
+            $statusTLHPMingguan[$i] = $this->cekStatusLaporanMinggu($model, 'TLHP Mingguan', $minggu);
+        }
+        Log::info('Status TLHP Mingguan', ['statusTLHPMingguan' => $statusTLHPMingguan]);
+
+        // Status TLHP Bulanan
+        $statusTLHPBulanan = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $bulan = Carbon::create()->month($i)->format('F');
+            $bulanLocal = $months[$bulan];
+            $statusTLHPBulanan[$i] = $this->cekStatusLaporanBulan($model, 'TLHP Bulanan', $bulanLocal);
+        }
+        Log::info('Status TLHP Bulanan', ['statusTLHPBulanan' => $statusTLHPBulanan]);
+
         // Menggabungkan Laporan Mingguan dan Bulanan
         $laporan = $model::whereIn('jenis', ['Laporan Mingguan', 'Laporan Bulanan'])
             ->orderBy('created_at', 'desc')
@@ -265,12 +284,14 @@ class InfoDetailUserController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        // Mengirim data ke view pimpinan.penilaianDetailPengawas
-        return view('Pimpinan.penilaianDetailPengawas', [
-            'user' => $pengawas, // Ini mengoperasikan variabel $user ke view
-            'pengawas' => $pengawas,
+        // Mengirim data ke view pimpinan.penilaianDetailPemberiLaporan
+        return view('Koordinator Pengawas.penilaianDetailPemberiLaporan', [
+            'user' => $pemberiLaporan, // Ini mengoperasikan variabel $user ke view
+            'pemberiLaporan' => $pemberiLaporan,
             'statusMingguan' => $statusMingguan,
             'statusBulanan' => $statusBulanan,
+            'statusTLHPMingguan' => $statusTLHPMingguan,
+            'statusTLHPBulanan' => $statusTLHPBulanan,
             'currentMonth' => $currentMonth,
             'currentYear' => $currentYear,
             'laporan' => $laporan,
@@ -278,6 +299,7 @@ class InfoDetailUserController extends Controller
         ]);
     }
 
+    //============//============//============//============//
     public function downloadLaporanPLuntukPengawas($id)
     {
         $currentUser = Auth::user(); // Mendapatkan pengguna yang sedang login
@@ -315,7 +337,7 @@ class InfoDetailUserController extends Controller
         return response()->download($filePath, $fileNameWithExtension);
     }
    
-    
+    //============//============//============//============//
     public function downloadLaporanPLuntukPimpinan($id)
     {
         // Mendapatkan pengguna yang sedang login
@@ -338,6 +360,36 @@ class InfoDetailUserController extends Controller
         // Cek apakah file ada
         if (!file_exists($filePath)) {
             return redirect()->route('Pimpinan.penilaianDetailPemberiLaporan', ['id' => $id])
+                ->with('error', 'File tidak ditemukan.');
+        }
+
+        // Unduh file
+        return response()->download($filePath, $fileNameWithExtension);
+    }
+
+    //============//============//============//============//
+    public function downloadLaporanPLuntukKoordinatorPengawas($id)
+    {
+        // Mendapatkan pengguna yang sedang login
+        $currentUser = Auth::user();
+
+        // Temukan laporan berdasarkan ID
+        $laporan = $this->getModelByBidang($currentUser->bidang)::find($id);
+
+        if (!$laporan) {
+            return redirect()->route('Koordinator Pengawas.penilaianDetailPemberiLaporan', ['id' => $id])
+                ->with('error', 'Laporan tidak ditemukan atau tidak dapat diakses.');
+        }
+
+        // Path file
+        $filePath = storage_path("app/public/{$laporan->file_path}");
+
+        // Nama file dengan ekstensi
+        $fileNameWithExtension = $laporan->nama_laporan . '.' . pathinfo($laporan->file_path, PATHINFO_EXTENSION);
+
+        // Cek apakah file ada
+        if (!file_exists($filePath)) {
+            return redirect()->route('Koordinator Pengawas.penilaianDetailPemberiLaporan', ['id' => $id])
                 ->with('error', 'File tidak ditemukan.');
         }
 

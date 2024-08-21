@@ -238,9 +238,9 @@ Route::get('/berandaPemberiLaporan', [StatusPLController::class, 'getStatus'])->
 // Rute Status Pengawas
 use App\Http\Controllers\StatusPWController;
 Route::get('/berandaPengawas', [StatusPWController::class, 'getStatus'])->name('berandaPengawas');
-use App\Http\Controllers\InfoDetailUserController;
-Route::get('/penilaianDetailPemberiLaporanPengawas', [InfoDetailUserController::class, 'showPemberiLaporanuntukPengawas'])->name('pengawas.pemberiLaporan');
-Route::get('/penilaianDetailPemberiLaporanPengawas/{id}', [InfoDetailUserController::class, 'downloadLaporanPLuntukPengawas'])->name('pengawas.downloadLaporanPLuntukPengawas');
+use App\Http\Controllers\InfoDetailUserControllerPemberiLaporan;
+Route::get('/penilaianDetailPemberiLaporanPengawas', [InfoDetailUserControllerPemberiLaporan::class, 'showPemberiLaporanuntukPengawas'])->name('pengawas.pemberiLaporan');
+Route::get('/penilaianDetailPemberiLaporanPengawas/{id}', [InfoDetailUserControllerPemberiLaporan::class, 'downloadLaporanPLuntukPengawas'])->name('pengawas.downloadLaporanPLuntukPengawas');
 
 use App\Http\Controllers\infoDetailKPController;
 Route::get('/penilaianDetailKoordinatorPengawas', [infoDetailKPController::class, 'showKoordinatorPengawas'])->name('penilaianDetailKoordinatorPengawasPimpinan');
@@ -262,11 +262,18 @@ Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.de
 Route::get('/anggota', [UserController::class, 'showAnggota'])->name('anggota');
 
 use App\Http\Controllers\InfoDetailUserControllerPengawas;
-Route::get('/penilaianDetailPengawasPimpinan/{id}', [InfoDetailUserControllerPengawas::class, 'showPengawasPimpinan'])->name('penilaianDetailPengawas');
-Route::get('/downloadLaporanPWuntukPimpinan/{id}', [InfoDetailUserControllerPengawas::class, 'downloadLaporanPWuntukPimpinan'])->name('downloadLaporanPWuntukPimpinan');
+Route::get('/penilaianDetailPengawasPimpinan/{id}', [InfoDetailUserControllerPengawas::class, 'showPengawasPimpinan'])->name('penilaianDetailPengawasPimpinan');
+// Route::get('/downloadLaporanPWuntukPimpinan/{id}', [InfoDetailUserControllerPengawas::class, 'downloadLaporanPWuntukPimpinan'])->name('downloadLaporanPWuntukPimpinan');
 
-Route::get('/penilaianDetailPemberiLaporanPimpinan/{id}', [InfoDetailUserController::class, 'showPemberiLaporanPimpinan'])->name('penilaianDetailPemberiLaporanPimpinan');
-Route::get('/penilaianDetailPemberiLaporan/{id}', [InfoDetailKPController::class, 'downloadLaporanPLuntukPimpinan'])->name('pimpinan.downloadLaporanPLuntukPimpinan');
+Route::get('/penilaianDetailPemberiLaporanPimpinan/{id}', [InfoDetailUserControllerPemberiLaporan::class, 'showPemberiLaporanuntukPimpinan'])->name('penilaianDetailPemberiLaporanPimpinan');
+// Route::get('/downloadLaporanPLuntukPimpinan/{id}', [InfoDetailUserControllerPemberiLaporan::class, 'downloadLaporanPLuntukPimpinan'])->name('pimpinan.downloadLaporanPLuntukPimpinan');
+
+Route::get('/penilaianDetailPengawasKoordinatorPengawas/{id}', [InfoDetailUserControllerPengawas::class, 'showPengawasKoordinatorPengawas'])->name('penilaianDetailPengawasKoordinatorPengawas');
+// Route::get('/downloadLaporanPWuntukKoordinatorPengawas/{id}', [InfoDetailUserControllerPengawas::class, 'downloadLaporanPWuntukKoordinatorPengawas'])->name('downloadLaporanPWuntukKoordinatorPengawas');
+
+Route::get('/penilaianDetailPemberiLaporanKoordinatorPengawas/{id}', [InfoDetailUserControllerPemberiLaporan::class, 'showPemberiLaporanuntukKoordinatorPengawas'])->name('penilaianDetailPemberiLaporanKoordinatorPengawas');
+// Route::get('/downloadLaporanPLuntukKoordinatorPengawas/{id}', [InfoDetailUserControllerPemberiLaporan::class, 'downloadLaporanPLuntukKoordinatorPengawas'])->name('koordinatorPengawas.downloadLaporanPLuntukKoordinatorPengawas');
+
 
 
 

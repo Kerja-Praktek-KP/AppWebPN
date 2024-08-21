@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Log;
 
 class InfoDetailUserControllerPengawas extends Controller
 {
+    //UNTUK PIMPINAN
     public function showPengawasPimpinan($id)
     {
         // Mendapatkan data user Pengawas
@@ -108,7 +109,7 @@ class InfoDetailUserControllerPengawas extends Controller
         $laporan = $modelClass::find($id);
 
         if (!$laporan) {
-            return redirect()->route('Pimpinan.penilaianDetailPemberiLaporan', ['id' => $id])
+            return redirect()->route('Pimpinan.penilaianDetailPengawas', ['id' => $id])
                 ->with('error', 'Laporan tidak ditemukan atau tidak dapat diakses.');
         }
 
@@ -127,6 +128,115 @@ class InfoDetailUserControllerPengawas extends Controller
         return response()->download($filePath, $fileNameWithExtension);
     }
 
+    //UNTUK KOORDINATOR PENGAWAS
+    public function showPengawasKoordinatorPengawas($id)
+    {
+        // Mendapatkan data user Pengawas
+        $pengawas = User::findOrFail($id);
+
+        // Mendapatkan model berdasarkan bidang user saat ini
+        $model = $this->getModelByBidang($pengawas->bidang);
+
+        if (!$model) {
+            return redirect()->route('home')->with('error', 'Bidang tidak dikenali.');
+        }
+
+        $currentDate = Carbon::now();
+        $currentMonth = $currentDate->format('F');
+        $currentYear = $currentDate->year;
+
+        // Pemetaan bulan dari bahasa Inggris ke bahasa lokal
+        $months = [
+            'January' => 'Januari',
+            'February' => 'Februari',
+            'March' => 'Maret',
+            'April' => 'April',
+            'May' => 'Mei',
+            'June' => 'Juni',
+            'July' => 'Juli',
+            'August' => 'Agustus',
+            'September' => 'September',
+            'October' => 'Oktober',
+            'November' => 'November',
+            'December' => 'Desember',
+        ];
+
+        // Status Mingguan
+        $statusMingguan = [];
+        for ($i = 1; $i <= 4; $i++) {
+            $minggu = "Laporan Minggu $i";
+            $statusMingguan[$i] = $this->cekStatusLaporanMinggu($model, 'Laporan Mingguan', $minggu, $id);
+        }
+        Log::info('Status Mingguan', ['statusMingguan' => $statusMingguan]);
+
+        // Status Bulanan
+        $statusBulanan = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $bulan = Carbon::create()->month($i)->format('F');
+            $bulanLocal = $months[$bulan];
+            $statusBulanan[$i] = $this->cekStatusLaporanBulan($model, 'Laporan Bulanan', $bulanLocal, $id);
+        }
+        Log::info('Status Bulanan', ['statusBulanan' => $statusBulanan]);
+
+        // Laporan Mingguan
+        $mingguan = $model::whereIn('jenis', ['Laporan Mingguan'])
+            ->where('user_id', $id) // Menambahkan kondisi untuk user ID
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Laporan Bulanan
+        $bulanan = $model::whereIn('jenis', ['Laporan Bulanan'])
+            ->where('user_id', $id) // Menambahkan kondisi untuk user ID
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Mengirim data ke view pimpinan.penilaianDetailPengawas
+        return view('Koordinator Pengawas.penilaianDetailPengawas', [
+            'user' => $pengawas, // Ini mengoperasikan variabel $user ke view
+            'pengawas' => $pengawas,
+            'statusMingguan' => $statusMingguan,
+            'statusBulanan' => $statusBulanan,
+            'currentMonth' => $currentMonth,
+            'currentYear' => $currentYear,
+            'mingguan' => $mingguan,
+            'bulanan' => $bulanan,
+        ]);
+    }
+
+    public function downloadLaporanPWuntukKoordinatorPengawas($id)
+    {
+        // Mendapatkan pengguna yang sedang login
+        $currentUser = Auth::user();
+        
+        // Mendapatkan nama model berdasarkan bidang pengguna yang sedang login
+        $modelClass = $this->getModelByBidang($currentUser->bidang);
+
+        if (!$modelClass) {
+            return redirect()->back()->with('error', 'Bidang tidak dikenali.');
+        }
+
+        // Temukan laporan berdasarkan ID
+        $laporan = $modelClass::find($id);
+
+        if (!$laporan) {
+            return redirect()->route('Koordinator Pengawas.penilaianDetailPengawas', ['id' => $id])
+                ->with('error', 'Laporan tidak ditemukan atau tidak dapat diakses.');
+        }
+
+        // Path file
+        $filePath = storage_path("app/public/{$laporan->file_path}");
+
+        // Nama file dengan ekstensi
+        $fileNameWithExtension = $laporan->nama_laporan . '.' . pathinfo($laporan->file_path, PATHINFO_EXTENSION);
+
+        // Cek apakah file ada
+        if (!file_exists($filePath)) {
+            return redirect()->back()->with('error', 'File tidak ditemukan.');
+        }
+
+        // Unduh file
+        return response()->download($filePath, $fileNameWithExtension);
+    }
 
     private function getModelByBidang($bidang)
     {
