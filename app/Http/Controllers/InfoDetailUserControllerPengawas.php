@@ -95,21 +95,13 @@ class InfoDetailUserControllerPengawas extends Controller
 
     public function downloadLaporanPWuntukPimpinan($id)
     {
-        // Mendapatkan pengguna yang sedang login
-        $currentUser = Auth::user();
-        
-        // Mendapatkan nama model berdasarkan bidang pengguna yang sedang login
-        $modelClass = $this->getModelByBidang($currentUser->bidang);
-
-        if (!$modelClass) {
-            return redirect()->back()->with('error', 'Bidang tidak dikenali.');
-        }
+        $pengawas = User::findOrFail($id);
 
         // Temukan laporan berdasarkan ID
-        $laporan = $modelClass::find($id);
+        $laporan = $this->getModelByBidang($pengawas->bidang)::find($id);
 
         if (!$laporan) {
-            return redirect()->route('Pimpinan.penilaianDetailPengawas', ['id' => $id])
+            return redirect()->route('Pimpinan.penilaianDetailPemberiLaporan', ['id' => $id])
                 ->with('error', 'Laporan tidak ditemukan atau tidak dapat diakses.');
         }
 
@@ -121,7 +113,8 @@ class InfoDetailUserControllerPengawas extends Controller
 
         // Cek apakah file ada
         if (!file_exists($filePath)) {
-            return redirect()->back()->with('error', 'File tidak ditemukan.');
+            return redirect()->route('Pimpinan.penilaianDetailPemberiLaporan', ['id' => $id])
+                ->with('error', 'File tidak ditemukan.');
         }
 
         // Unduh file
@@ -205,21 +198,13 @@ class InfoDetailUserControllerPengawas extends Controller
 
     public function downloadLaporanPWuntukKoordinatorPengawas($id)
     {
-        // Mendapatkan pengguna yang sedang login
-        $currentUser = Auth::user();
-        
-        // Mendapatkan nama model berdasarkan bidang pengguna yang sedang login
-        $modelClass = $this->getModelByBidang($currentUser->bidang);
-
-        if (!$modelClass) {
-            return redirect()->back()->with('error', 'Bidang tidak dikenali.');
-        }
+        $pengawas = User::findOrFail($id);
 
         // Temukan laporan berdasarkan ID
-        $laporan = $modelClass::find($id);
+        $laporan = $this->getModelByBidang($pengawas->bidang)::find($id);
 
         if (!$laporan) {
-            return redirect()->route('Koordinator Pengawas.penilaianDetailPengawas', ['id' => $id])
+            return redirect()->route('Pimpinan.penilaianDetailPemberiLaporan', ['id' => $id])
                 ->with('error', 'Laporan tidak ditemukan atau tidak dapat diakses.');
         }
 
@@ -231,7 +216,8 @@ class InfoDetailUserControllerPengawas extends Controller
 
         // Cek apakah file ada
         if (!file_exists($filePath)) {
-            return redirect()->back()->with('error', 'File tidak ditemukan.');
+            return redirect()->route('Pimpinan.penilaianDetailPemberiLaporan', ['id' => $id])
+                ->with('error', 'File tidak ditemukan.');
         }
 
         // Unduh file

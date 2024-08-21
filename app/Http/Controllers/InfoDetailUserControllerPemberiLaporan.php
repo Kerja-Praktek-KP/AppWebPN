@@ -340,11 +340,10 @@ class InfoDetailUserControllerPemberiLaporan extends Controller
     //============//============//============//============//
     public function downloadLaporanPLuntukPimpinan($id)
     {
-        // Mendapatkan pengguna yang sedang login
-        $currentUser = Auth::user();
+        $pemberiLaporan = User::findOrFail($id);
 
         // Temukan laporan berdasarkan ID
-        $laporan = $this->getModelByBidang($currentUser->bidang)::find($id);
+        $laporan = $this->getModelByBidang($pemberiLaporan->bidang)::find($id);
 
         if (!$laporan) {
             return redirect()->route('Pimpinan.penilaianDetailPemberiLaporan', ['id' => $id])
@@ -370,11 +369,10 @@ class InfoDetailUserControllerPemberiLaporan extends Controller
     //============//============//============//============//
     public function downloadLaporanPLuntukKoordinatorPengawas($id)
     {
-        // Mendapatkan pengguna yang sedang login
-        $currentUser = Auth::user();
+        $pemberiLaporan = User::findOrFail($id);
 
         // Temukan laporan berdasarkan ID
-        $laporan = $this->getModelByBidang($currentUser->bidang)::find($id);
+        $laporan = $this->getModelByBidang($pemberiLaporan->bidang)::find($id);
 
         if (!$laporan) {
             return redirect()->route('Koordinator Pengawas.penilaianDetailPemberiLaporan', ['id' => $id])
