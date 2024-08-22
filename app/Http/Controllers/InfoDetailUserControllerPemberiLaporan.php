@@ -121,8 +121,15 @@ class InfoDetailUserControllerPemberiLaporan extends Controller
         // Mendapatkan ID dari query string
         $id = $request->query('id');
 
-        // Mendapatkan data user Pemberi Laporan
-        $pemberiLaporan = User::findOrFail($id);
+        // Log ID yang diterima
+        Log::info('Mencoba menemukan pengguna dengan ID untuk show', ['id' => $id]);
+
+        $pemberiLaporan = User::where('id', $id)
+            ->where('role', 'Pemberi Laporan')
+            ->firstOrFail();
+
+        // Log pengguna yang ditemukan
+        Log::info('Pengguna ditemukan', ['user' => $pemberiLaporan]);
 
         // Ambil bidang dari session
         $bidang = session('selected_bidang', null);
@@ -362,28 +369,37 @@ class InfoDetailUserControllerPemberiLaporan extends Controller
     //============//============//============//============//
     public function downloadLaporanPLuntukPimpinan($id)
     {
-        $pemberiLaporan = User::findOrFail($id);
 
-        // Temukan laporan berdasarkan ID
-        $laporan = $this->getModelByBidang($pemberiLaporan->bidang)::find($id);
-
+        Log::info('Mencoba mengunduh laporan dengan ID', ['id' => $id]);
+    
+        // Dapatkan model berdasarkan bidang dari sesi
+        $model = $this->getModelByBidang(session('selected_bidang', ''));
+    
+        if (!$model) {
+            return redirect()->route('Pimpinan.penilaianDetailPemberiLaporan', ['id' => $id])
+                ->with('error', 'Bidang tidak dikenali.');
+        }
+    
+        // Temukan laporan berdasarkan ID laporan
+        $laporan = $model::where('id', $id)->first();
+    
         if (!$laporan) {
             return redirect()->route('Pimpinan.penilaianDetailPemberiLaporan', ['id' => $id])
                 ->with('error', 'Laporan tidak ditemukan atau tidak dapat diakses.');
         }
-
+    
         // Path file
         $filePath = storage_path("app/public/{$laporan->file_path}");
-
+    
         // Nama file dengan ekstensi
         $fileNameWithExtension = $laporan->nama_laporan . '.' . pathinfo($laporan->file_path, PATHINFO_EXTENSION);
-
+    
         // Cek apakah file ada
         if (!file_exists($filePath)) {
             return redirect()->route('Pimpinan.penilaianDetailPemberiLaporan', ['id' => $id])
                 ->with('error', 'File tidak ditemukan.');
         }
-
+    
         // Unduh file
         return response()->download($filePath, $fileNameWithExtension);
     }
@@ -391,10 +407,18 @@ class InfoDetailUserControllerPemberiLaporan extends Controller
     //============//============//============//============//
     public function downloadLaporanPLuntukKoordinatorPengawas($id)
     {
-        $pemberiLaporan = User::findOrFail($id);
-
-        // Temukan laporan berdasarkan ID
-        $laporan = $this->getModelByBidang($pemberiLaporan->bidang)::find($id);
+         Log::info('Mencoba mengunduh laporan dengan ID', ['id' => $id]);
+    
+        // Dapatkan model berdasarkan bidang dari sesi
+        $model = $this->getModelByBidang(session('selected_bidang', ''));
+    
+        if (!$model) {
+            return redirect()->route('Koordinator Pengawas.penilaianDetailPemberiLaporan', ['id' => $id])
+                ->with('error', 'Bidang tidak dikenali.');
+        }
+    
+        // Temukan laporan berdasarkan ID laporan
+        $laporan = $model::where('id', $id)->first();
 
         if (!$laporan) {
             return redirect()->route('Koordinator Pengawas.penilaianDetailPemberiLaporan', ['id' => $id])

@@ -263,14 +263,14 @@ Route::get('/anggota', [UserController::class, 'showAnggota'])->name('anggota');
 
 use App\Http\Controllers\InfoDetailUserControllerPengawas;
 Route::get('/penilaianDetailPengawasPimpinan', [InfoDetailUserControllerPengawas::class, 'showPengawasPimpinan'])->name('penilaianDetailPengawasPimpinan');
-// Route::get('/downloadLaporanPWuntukPimpinan/{id}', [InfoDetailUserControllerPengawas::class, 'downloadLaporanPWuntukPimpinan'])->name('pimpinan.downloadLaporanPWuntukPimpinan');
+Route::get('/downloadLaporanPWuntukPimpinan/{id}', [InfoDetailUserControllerPengawas::class, 'downloadLaporanPWuntukPimpinan'])->name('pimpinan.downloadLaporanPWuntukPimpinan');
 
 Route::get('/penilaianDetailPemberiLaporanPimpinan', [InfoDetailUserControllerPemberiLaporan::class, 'showPemberiLaporanuntukPimpinan'])->name('penilaianDetailPemberiLaporanPimpinan');
 Route::get('/downloadLaporanPLuntukPimpinan/{id}', [InfoDetailUserControllerPemberiLaporan::class, 'downloadLaporanPLuntukPimpinan'])->name('pimpinan.downloadLaporanPLuntukPimpinan');
 
 // Mengubah route untuk menggunakan query string `?id`
 Route::get('/penilaianDetailPengawasKoordinatorPengawas', [InfoDetailUserControllerPengawas::class, 'showPengawasKoordinatorPengawas'])->name('penilaianDetailPengawasKoordinatorPengawas');
-// Route::get('/downloadLaporanPWuntukKoordinatorPengawas/{id}', [InfoDetailUserControllerPengawas::class, 'downloadLaporanPWuntukKoordinatorPengawas'])->name('downloadLaporanPWuntukKoordinatorPengawas');
+Route::get('/downloadLaporanPWuntukKoordinatorPengawas/{id}', [InfoDetailUserControllerPengawas::class, 'downloadLaporanPWuntukKoordinatorPengawas'])->name('downloadLaporanPWuntukKoordinatorPengawas');
 
 Route::get('/penilaianDetailPemberiLaporanKoordinatorPengawas', [InfoDetailUserControllerPemberiLaporan::class, 'showPemberiLaporanuntukKoordinatorPengawas'])->name('penilaianDetailPemberiLaporanKoordinatorPengawas');
 Route::get('/downloadLaporanPLuntukKoordinatorPengawas/{id}', [InfoDetailUserControllerPemberiLaporan::class, 'downloadLaporanPLuntukKoordinatorPengawas'])->name('koordinatorPengawas.downloadLaporanPLuntukKoordinatorPengawas');

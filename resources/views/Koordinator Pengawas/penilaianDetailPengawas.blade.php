@@ -306,7 +306,7 @@
                     'id' => $bulanan->id,
                     'judul' => $bulanan->nama_laporan_with_format,
                     'jenis' => $bulanan->jenis,
-                    'tanggal' => bulanan->created_at->format('d F Y')
+                    'tanggal' => $bulanan->created_at->format('d F Y')
                 ];
             })) !!}
         };

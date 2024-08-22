@@ -102,13 +102,21 @@ class InfoDetailUserControllerPengawas extends Controller
 
     public function downloadLaporanPWuntukPimpinan($id)
     {
-        $pengawas = User::findOrFail($id);
-
-        // Temukan laporan berdasarkan ID
-        $laporan = $this->getModelByBidang($pengawas->bidang)::find($id);
+        Log::info('Mencoba mengunduh laporan dengan ID', ['id' => $id]);
+    
+        // Dapatkan model berdasarkan bidang dari sesi
+        $model = $this->getModelByBidang(session('selected_bidang', ''));
+    
+        if (!$model) {
+            return redirect()->route('Koordinator Pengawas.penilaianDetailPemberiLaporan', ['id' => $id])
+                ->with('error', 'Bidang tidak dikenali.');
+        }
+    
+        // Temukan laporan berdasarkan ID laporan
+        $laporan = $model::where('id', $id)->first();
 
         if (!$laporan) {
-            return redirect()->route('Pimpinan.penilaianDetailPemberiLaporan', ['id' => $id])
+            return redirect()->route('Koordinator Pengawas.penilaianDetailPemberiLaporan', ['id' => $id])
                 ->with('error', 'Laporan tidak ditemukan atau tidak dapat diakses.');
         }
 
@@ -212,13 +220,21 @@ class InfoDetailUserControllerPengawas extends Controller
 
     public function downloadLaporanPWuntukKoordinatorPengawas($id)
     {
-        $pengawas = User::findOrFail($id);
-
-        // Temukan laporan berdasarkan ID
-        $laporan = $this->getModelByBidang($pengawas->bidang)::find($id);
+        Log::info('Mencoba mengunduh laporan dengan ID', ['id' => $id]);
+    
+        // Dapatkan model berdasarkan bidang dari sesi
+        $model = $this->getModelByBidang(session('selected_bidang', ''));
+    
+        if (!$model) {
+            return redirect()->route('Koordinator Pengawas.penilaianDetailPemberiLaporan', ['id' => $id])
+                ->with('error', 'Bidang tidak dikenali.');
+        }
+    
+        // Temukan laporan berdasarkan ID laporan
+        $laporan = $model::where('id', $id)->first();
 
         if (!$laporan) {
-            return redirect()->route('Pimpinan.penilaianDetailPemberiLaporan', ['id' => $id])
+            return redirect()->route('Koordinator Pengawas.penilaianDetailPemberiLaporan', ['id' => $id])
                 ->with('error', 'Laporan tidak ditemukan atau tidak dapat diakses.');
         }
 
