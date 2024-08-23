@@ -250,7 +250,7 @@
                 })) !!}
             };
         
-            const itemsPerPage = 7;
+            const itemsPerPage = 6;
             let currentPage = { tlhp: 1, eksternal: 1 };
         
             function renderTable(tabName) {

@@ -223,7 +223,7 @@
                 })) !!}
             };
     
-            const itemsPerPage = 7;
+            const itemsPerPage = 6;
             let currentPage = 1;
     
             function renderTable() {

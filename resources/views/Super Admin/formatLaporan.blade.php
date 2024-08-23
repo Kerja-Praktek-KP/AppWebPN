@@ -217,7 +217,7 @@
                                 <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M10 9H9H8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>                                                                
-                            Format Laporan
+                            Template Laporan
                         </a>
                     </li>
                     <li class="p-3 pl-8 hover:bg-gray-200 mx-full my-4" x-show="sidebarOpen">
@@ -296,7 +296,7 @@
                                 <path d="M89 267H241.571M89 343.286H216.143" stroke="white" stroke-width="27" stroke-linecap="round"/>
                             </svg>
                             <div class="flex flex-col mx-4">
-                                <h2 class="text-[12px] md:text-[14px] lg:text-[17px] font-bold">Format Laporan</h2>
+                                <h2 class="text-[12px] md:text-[14px] lg:text-[17px] font-bold">Template Laporan</h2>
                                 @foreach ($formats as $reportFormat)
                                 <p class="text-sm text-gray-600 italic">{{ $reportFormat->original_name }}</p>
                                 @endforeach

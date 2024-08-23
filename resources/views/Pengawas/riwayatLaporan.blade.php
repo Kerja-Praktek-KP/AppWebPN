@@ -275,7 +275,7 @@
                 })) !!}
             };
         
-            const itemsPerPage = 7;
+            const itemsPerPage = 6;
             let currentPage = { mingguan: 1, bulanan: 1 };
         
             function renderTable(tabName) {

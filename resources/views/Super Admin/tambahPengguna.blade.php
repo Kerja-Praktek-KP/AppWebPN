@@ -109,7 +109,7 @@
                                 <path d="M16 17H8" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M10 9H9H8" stroke="#22805E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>                                                                
-                            Format Laporan
+                            Template Laporan
                         </a>
                     </li>
                     <li class="p-3 pl-8 bg-[#22805E] mx-full my-4" x-show="sidebarOpen">
