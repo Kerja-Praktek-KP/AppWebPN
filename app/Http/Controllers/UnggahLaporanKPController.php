@@ -61,15 +61,24 @@ class UnggahLaporanKPController extends Controller
         ]);
 
         try {
-            // Simpan file dan ambil path-nya
-            $filePath = $request->file('file-upload')->store('laporan', 'public');
+            // Ambil nama laporan
+            $namaLaporan = $request->input('judul');
 
+            // Format tanggal
+            $tanggalPenguploadan = now()->format('d-m-Y'); // Format: dd-mm-yyyy
+
+            // Buat nama file
+            $fileName = str_replace(' ', ' ', $namaLaporan) . "_{$tanggalPenguploadan}." . $request->file('file-upload')->getClientOriginalExtension();
+
+            // Simpan file ke dalam folder
+            $filePath = $request->file('file-upload')->storeAs("Koorniator Pengawas", $fileName, 'public');
+            
             // Ambil data pengguna yang sedang login
             $user = Auth::user();
 
             // Data untuk disimpan, termasuk kolom bulan
             $data = [
-                'nama_laporan' => $request->input('judul'),
+                'nama_laporan' => $namaLaporan,
                 'bulan' => $request->input('bulan'), // Tambahkan bulan
                 'file_path' => $filePath,
                 'user_id' => $user->id,

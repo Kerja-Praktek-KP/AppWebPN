@@ -298,8 +298,21 @@
                             <div class="flex flex-col mx-4">
                                 <h2 class="text-[12px] md:text-[14px] lg:text-[17px] font-bold">Template Laporan</h2>
                                 @foreach ($formats as $reportFormat)
-                                <p class="text-sm text-gray-600 italic">{{ $reportFormat->original_name }}</p>
+                                    @php
+                                        // Misalkan original_name memiliki format: 'Borang KP Panca_24_08_2024.pdf'
+                                        $parts = explode('_', $reportFormat->original_name); // Pisahkan berdasarkan underscore (_)
+                                        
+                                        // Asumsi bagian tanggal, bulan, dan tahun ada di akhir sebelum ekstensi
+                                        // Hapus 3 bagian terakhir (tanggal, bulan, tahun)
+                                        array_pop($parts); // Hapus bagian tahun
+                                        array_pop($parts); // Hapus bagian bulan
+                                        array_pop($parts); // Hapus bagian tanggal
+
+                                        $fileNameWithoutDate = implode('_', $parts); // Gabungkan kembali tanpa bagian tanggal, bulan, dan tahun
+                                    @endphp
+                                    <p class="text-sm text-gray-600 italic">{{ $fileNameWithoutDate }}.pdf</p>
                                 @endforeach
+              
                             </div>
                         </div>
                         <div class="flex items-center justify-between">

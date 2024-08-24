@@ -40,7 +40,7 @@ class ReportFormatController extends Controller
             'file.max' => 'Ukuran file terlalu besar.',
             'file.required' => 'File yang diunggah tidak ada.',
         ]);
-        
+    
         // Hapus format laporan lama jika ada
         $existingFormat = ReportFormat::first(); // Asumsikan hanya ada satu format laporan yang disimpan
         if ($existingFormat) {
@@ -49,28 +49,51 @@ class ReportFormatController extends Controller
             }
             $existingFormat->delete();
         }
-
-       // Menyimpan nama asli file
-        $originalName = $request->file('file')->getClientOriginalName();
-        
-        // Menyimpan file ke penyimpanan dan mengambil jalur file
-        $filePath = $request->file('file')->store('report_formats');
-
+    
+        // Mendapatkan nama asli file tanpa ekstensi
+        $originalName = pathinfo($request->file('file')->getClientOriginalName(), PATHINFO_FILENAME);
+    
+        // Mendapatkan ekstensi file
+        $extension = $request->file('file')->getClientOriginalExtension();
+    
+        // Membuat nama file baru dengan menambahkan tanggal, bulan, dan tahun
+        $dateSuffix = '_'.date('d_m_Y');
+        $newFileName = $originalName . $dateSuffix . '.' . $extension;
+    
+        // Simpan file dengan nama baru ke direktori 'report_formats'
+        $filePath = $request->file('file')->storeAs('report_formats', $newFileName);
+    
         // Menyimpan jalur file dan nama asli file ke database
         ReportFormat::create([
-            'file_path' => $filePath,
-            'original_name' => $originalName,
+            'file_path' => $filePath, // Path dengan nama baru
+            'original_name' => $newFileName,
         ]);
-
-        return redirect()->back()->with('success', 'Format laporan berhasil di unggah');
+    
+        return redirect()->back()->with('success', 'Format laporan berhasil diunggah.');
     }
+    
 
     public function download()
     {
         $reportFormat = ReportFormat::first(); // Mengambil satu-satunya file format laporan
 
         if ($reportFormat && Storage::exists($reportFormat->file_path)) {
-            return Storage::download($reportFormat->file_path, $reportFormat->original_name);
+            // Memisahkan nama file asli berdasarkan underscore (_)
+            $parts = explode('_', pathinfo($reportFormat->original_name, PATHINFO_FILENAME));
+            
+            // Hapus 3 bagian terakhir (tanggal, bulan, tahun) jika ada
+            array_pop($parts); // Hapus bagian tahun
+            array_pop($parts); // Hapus bagian bulan
+            array_pop($parts); // Hapus bagian tanggal
+
+            // Gabungkan kembali nama file tanpa tanggal, bulan, dan tahun
+            $fileNameWithoutDate = implode('_', $parts);
+            
+            // Tambahkan ekstensi file asli
+            $fileNameWithExtension = $fileNameWithoutDate . '.' . pathinfo($reportFormat->original_name, PATHINFO_EXTENSION);
+
+            // Mengunduh file dengan nama baru
+            return Storage::download($reportFormat->file_path, $fileNameWithExtension);
         }
 
         return redirect()->route('formatLaporan.index')->with('error', 'File tidak ditemukan.');

@@ -86,14 +86,24 @@ class UnggahLaporanPWController extends Controller
         ]);
 
         try {
-            // Simpan file dan ambil path-nya
-            $filePath = $request->file('file-upload')->store('laporan');
+            // Ambil nama laporan
+            $namaLaporan = $request->input('judul');
 
-            // Ambil data pengguna yang sedang login
+            // Format tanggal
+            $tanggalPenguploadan = now()->format('d-m-Y'); // Format: dd-mm-yyyy
+
+            // Buat nama file
+            $fileName = str_replace(' ', ' ', $namaLaporan) . "_{$tanggalPenguploadan}." . $request->file('file-upload')->getClientOriginalExtension();
+
+            // Ambil bidang pengguna yang sedang login
             $user = Auth::user();
+            $bidang = $user->bidang;
+
+            // Simpan file ke dalam folder sesuai bidang
+            $filePath = $request->file('file-upload')->storeAs("Pengawas-{$bidang}", $fileName, 'public');
 
             // Tentukan model berdasarkan bidang
-            $model = $this->getModelByBidang($user->bidang);
+            $model = $this->getModelByBidang($bidang);
 
             if (!$model) {
                 throw new \Exception('Bidang tidak dikenali.');
@@ -101,16 +111,16 @@ class UnggahLaporanPWController extends Controller
 
             // Buat entri laporan baru
             $model::create([
-                'nama_laporan' => $request->input('judul'),
+                'nama_laporan' => $namaLaporan,
                 'jenis' => $request->input('jenis'),
                 'bulan' => $request->input('bulan'),
                 'minggu' => $request->input('minggu'),
                 'file_path' => $filePath,
-                'user_id' => $user->id, // ID pengguna
-                'nama' => $user->name, // Nama pengguna
-                'nip' => $user->nip ?? '', // NIP pengguna jika ada
-                'bidang' => $user->bidang ?? '', // Bidang pengguna jika ada
-                'role' => $user->role ?? '', // Role pengguna jika ada
+                'user_id' => $user->id,
+                'nama' => $user->name,
+                'nip' => $user->nip ?? '',
+                'bidang' => $bidang ?? '',
+                'role' => $user->role ?? '',
             ]);
 
             return redirect()->route('unggahLaporanPW')->with('success', 'Laporan berhasil diunggah');
