@@ -275,6 +275,24 @@ Route::get('/downloadLaporanPWuntukKoordinatorPengawas/{id}', [InfoDetailUserCon
 Route::get('/penilaianDetailPemberiLaporanKoordinatorPengawas', [InfoDetailUserControllerPemberiLaporan::class, 'showPemberiLaporanuntukKoordinatorPengawas'])->name('penilaianDetailPemberiLaporanKoordinatorPengawas');
 Route::get('/downloadLaporanPLuntukKoordinatorPengawas/{id}', [InfoDetailUserControllerPemberiLaporan::class, 'downloadLaporanPLuntukKoordinatorPengawas'])->name('koordinatorPengawas.downloadLaporanPLuntukKoordinatorPengawas');
 
+Route::get('/statusLaporanMingguanPL', [UnggahLaporanPLController::class, 'laporanBulanIni'])->name('statusLaporanMingguanPL');
+Route::get('/downloadstatusLaporanMingguanPL/{id}', [UnggahLaporanPLController::class, 'downloadLaporan']);
+Route::get('/statusLaporanBulananPL', [UnggahLaporanPLController::class, 'laporanTahunIni'])->name('statusLaporanBulananPL');
+Route::get('/downloadstatusLaporanBulananPL/{id}', [UnggahLaporanPLController::class, 'downloadTLHP']);
+Route::get('/statusTLHPMingguanPL', [UnggahLaporanPLController::class, 'TLHPBulanIni'])->name('statusTLHPMingguanPL');
+Route::get('/downloadstatusTLHPMingguanPL/{id}', [UnggahLaporanPLController::class, 'downloadTLHP']);
+Route::get('/statusTLHPBulananPL', [UnggahLaporanPLController::class, 'TLHPTahunIni'])->name('statusTLHPBulananPL');
+Route::get('/downloadstatusTLHPBulananPL/{id}', [UnggahLaporanPLController::class, 'downloadTLHP']);
+
+Route::get('/statusLaporanMingguanPW', [UnggahLaporanPWController::class, 'laporanBulanIni'])->name('statusLaporanMingguanPW');
+Route::get('/downloadstatusLaporanMingguanPW/{id}', [UnggahLaporanPWController::class, 'downloadLaporan']);
+Route::get('/statusLaporanBulananPW', [UnggahLaporanPWController::class, 'laporanTahunIni'])->name('statusLaporanBulananPW');
+Route::get('/downloadstatusLaporanBulananPW/{id}', [UnggahLaporanPWController::class, 'downloadLaporan']);
+
+Route::get('/statusLaporanBulananKP', [UnggahLaporanKPController::class, 'laporanTahunIni'])->name('statusLaporanBulananKP');
+Route::get('/downloadstatusLaporanBulananKP/{id}', [UnggahLaporanKPController::class, 'downloadLaporan']);
+
+
 
 
 

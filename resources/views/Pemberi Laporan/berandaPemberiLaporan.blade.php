@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -226,14 +226,16 @@
                     <p class="text-center md:text-[12px] lg:text-[16px] text-black font-semibold mb-4">Status Pelaporan Mingguan</p>
                     <div class="flex items-center justify-between space-x-6 md:space-x-2 lg:space-x-4 xl:space-x-12 mx-2 lg:mx-8">
                         <div class="flex space-x-2 lg:space-x-4 xl:space-x-6">
-                            @foreach ($statusMingguan as  $status)
+                            @foreach ($statusMingguan as $status)
                                 <div class="w-4 md:w-3 lg:w-4 h-4 lg:h-4 md:h-3 {{ $status ? 'bg-[#22805E]' : 'bg-gray-300' }} rounded-full"></div>
                             @endforeach
                         </div>
                         <div class="text-gray-600 md:text-[12px] lg:text-[16px]">{{ count(array_filter($statusMingguan)) }}/4</div>
-                        <div class="px-3 md:px-2 lg:px-3 py-1 bg-[#22805E] text-white md:text-[12px] lg:text-[16px] rounded-[5px]">{{ $currentMonth }}</div>
+                        <a href="{{ route('statusLaporanMingguanPL') }}" class="px-3 md:px-2 lg:px-3 py-1 bg-[#22805E] text-white md:text-[12px] lg:text-[16px] rounded-[5px] hover:bg-[#1e6f54] focus:outline-none">
+                            {{ $currentMonth }}
+                        </a>
                     </div>
-                </div>
+                </div>                              
         
                 <div :class="{'-ml-40': !sidebarOpen}" class="bg-white p-4 rounded-[5px] ml-1 md:-ml-8 lg:-ml-12 xl:-ml-36 mr-[70px] md:mr-0 transition-all duration-300">
                     <p class="text-center md:text-[12px] lg:text-[16px] text-black font-semibold mb-4">Status Pelaporan Bulanan</p>
@@ -247,8 +249,10 @@
                         </div>
                         <div class="flex space-x-6">
                             <div class="text-gray-600 md:text-[12px] lg:text-[16px]">{{ count(array_filter($statusBulanan)) }}/12</div>
-                            <button class="px-3 md:px-2 lg:px-3 py-1 bg-[#22805E] text-white md:text-[12px] lg:text-[16px] rounded-[5px]">{{ $currentYear }}</button>
-                        </div>
+                            <a href="{{ route('statusLaporanBulananPL') }}" class="px-3 md:px-2 lg:px-3 py-1 bg-[#22805E] text-white md:text-[12px] lg:text-[16px] rounded-[5px] hover:bg-[#1e6f54]">
+                                {{ $currentYear }}
+                            </a>
+                        </div>   
                     </div>
                 </div>
                 
@@ -262,12 +266,14 @@
                             @endforeach
                         </div>
                         <div class="text-gray-600 md:text-[12px] lg:text-[16px]">{{ count(array_filter($statusTLHPMingguan)) }}/4</div>
-                        <div class="px-3 md:px-2 lg:px-3 py-1 bg-[#22805E] text-white md:text-[12px] lg:text-[16px] rounded-[5px]">{{ $currentMonth }}</div>
+                        <a href="{{ route('statusTLHPMingguanPL') }}" class="px-3 md:px-2 lg:px-3 py-1 bg-[#22805E] text-white md:text-[12px] lg:text-[16px] rounded-[5px] hover:bg-[#1e6f54] focus:outline-none">
+                            {{ $currentMonth }}
+                        </a>
                     </div>
                 </div>
         
                 <div :class="{'-ml-40': !sidebarOpen}" class="bg-white p-4 rounded-[5px] ml-1 md:-ml-8 lg:-ml-12 xl:-ml-36 mr-[70px] md:mr-0 transition-all duration-300">
-                    <p class="text-center md:text-[12px] lg:text-[16px] text-black font-semibold mb-4">Status Pelaporan Bulanan</p>
+                    <p class="text-center md:text-[12px] lg:text-[16px] text-black font-semibold mb-4">Status TLHP Bulanan</p>
                     <div class="flex items-center justify-between space-x-4 mx-8">
                         <div class="flex flex-col md:flex-row lg:flex-row xl:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
                             <div class="grid grid-cols-6 gap-6 md:gap-2 xl:flex xl:space-x-4">
@@ -278,7 +284,9 @@
                         </div>
                         <div class="flex space-x-6">
                             <div class="text-gray-600 md:text-[12px] lg:text-[16px]">{{ count(array_filter($statusTLHPBulanan)) }}/12</div>
-                            <button class="px-3 md:px-2 lg:px-3 py-1 bg-[#22805E] text-white md:text-[12px] lg:text-[16px] rounded-[5px]">{{ $currentYear }}</button>
+                            <a href="{{ route('statusTLHPBulananPL') }}" class="px-3 md:px-2 lg:px-3 py-1 bg-[#22805E] text-white md:text-[12px] lg:text-[16px] rounded-[5px] hover:bg-[#1e6f54]">
+                                {{ $currentYear }}
+                            </a>
                         </div>
                     </div>
                 </div>

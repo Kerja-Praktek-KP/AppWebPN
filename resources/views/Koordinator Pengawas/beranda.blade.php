@@ -191,7 +191,9 @@
                         </div>
                         <div class="flex space-x-6">
                             <div class="text-gray-600 md:text-[12px] lg:text-[16px]">{{ count(array_filter($statusBulanan)) }}/12</div>
-                            <button class="px-3 md:px-2 lg:px-3 py-1 bg-[#22805E] text-white md:text-[12px] lg:text-[16px] rounded-[5px]">{{ $currentYear }}</button>
+                            <a href="{{ route('statusLaporanBulananKP') }}" class="px-3 md:px-2 lg:px-3 py-1 bg-[#22805E] text-white md:text-[12px] lg:text-[16px] rounded-[5px] hover:bg-[#1e6f54]">
+                                {{ $currentYear }}
+                            </a>
                         </div>
                     </div>
                 </div>

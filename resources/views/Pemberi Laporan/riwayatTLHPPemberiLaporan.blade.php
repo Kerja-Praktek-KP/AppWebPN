@@ -287,7 +287,7 @@
                     return [
                         'id' => $laporan->id,
                         'judul' => $laporan->nama_laporan_with_format,
-                        'jenis' => $laporan->jenis,
+                        'jenis' => $laporan->minggu,
                         'tanggal' => $laporan->created_at->format('d F Y')
                     ];
                 })) !!},
@@ -295,7 +295,7 @@
                     return [
                         'id' => $laporan->id,
                         'judul' => $laporan->nama_laporan_with_format,
-                        'jenis' => $laporan->jenis,
+                        'jenis' => $laporan->bulan,
                         'tanggal' => $laporan->created_at->format('d F Y')
                     ];
                 })) !!}

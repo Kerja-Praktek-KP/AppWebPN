@@ -45,15 +45,102 @@ class UnggahLaporanPWController extends Controller
         ]);
     }
 
-    public function downloadLaporan($id)
+    public function laporanBulanIni()
     {
         $user = Auth::user();
         $model = $this->getModelByBidang($user->bidang);
 
         if (!$model) {
-            // \Log::error('Model tidak ditemukan untuk bidang: ' . $user->bidang);
-            return redirect()->route('riwayatLaporanPW')->with('error', 'Bidang tidak dikenali.');
+            return back()->with('error', 'Bidang tidak dikenali.');
         }
+
+        // Mapping bulan
+        $bulanMapping = [
+            'January' => 'Januari',
+            'February' => 'Februari',
+            'March' => 'Maret',
+            'April' => 'April',
+            'May' => 'Mei',
+            'June' => 'Juni',
+            'July' => 'Juli',
+            'August' => 'Agustus',
+            'September' => 'September',
+            'October' => 'Oktober',
+            'November' => 'November',
+            'December' => 'Desember',
+        ];
+
+        // Dapatkan nama bulan saat ini dalam bahasa Inggris
+        $currentMonthNameEnglish = now()->format('F');
+
+        // Konversi nama bulan ke bahasa Indonesia
+        $currentMonthName = $bulanMapping[$currentMonthNameEnglish];
+
+        $currentYear = now()->year;
+
+        $laporanMingguan = $model::where('jenis', 'Laporan Mingguan')
+            ->where('Bulan', $currentMonthName) // Filter berdasarkan nama bulan dalam bahasa Indonesia
+            ->whereYear('created_at', $currentYear) // Filter berdasarkan tahun
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('Pengawas.statusLaporanMingguanPW', [
+            'laporanMingguan' => $laporanMingguan,
+        ]);
+    }
+
+    public function laporanTahunIni()
+    {
+        $user = Auth::user();
+        $model = $this->getModelByBidang($user->bidang);
+
+        if (!$model) {
+            return back()->with('error', 'Bidang tidak dikenali.');
+        }
+
+        // Mapping bulan
+        $bulanMapping = [
+            'January' => 'Januari',
+            'February' => 'Februari',
+            'March' => 'Maret',
+            'April' => 'April',
+            'May' => 'Mei',
+            'June' => 'Juni',
+            'July' => 'Juli',
+            'August' => 'Agustus',
+            'September' => 'September',
+            'October' => 'Oktober',
+            'November' => 'November',
+            'December' => 'Desember',
+        ];
+
+        // Dapatkan nama bulan saat ini dalam bahasa Inggris
+        $currentMonthNameEnglish = now()->format('F');
+
+        // Konversi nama bulan ke bahasa Indonesia
+        $currentMonthName = $bulanMapping[$currentMonthNameEnglish];
+
+        $currentYear = now()->year;
+
+        $laporanBulanan = $model::where('jenis', 'Laporan Bulanan')
+            ->whereYear('created_at', $currentYear) // Filter berdasarkan tahun
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('Pengawas.statusLaporanBulananPW', [
+            'laporanBulanan' => $laporanBulanan,
+        ]);
+    }
+
+    public function downloadLaporan($id)
+    {
+        $user = Auth::user();
+        $model = $this->getModelByBidang($user->bidang);
+
+        // if (!$model) {
+        //     // \Log::error('Model tidak ditemukan untuk bidang: ' . $user->bidang);
+        //     return redirect()->route('riwayatLaporanPW')->with('error', 'Bidang tidak dikenali.');
+        // }
 
         $laporan = $model::findOrFail($id);
         $filePath = storage_path("app/public/{$laporan->file_path}"); // Path file di storage
@@ -63,10 +150,10 @@ class UnggahLaporanPWController extends Controller
 
         // \Log::info('Mencoba mengunduh file dari path: ' . $filePath);
 
-        if (!file_exists($filePath)) {
-            // \Log::error('File tidak ditemukan di path: ' . $filePath);
-            return redirect()->route('riwayatLaporanPW')->with('error', 'File tidak ditemukan.');
-        }
+        // if (!file_exists($filePath)) {
+        //     // \Log::error('File tidak ditemukan di path: ' . $filePath);
+        //     return redirect()->route('riwayatLaporanPW')->with('error', 'File tidak ditemukan.');
+        // }
 
         // \Log::info('File ditemukan, mulai mengunduh: ' . $filePath);
 

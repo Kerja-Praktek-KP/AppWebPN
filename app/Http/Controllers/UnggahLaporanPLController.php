@@ -46,6 +46,92 @@ class UnggahLaporanPLController extends Controller
         ]);
     }
 
+    public function laporanBulanIni()
+    {
+        $user = Auth::user();
+        $model = $this->getModelByBidang($user->bidang);
+
+        if (!$model) {
+            return redirect()->route('riwayatLaporanPL')->with('error', 'Bidang tidak dikenali.');
+        }
+
+        // Mapping bulan
+        $bulanMapping = [
+            'January' => 'Januari',
+            'February' => 'Februari',
+            'March' => 'Maret',
+            'April' => 'April',
+            'May' => 'Mei',
+            'June' => 'Juni',
+            'July' => 'Juli',
+            'August' => 'Agustus',
+            'September' => 'September',
+            'October' => 'Oktober',
+            'November' => 'November',
+            'December' => 'Desember',
+        ];
+
+        // Dapatkan nama bulan saat ini dalam bahasa Inggris
+        $currentMonthNameEnglish = now()->format('F');
+
+        // Konversi nama bulan ke bahasa Indonesia
+        $currentMonthName = $bulanMapping[$currentMonthNameEnglish];
+
+        $currentYear = now()->year;
+
+        $laporanMingguan = $model::where('jenis', 'Laporan Mingguan')
+            ->where('Bulan', $currentMonthName) // Filter berdasarkan nama bulan dalam bahasa Indonesia
+            ->whereYear('created_at', $currentYear) // Filter berdasarkan tahun
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('Pemberi Laporan.statusLaporanMingguanPL', [
+            'laporanMingguan' => $laporanMingguan,
+        ]);
+    }
+
+    public function laporanTahunIni()
+    {
+        $user = Auth::user();
+        $model = $this->getModelByBidang($user->bidang);
+
+        if (!$model) {
+            return redirect()->route('riwayatLaporanPL')->with('error', 'Bidang tidak dikenali.');
+        }
+
+        // Mapping bulan
+        $bulanMapping = [
+            'January' => 'Januari',
+            'February' => 'Februari',
+            'March' => 'Maret',
+            'April' => 'April',
+            'May' => 'Mei',
+            'June' => 'Juni',
+            'July' => 'Juli',
+            'August' => 'Agustus',
+            'September' => 'September',
+            'October' => 'Oktober',
+            'November' => 'November',
+            'December' => 'Desember',
+        ];
+
+        // Dapatkan nama bulan saat ini dalam bahasa Inggris
+        $currentMonthNameEnglish = now()->format('F');
+
+        // Konversi nama bulan ke bahasa Indonesia
+        $currentMonthName = $bulanMapping[$currentMonthNameEnglish];
+
+        $currentYear = now()->year;
+
+        $laporanBulanan = $model::where('jenis', 'Laporan Bulanan')
+            ->whereYear('created_at', $currentYear) // Filter berdasarkan tahun
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('Pemberi Laporan.statusLaporanBulananPL', [
+            'laporanBulanan' => $laporanBulanan,
+        ]);
+    }
 
     public function tlhp()
     {
@@ -70,16 +156,102 @@ class UnggahLaporanPLController extends Controller
         ]);
     }
 
+    public function TLHPBulanIni()
+    {
+        $user = Auth::user();
+        $model = $this->getModelByBidang($user->bidang);
+
+        if (!$model) {
+            return redirect()->route('riwayatLaporanPL')->with('error', 'Bidang tidak dikenali.');
+        }
+
+        // Mapping bulan
+        $bulanMapping = [
+            'January' => 'Januari',
+            'February' => 'Februari',
+            'March' => 'Maret',
+            'April' => 'April',
+            'May' => 'Mei',
+            'June' => 'Juni',
+            'July' => 'Juli',
+            'August' => 'Agustus',
+            'September' => 'September',
+            'October' => 'Oktober',
+            'November' => 'November',
+            'December' => 'Desember',
+        ];
+
+        // Dapatkan nama bulan saat ini dalam bahasa Inggris
+        $currentMonthNameEnglish = now()->format('F');
+
+        // Konversi nama bulan ke bahasa Indonesia
+        $currentMonthName = $bulanMapping[$currentMonthNameEnglish];
+
+        $currentYear = now()->year;
+
+        $tlhpMingguan = $model::where('jenis', 'TLHP Mingguan')
+            ->where('Bulan', $currentMonthName) // Filter berdasarkan nama bulan dalam bahasa Indonesia
+            ->whereYear('created_at', $currentYear) // Filter berdasarkan tahun
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('Pemberi Laporan.statusTLHPMingguanPL', [
+            'tlhpMingguan' => $tlhpMingguan,
+        ]);
+    }
+
+    public function tlhpTahunIni()
+    {
+        $user = Auth::user();
+        $model = $this->getModelByBidang($user->bidang);
+
+        if (!$model) {
+            return redirect()->route('riwayatLaporanPL')->with('error', 'Bidang tidak dikenali.');
+        }
+
+        // Mapping bulan
+        $bulanMapping = [
+            'January' => 'Januari',
+            'February' => 'Februari',
+            'March' => 'Maret',
+            'April' => 'April',
+            'May' => 'Mei',
+            'June' => 'Juni',
+            'July' => 'Juli',
+            'August' => 'Agustus',
+            'September' => 'September',
+            'October' => 'Oktober',
+            'November' => 'November',
+            'December' => 'Desember',
+        ];
+
+        // Dapatkan nama bulan saat ini dalam bahasa Inggris
+        $currentMonthNameEnglish = now()->format('F');
+
+        // Konversi nama bulan ke bahasa Indonesia
+        $currentMonthName = $bulanMapping[$currentMonthNameEnglish];
+
+        $currentYear = now()->year;
+
+        $tlhpBulanan = $model::where('jenis', 'TLHP Bulanan')
+            ->whereYear('created_at', $currentYear) // Filter berdasarkan tahun
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('Pemberi Laporan.statusTLHPBulananPL', [
+            'tlhpBulanan' => $tlhpBulanan,
+        ]);
+    }
 
     public function downloadLaporan($id)
     {
         $user = Auth::user();
         $model = $this->getModelByBidang($user->bidang);
 
-        if (!$model) {
-            // \Log::error('Model tidak ditemukan untuk bidang: ' . $user->bidang);
-            return redirect()->route('riwayatLaporanPL')->with('error', 'Bidang tidak dikenali.');
-        }
+        // if (!$model) {
+        //     // \Log::error('Model tidak ditemukan untuk bidang: ' . $user->bidang);
+        //     return redirect()->route('riwayatLaporanPL')->with('error', 'Bidang tidak dikenali.');
+        // }
 
         $laporan = $model::findOrFail($id);
         $filePath = storage_path("app/public/{$laporan->file_path}"); // Path file di storage
@@ -89,10 +261,10 @@ class UnggahLaporanPLController extends Controller
 
         // \Log::info('Mencoba mengunduh file dari path: ' . $filePath);
 
-        if (!file_exists($filePath)) {
-            // \Log::error('File tidak ditemukan di path: ' . $filePath);
-            return redirect()->route('riwayatLaporanPL')->with('error', 'File tidak ditemukan.');
-        }
+        // if (!file_exists($filePath)) {
+        //     // \Log::error('File tidak ditemukan di path: ' . $filePath);
+        //     return redirect()->route('riwayatLaporanPL')->with('error', 'File tidak ditemukan.');
+        // }
 
         // \Log::info('File ditemukan, mulai mengunduh: ' . $filePath);
 
@@ -107,9 +279,9 @@ class UnggahLaporanPLController extends Controller
         $user = Auth::user();
         $model = $this->getModelByBidang($user->bidang);
 
-        if (!$model) {
-            return redirect()->route('riwayatTLHPPL')->with('error', 'Bidang tidak dikenali.');
-        }
+        // if (!$model) {
+        //     return redirect()->route('riwayatTLHPPL')->with('error', 'Bidang tidak dikenali.');
+        // }
 
         $laporan = $model::findOrFail($id);
 
@@ -118,9 +290,9 @@ class UnggahLaporanPLController extends Controller
         // Ambil ekstensi file dari file_path
         $fileNameWithExtension = $laporan->nama_laporan . '.' . pathinfo($laporan->file_path, PATHINFO_EXTENSION);
 
-        if (!file_exists($filePath)) {
-            return redirect()->route('riwayatLaporanPL')->with('error', 'File tidak ditemukan.');
-        }
+        // if (!file_exists($filePath)) {
+        //     return redirect()->route('riwayatLaporanPL')->with('error', 'File tidak ditemukan.');
+        // }
 
         return response()->download($filePath, $fileNameWithExtension);
     }

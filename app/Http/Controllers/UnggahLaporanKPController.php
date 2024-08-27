@@ -26,6 +26,44 @@ class UnggahLaporanKPController extends Controller
         return view('Koordinator Pengawas.riwayatLaporan', compact('laporans'));
     }
 
+    public function laporanTahunIni()
+    {
+        $user = Auth::user();
+
+        // Mapping bulan
+        $bulanMapping = [
+            'January' => 'Januari',
+            'February' => 'Februari',
+            'March' => 'Maret',
+            'April' => 'April',
+            'May' => 'Mei',
+            'June' => 'Juni',
+            'July' => 'Juli',
+            'August' => 'Agustus',
+            'September' => 'September',
+            'October' => 'Oktober',
+            'November' => 'November',
+            'December' => 'Desember',
+        ];
+
+        // Dapatkan nama bulan saat ini dalam bahasa Inggris
+        $currentMonthNameEnglish = now()->format('F');
+
+        // Konversi nama bulan ke bahasa Indonesia
+        $currentMonthName = $bulanMapping[$currentMonthNameEnglish];
+
+        $currentYear = now()->year;
+
+        $laporanBulanan = TL_Koordinator_Pengawas::where('user_id', $user->id)
+            ->whereYear('created_at', $currentYear) // Filter berdasarkan tahun
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('Koordinator Pengawas.statusLaporanBulananKP', [
+            'laporanBulanan' => $laporanBulanan,
+        ]);
+    }
+
 
     public function downloadLaporan($id)
     {
