@@ -295,6 +295,8 @@ class UserController extends Controller
         // Ambil bidang dari session
         $bidang = session('selected_bidang', null);
 
+        // dd('User dengan bidang', [$bidang]);
+
         return view('Super Admin.akunPemberiLaporan', compact('targetUser', 'bidang'));
     }
 
@@ -312,9 +314,19 @@ class UserController extends Controller
         // Simpan role pengguna yang akan dihapus sebelum dihapus
         $role = $user->role;
 
+        // Ambil bidang dari session
+        $bidang = session('selected_bidang', null);
+
+        // dd('Before Deletion:', ['bidang' => $bidang, 'user' => $user, 'role' => $role]);
+
+        if (!$bidang) {
+            // Jika bidang tidak valid, redirect dengan error
+            return redirect()->route('home')->withErrors('Bidang tidak valid.');
+        }
+
         $user->delete();
 
-        \Log::info('User deleted successfully', ['user_id' => $id]);
+        // dd('User deleted successfully', ['user_id' => $id]);
 
         // Redirect berdasarkan role pengguna
         if ($role == 'Pimpinan' || $role == 'Koordinator Pengawas') {
@@ -322,7 +334,7 @@ class UserController extends Controller
             return redirect()->route('kelolaAkun')->with('success', 'Akun berhasil dihapus.');
         } elseif ($role == 'Pemberi Laporan' || $role == 'Pengawas') {
             \Log::info('Redirecting to anggota after deletion');
-            return redirect()->route('anggota')->with('success', 'Akun berhasil dihapus.');
+             return redirect()->route('anggota', ['bidang' => $bidang])->with('success', 'Akun berhasil dihapus.');
         } else {
             // Redirect default jika role tidak sesuai dengan yang diharapkan
             return redirect()->route('home')->with('success', 'Akun berhasil dihapus.');
